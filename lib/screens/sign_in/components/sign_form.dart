@@ -1,9 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/helper/keyboard.dart';
+import 'package:shop_app/components/loading_screen.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
-import 'package:shop_app/screens/login_success/login_success_screen.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/utils/api.dart';
+import 'package:shop_app/utils/api_exception.dart';
+import 'package:shop_app/utils/vars.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -33,6 +37,45 @@ class _SignFormState extends State<SignForm> {
       setState(() {
         errors.remove(error);
       });
+  }
+
+  Future<void> _submit() async {
+    _formKey.currentState.validate();
+    try {
+      print('0000000000000000000000000000');
+      if (_formKey.currentState.validate()) {
+        print('111111111111111111111');
+        _formKey.currentState.save();
+        LoadingScreen.show(context);
+        await ApiProvider.instance.login(email, password);
+
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen()));
+      }
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
   }
 
   @override
@@ -72,14 +115,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                // if all are valid then go to success screen
-                KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-              }
-            },
+            press: _submit,
           ),
         ],
       ),
@@ -88,6 +124,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      initialValue: "123456789",
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -121,6 +158,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      initialValue: "test@gmail.com",
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
