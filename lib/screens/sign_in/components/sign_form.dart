@@ -65,7 +65,7 @@ class _SignFormState extends State<SignForm> {
         print(e.response.statusCode);
       } else {
         print(e.message);
-        print(e.request);
+       // print(e.request);
       }
     } catch (e) {
       print('catch');

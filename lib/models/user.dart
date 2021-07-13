@@ -105,32 +105,32 @@ class User {
       this.updatedAt});
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'] ?? -1;
     name = json['name'] ?? "";
     firstName = json['first_name'] ?? "";
     lastName = json['last_name'] ?? "";
     gender = json['gender'] ?? "";
     defaultAddressId = json['default_address_id'] ?? -1;
-    countryCode = json['country_code'];
-    phone = json['phone'];
-    email = json['email'];
-    emailActivate = json['email_activate'];
-    activeEmailToken = json['active_email_token'];
-    avatar = json['avatar'];
-    status = json['status'];
-    isSeen = json['is_seen'];
-    phoneVerified = json['phone_verified'];
-    rememberToken = json['remember_token'];
-    authIdTiwilo = json['auth_id_tiwilo'];
-    dateOfBirth = json['date_of_birth'];
-    parentAdminId = json['parent_admin_id'];
-    shopName = json['shop_name'];
-    tokenFcm = json['token_fcm'];
-    providerGoogleId = json['provider_google_id'];
-    providerFacebookId = json['provider_facebook_id'];
-    providerTwitterId = json['provider_twitter_id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    countryCode = json['country_code']?? "";
+    phone = json['phone'] ?? "";
+    email = json['email'] ?? "";
+    emailActivate = json['email_activate'] ?? "";
+    activeEmailToken = json['active_email_token'] ?? "";
+    avatar = json['avatar'] ?? "";
+    status = json['status'] ?? "";
+    isSeen = json['is_seen'] ?? -1;
+    phoneVerified = json['phone_verified'] ?? -1;
+    rememberToken = json['remember_token'] ?? "";
+    authIdTiwilo = json['auth_id_tiwilo'] ?? "";
+    dateOfBirth = json['date_of_birth'] ?? "";
+    parentAdminId = json['parent_admin_id'] ?? "";
+    shopName = json['shop_name'] ?? "";
+    tokenFcm = json['token_fcm'] ?? "";
+    providerGoogleId = json['provider_google_id'] ?? "";
+    providerFacebookId = json['provider_facebook_id'] ?? "";
+    providerTwitterId = json['provider_twitter_id'] ?? "";
+    createdAt = json['created_at'] ?? "";
+    updatedAt = json['updated_at'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

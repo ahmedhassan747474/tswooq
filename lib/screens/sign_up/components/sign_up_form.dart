@@ -1,8 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/components/loading_screen.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/utils/api.dart';
+import 'package:shop_app/utils/api_exception.dart';
+import 'package:shop_app/utils/vars.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -17,7 +23,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
-  String conform_password;
+  String conformPassword;
   bool remember = false;
   final List<String> errors = [];
 
@@ -35,6 +41,45 @@ class _SignUpFormState extends State<SignUpForm> {
       });
   }
 
+  Future<void> _submit() async {
+    _formKey.currentState.validate();
+    try {
+      print('0000000000000000000000000000');
+      if (_formKey.currentState.validate()) {
+        print('111111111111111111111');
+        _formKey.currentState.save();
+        LoadingScreen.show(context);
+        await ApiProvider.instance.register(email, password,conformPassword);
+
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen()));
+      }
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+       //  print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -50,13 +95,7 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-              }
-            },
+            press: _submit,
           ),
         ],
       ),
@@ -66,14 +105,14 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildConformPassFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      onSaved: (newValue) => conformPassword = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == conform_password) {
+        } else if (value.isNotEmpty && password == conformPassword) {
           removeError(error: kMatchPassError);
         }
-        conform_password = value;
+        conformPassword = value;
       },
       validator: (value) {
         if (value.isEmpty) {

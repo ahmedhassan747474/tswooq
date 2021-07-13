@@ -1,9 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/components/loading_screen.dart';
 import 'package:shop_app/components/no_account_text.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:shop_app/utils/api.dart';
+import 'package:shop_app/utils/api_exception.dart';
+import 'package:shop_app/utils/vars.dart';
 
 import '../../../constants.dart';
 
@@ -50,6 +57,46 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> errors = [];
   String email;
+
+  Future<void> _submit() async {
+    _formKey.currentState.validate();
+    try {
+      print('0000000000000000000000000000');
+      if (_formKey.currentState.validate()) {
+        print('111111111111111111111');
+        _formKey.currentState.save();
+        LoadingScreen.show(context);
+        await ApiProvider.instance.forgetPassword();
+
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => SignInScreen()));
+      }
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        // print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -99,11 +146,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.1),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_formKey.currentState.validate()) {
-                // Do what you want to do
-              }
-            },
+            press: _submit
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
           NoAccountText(),

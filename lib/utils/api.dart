@@ -26,6 +26,37 @@ class ApiProvider {
     // "X-Requested-With": "XMLHttpRequest",
   };
 
+  Future<UserModel> register(String email, String password, String confirmPassword) async {
+    // Json Data
+    var _data = {
+      "email": "$email",
+      "password": "$password",
+      "password_confirmation": confirmPassword,
+    };
+    var _response = await dio.post(ServerConstants.Register,
+        data: _data,
+        options: Options(
+          headers: {...apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      user = UserModel.fromJson(_response.data);
+      return user;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....register***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
   Future<UserModel> login(String email, String password) async {
     // Json Data
     var _data = {
@@ -78,13 +109,120 @@ class ApiProvider {
       // DioErrorType type;
       // No Success
       print(
-          'ApiException....login***********************************************************');
+          'ApiException....getProfile***********************************************************');
 
       print('...................................................');
 
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
+  Future<UserModel> editProfile( String phone, String image, String userName ,String firstName, String lastName, String email) async {
+    // Json Data
+    var _data = {
+      "user_name": "$userName",
+      "first_name": "$firstName",
+      "last_name": "$lastName",
+      "phone": "$phone",
+      "email": "$email",
+      "image": "$image",
+    };
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.Update_profile,
+        data: _data,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      user = UserModel.fromJson(_response.data);
+      return user;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....edit profile***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<UserModel> changePassword( String oldPass, String newPass, String passwordConfirmation) async {
+    // Json Data
+    var _data = {
+      "old_password": "$oldPass",
+      "new_password": "$newPass",
+      "new_password_confirmation": "$passwordConfirmation",
+    };
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.Change_Password,
+        data: _data,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      user = UserModel.fromJson(_response.data);
+      return user;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....change pass***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+
+
+
+  Future<UserModel> forgetPassword() async {
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.Forget_Password,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      user = UserModel.fromJson(_response.data);
+      return user;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....forgetPass***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////

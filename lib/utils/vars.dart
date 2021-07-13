@@ -48,7 +48,7 @@ class ServerConstants {
   static const String API = "${DOMAIN}api/v1/";
   static const String Login = "${API}sign_in";
   static const String LoginFB = "${API}sign_with_social";
-  static const String Register = "${API}register";
+  static const String Register = "${API}sign_up";
   static const String Register_ActiveSms =
       "${API}client/activate-registered-user";
   static const String Resend_Code = "${API}client/resend-confirm-code";
@@ -59,15 +59,20 @@ class ServerConstants {
 
   static const String Send_New_Password = "${API}client/reset-password";
   static const String Logout = "${API}auth/logout";
-  static const String Change_Password = "${API}auth/change-password";
+  static const String Change_Password = "${API}change_password";
 
 //    User
   static const String get_profile = "${API}get_profile";
-  static const String Update_profile = "${API}customer/settings";
+  static const String Forget_Password = "${API}forget_password";
+  static const String Update_profile = "${API}update_profile";
   static const String Fcm_Token = "${API}client/set-device-id";
 
   //Home
   static const String Home = "${API}main";
+  static const String AllCategories = "${API}get_categories";
+  static const String Brands = "${API}get_brands";
+  static const String Products = "${API}getallproducts";
+
   static const String getListOfTables =
       "${API}get_list_of_tables?restaurant_id=";
   static const String listOfRestaurantsByCategory =
@@ -87,8 +92,8 @@ class ServerConstants {
   //Paginate Products
   static const String Paginate_Products_List = "${API}client/stores/";
   //Get_Cart
-  static const String Get_Cart = "${API}customer/myCart";
-  static const String Add_Cart = "${API}customer/addToCart";
+  static const String Get_Cart = "${API}get_cart";
+  static const String Add_Cart = "${API}add_to_cart";
   static const String remove_Cart = "${API}customer/deleteCart";
   static const String bookingTable = "${API}create_reservation";
 
