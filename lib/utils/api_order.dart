@@ -2,17 +2,18 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/all_categories.dart';
+import 'package:shop_app/models/order.dart';
 import 'package:shop_app/models/user.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import 'api_exception.dart';
 
-class ApiCart {
-  ApiCart._();
+class ApiOrder {
+  ApiOrder._();
 
-  static final ApiCart instance = ApiCart._();
-  static CartModel cart;
+  static final ApiOrder instance = ApiOrder._();
+  static OrderModel order;
 
   var dio = Dio()
     ..interceptors.add(PrettyDioLogger(
@@ -30,14 +31,21 @@ class ApiCart {
     // "X-Requested-With": "XMLHttpRequest",
   };
 
-  Future<CartModel> addToCart(int productId, int quantity) async {
+  Future<OrderModel> makeOrder(String phone, String email, String address,String city ,String paymentMethod, int totalPrice) async {
     // Json Data
     var _data = {
-      "product_id": productId,
-      "quantity": quantity,
+      "customers_telephone": phone,
+      "email": email,
+      "delivery_street_address": address,
+      "delivery_city": city,
+      "payment_method": paymentMethod,
+      "totalPrice": totalPrice,
+      "currency_code":"SAR",
+      "total_tax": 0.0,
+      "language_id": 1,
     };
     String token = await _getUserToken();
-    var _response = await dio.post(ServerConstants.Add_Cart,
+    var _response = await dio.post(ServerConstants.OrderMake,
         data: _data,
         options: Options(
           headers: {
@@ -50,15 +58,15 @@ class ApiCart {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      cart = CartModel.fromJson(_response.data);
-      return cart;
-     // categories = AllCategoriesModel.fromJson(_response.data);
+      order = OrderModel.fromJson(_response.data);
+      return order;
+      // categories = AllCategoriesModel.fromJson(_response.data);
       //return categories;
     } else {
       // DioErrorType type;
       // No Success
       print(
-          'ApiException....addCart***********************************************************');
+          'ApiException....make order***********************************************************');
 
       print('...................................................');
 
@@ -66,13 +74,13 @@ class ApiCart {
     }
   }
 
-  Future<CartModel> getCart() async {
+  Future<OrderModel> getOrder() async {
     String token = await _getUserToken();
     // Json Data
     var _data = {
       "language_id": 1,
     };
-    var _response = await dio.post(ServerConstants.Get_Cart,
+    var _response = await dio.post(ServerConstants.Order_List,
         data: _data,
         options: Options(
           headers: {
@@ -85,13 +93,13 @@ class ApiCart {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      cart = CartModel.fromJson(_response.data);
-      return cart;
+      order = OrderModel.fromJson(_response.data);
+      return order;
     } else {
       // DioErrorType type;
       // No Success
       print(
-          'ApiException....allCategories***********************************************************');
+          'ApiException....get order***********************************************************');
 
       print('...................................................');
 
@@ -99,13 +107,14 @@ class ApiCart {
     }
   }
 
-  Future<CartModel> removeCart(int productId) async {
+  Future<OrderModel> cancelOrder(int ordersId) async {
     // Json Data
     var _data = {
-      "product_id": productId,
+      "orders_id": ordersId,
+      "comment": "nsbdjasd",
     };
     String token = await _getUserToken();
-    var _response = await dio.post(ServerConstants.remove_Cart,
+    var _response = await dio.post(ServerConstants.Order_Cancel,
         data: _data,
         options: Options(
           headers: {
@@ -118,13 +127,13 @@ class ApiCart {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-       cart = CartModel.fromJson(_response.data);
-      return cart;
+       order = OrderModel.fromJson(_response.data);
+      return order;
     } else {
       // DioErrorType type;
       // No Success
       print(
-          'ApiException....removeCart***********************************************************');
+          'ApiException....cancel order***********************************************************');
 
       print('...................................................');
 

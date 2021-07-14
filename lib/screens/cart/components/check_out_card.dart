@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/screens/order_list/order_info_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({
-    Key key,
-  }) : super(key: key);
+class CheckoutCard extends StatefulWidget {
+  final CartModel cart;
+
+  const CheckoutCard({Key key, @required this.cart}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return CheckoutCardState();
+  }
+}
+class CheckoutCardState extends State<CheckoutCard>{
+  int sum=0;
+
+
 
   @override
   Widget build(BuildContext context) {
+    widget.cart.products.forEach((element) {setState(() {
+      sum = sum+element.productDetail.productsPrice;
+    });});
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -68,7 +84,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text:"\$$sum",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
@@ -78,7 +94,8 @@ class CheckoutCard extends StatelessWidget {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Check Out",
-                    press: () {},
+                    press: () { Navigator.of(context).push(
+           MaterialPageRoute(builder: (context) => OrderInfoScreen(totalPrice: sum,)));},
                   ),
                 ),
               ],
@@ -88,4 +105,6 @@ class CheckoutCard extends StatelessWidget {
       ),
     );
   }
+
+
 }

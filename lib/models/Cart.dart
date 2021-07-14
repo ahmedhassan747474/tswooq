@@ -149,7 +149,7 @@ class ProductDetail {
   String productsImage;
   dynamic productsVideoLink;
   String priceBuy;
-  String productsPrice;
+  int productsPrice;
   String productsDateAdded;
   dynamic productsLastModified;
   dynamic productsDateAvailable;
@@ -208,7 +208,7 @@ class ProductDetail {
     productsImage: json["products_image"],
     productsVideoLink: json["products_video_link"],
     priceBuy: json["price_buy"],
-    productsPrice: json["products_price"],
+    productsPrice: json["products_price"]?? -1,
     productsDateAdded: json["products_date_added"],
     productsLastModified: json["products_last_modified"],
     productsDateAvailable: json["products_date_available"],

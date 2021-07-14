@@ -94,11 +94,11 @@ class ServerConstants {
   //Get_Cart
   static const String Get_Cart = "${API}get_cart";
   static const String Add_Cart = "${API}add_to_cart";
-  static const String remove_Cart = "${API}customer/deleteCart";
+  static const String remove_Cart = "${API}delete_cart";
   static const String bookingTable = "${API}create_reservation";
 
   //Order_List
-  static const String Order_List = "${API}customer/orders";
-  static const String OrderMake = "${API}create_order";
-  static const String Order_Cancel = "${API}client/orders/";
+  static const String Order_List = "${API}getorders";
+  static const String OrderMake = "${API}addtoorder";
+  static const String Order_Cancel = "${API}cancelorder";
 }
