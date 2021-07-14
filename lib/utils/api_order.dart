@@ -1,10 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/all_categories.dart';
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/models/user.dart';
-import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -31,7 +28,8 @@ class ApiOrder {
     // "X-Requested-With": "XMLHttpRequest",
   };
 
-  Future<OrderModel> makeOrder(String phone, String email, String address,String city ,String paymentMethod, int totalPrice) async {
+  Future<OrderModel> makeOrder(String phone, String email, String address,
+      String city, String paymentMethod, double totalPrice) async {
     // Json Data
     var _data = {
       "customers_telephone": phone,
@@ -40,7 +38,7 @@ class ApiOrder {
       "delivery_city": city,
       "payment_method": paymentMethod,
       "totalPrice": totalPrice,
-      "currency_code":"SAR",
+      "currency_code": "SAR",
       "total_tax": 0.0,
       "language_id": 1,
     };
@@ -127,7 +125,7 @@ class ApiOrder {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-       order = OrderModel.fromJson(_response.data);
+      order = OrderModel.fromJson(_response.data);
       return order;
     } else {
       // DioErrorType type;

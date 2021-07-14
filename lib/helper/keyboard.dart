@@ -8,3 +8,9 @@ class KeyboardUtil {
     }
   }
 }
+
+int helpI = 0;
+
+int helpHero() {
+  return helpI++;
+}

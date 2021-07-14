@@ -1,12 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/components/loading_screen.dart';
 import 'package:shop_app/models/user.dart';
-import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/api_order.dart';
@@ -15,9 +12,8 @@ import 'package:shop_app/utils/vars.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-
 class OrderForm extends StatefulWidget {
-  final int totalPrice;
+  final double totalPrice;
 
   const OrderForm({Key key, @required this.totalPrice}) : super(key: key);
   @override
@@ -36,6 +32,10 @@ class _OrderFormState extends State<OrderForm> {
 
   String selectedValue = "cash";
 
+  @override
+  void initState() {
+    user = ApiProvider.user;
+  }
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -59,7 +59,8 @@ class _OrderFormState extends State<OrderForm> {
         print('111111111111111111111');
         _formKey.currentState.save();
         LoadingScreen.show(context);
-        await ApiOrder.instance.makeOrder(email, phone,city,address,selectedValue,widget.totalPrice);
+        await ApiOrder.instance.makeOrder(
+            email, phone, city, address, selectedValue, widget.totalPrice);
 
         // Navigator.of(context).popUntil((route) => route.isFirst);
         // Navigator.of(context).pushReplacement(
@@ -153,7 +154,7 @@ class _OrderFormState extends State<OrderForm> {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         }
-        address =value;
+        address = value;
       },
       validator: (value) {
         if (value.isEmpty) {
@@ -200,10 +201,9 @@ class _OrderFormState extends State<OrderForm> {
     );
   }
 
-
   TextFormField buildPhoneFormField() {
     return TextFormField(
-    //  initialValue: user.data.phone,
+      //  initialValue: user.data.phone,
       keyboardType: TextInputType.number,
       onSaved: (newValue) => phone = newValue,
       onChanged: (value) {
@@ -230,14 +230,14 @@ class _OrderFormState extends State<OrderForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-       // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }
 
   TextFormField buildEmailFormField() {
     return TextFormField(
-    //  initialValue: user.data.email,
+      //  initialValue: user.data.email,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
@@ -268,6 +268,4 @@ class _OrderFormState extends State<OrderForm> {
       ),
     );
   }
-
-
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/models/products.dart';
-import 'package:shop_app/screens/details/details_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -40,11 +39,12 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Text(
               product.productsName,
               style: TextStyle(color: Colors.black),
-              maxLines: 2,
+              overflow: TextOverflow.visible,
+              // maxLines: 2,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,14 +65,14 @@ class ProductCard extends StatelessWidget {
                     height: getProportionateScreenWidth(28),
                     width: getProportionateScreenWidth(28),
                     decoration: BoxDecoration(
-                      color: product.isLiked =="0"
+                      color: product.isLiked == "0"
                           ? kPrimaryColor.withOpacity(0.15)
                           : kSecondaryColor.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
                     child: SvgPicture.asset(
                       "assets/icons/Heart Icon_2.svg",
-                      color: product.isLiked =="0"
+                      color: product.isLiked == "0"
                           ? Color(0xFFFF4848)
                           : Color(0xFFDBDEE4),
                     ),

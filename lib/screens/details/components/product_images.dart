@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/helper/keyboard.dart';
 import 'package:shop_app/models/products.dart';
 
 import '../../../constants.dart';
@@ -27,17 +28,16 @@ class _ProductImagesState extends State<ProductImages> {
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
-              tag: widget.product.productsId.toString(),
+              tag: " ${helpHero()}" + widget.product.productsId.toString(),
               child: Image.network(widget.product.productsImage),
             ),
           ),
         ),
-         SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: getProportionateScreenWidth(20)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(3,
-                (index) => buildSmallProductPreview(index)),
+            ...List.generate(3, (index) => buildSmallProductPreview(index)),
           ],
         )
       ],
