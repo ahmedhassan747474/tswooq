@@ -43,37 +43,36 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future<void> _submit(int id) async {
-     try {
-    print('0000000000000000000000000000');
-    await ApiCart.instance.removeCart(id);
+    try {
+      print('0000000000000000000000000000');
+      await ApiCart.instance.removeCart(id);
 
-    Navigator.of(context).popUntil((route) => route.isFirst);
-    // Navigator.of(context).pushReplacement(
-    //     MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
+      // Navigator.of(context).popUntil((route) => route.isFirst);
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
 
-      } on ApiException catch (_) {
-        print('ApiException');
-        Navigator.of(context).pop();
-        ServerConstants.showDialog1(context, _.toString());
-      } on DioError catch (e) {
-        //<<<<< IN THIS LINE
-        print(
-            "e.response.statusCode    ////////////////////////////         DioError");
-        if (e.response.statusCode == 400) {
-          print(e.response.statusCode);
-        } else {
-          print(e.message);
-          //  print(e.request);
-        }
-      } catch (e) {
-        print('catch');
-        print(e);
+    } on ApiException catch (_) {
+      print('ApiException');
 
-        Navigator.of(context).pop();
-        ServerConstants.showDialog1(context, e.toString());
-      } finally {
-        if (mounted) setState(() {});
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        //  print(e.request);
       }
+    } catch (e) {
+      print('catch');
+      // print(e);
+
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
   }
 
   @override
@@ -223,14 +222,17 @@ class _CartScreenState extends State<CartScreen> {
                           GestureDetector(
                               onTap: () {
                                 _submit(product[index].productId);
-                                 product.removeAt(index);
+                                product.removeAt(index);
                                 // _submit(product[index].productId);
-                             //   product.removeAt(index);
+                                //   product.removeAt(index);
                                 //setState(() {});
                               },
                               child: Container(
                                   alignment: Alignment.topRight,
-                                  child: Icon(Icons.close, color: Colors.red,))),
+                                  child: Icon(
+                                    Icons.close,
+                                    color: Colors.red,
+                                  ))),
                           Text(
                             product[index].productDetail.productsName,
                             style: TextStyle(color: Colors.black, fontSize: 16),
@@ -247,7 +249,8 @@ class _CartScreenState extends State<CartScreen> {
                               children: [
                                 TextSpan(
                                     text: " x${product[index].quantity}",
-                                    style: Theme.of(context).textTheme.bodyText1),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1),
                               ],
                             ),
                           )

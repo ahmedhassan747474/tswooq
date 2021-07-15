@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/all_categories.dart';
 import 'package:shop_app/models/user.dart';
-import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -52,7 +50,7 @@ class ApiCart {
       // OK
       cart = CartModel.fromJson(_response.data);
       return cart;
-     // categories = AllCategoriesModel.fromJson(_response.data);
+      // categories = AllCategoriesModel.fromJson(_response.data);
       //return categories;
     } else {
       // DioErrorType type;
@@ -99,7 +97,7 @@ class ApiCart {
     }
   }
 
-  Future<CartModel> removeCart(int productId) async {
+  Future<void> removeCart(int productId) async {
     // Json Data
     var _data = {
       "product_id": productId,
@@ -118,8 +116,8 @@ class ApiCart {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-       cart = CartModel.fromJson(_response.data);
-      return cart;
+      //  cart = CartModel.fromJson(_response.data);
+      // return cart;
     } else {
       // DioErrorType type;
       // No Success
