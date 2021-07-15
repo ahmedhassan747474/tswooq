@@ -11,5 +11,13 @@
   "Brands_translate": "Brands",
   "Popular_Products_translate": "Popular Products",
   "See_More_translate": "See More",
-  "Search_Product_translate": "Search Product"
+  "Search_Product_translate": "Search Product",
+  "Cart_translate": "Your Cart",
+  "Check_Out_translate": "Check Out",
+  "Add_Voucher_translate": "Add Voucher Code",
+  "Total_translate": "Total",
+  "items_translate": "items",
+  "Your_Order_translate": "Your Order",
+  "Confirm_Password_translate": "Confirm Password",
+  "Re-enter_pass_translate": "Re-enter your password"
 }

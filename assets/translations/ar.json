@@ -11,5 +11,13 @@
   "Brands_translate": "برندات",
   "Popular_Products_translate": "منتجات شائعة",
   "See_More_translate": "المزيد",
-  "Search_Product_translate": "ابحث عن منتج"
+  "Search_Product_translate": "ابحث عن منتج",
+  "Cart_translate": "السلة",
+  "Check_Out_translate": "طلب الاوردر",
+  "Add_Voucher_translate": "اضف كود خصم",
+  "Total_translate": "مجموع",
+  "items_translate": "قطع",
+  "Your_Order_translate": "طلبك",
+  "Confirm_Password_translate": "تأكيد كلمة المرور",
+  "Re-enter_pass_translate": "اعادة متاب كلمة المرور"
 }

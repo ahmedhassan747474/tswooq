@@ -1,55 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
 import 'package:shop_app/models/order.dart';
-import 'package:shop_app/screens/order_list/order_products.dart';
+import 'package:shop_app/screens/order_list/component/order_products_card.dart';
 import 'package:shop_app/utils/api_order.dart';
 
-import '../../enums.dart';
 import '../../size_config.dart';
 import 'component/order_card.dart';
 
-class OrderListScreen extends StatefulWidget {
+class OrderProductsScreen extends StatefulWidget {
+  final List <OrderProducts> product;
 
+  const OrderProductsScreen({Key key, @required this.product}) : super(key: key);
   @override
-  _OrderListScreenState createState() => _OrderListScreenState();
+  _OrderProductsScreenState createState() => _OrderProductsScreenState();
 }
 
-class _OrderListScreenState extends State<OrderListScreen> {
-  OrderModel order = new OrderModel(data: []);
-
-  @override
-  void initState() {
-    super.initState();
-    _initData();
-  }
-
-  _initData() async {
-    order = await ApiOrder.instance.getOrder();
-    if (mounted) setState(() {});
-  }
+class _OrderProductsScreenState extends State<OrderProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: buildAppBar(context),
         body: body(
-          order.data,
-        ),
-        bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.orders),
-        );
+          widget.product,
+        )
+      //   bottomNavigationBar: CheckoutCard(cart: cart),
+    );
   }
 
-  Widget body(List<OrderDetails> order) {
+  Widget body(List<OrderProducts> product) {
     return Padding(
       padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: ListView.builder(
-        itemCount: order.length,
+        itemCount: product.length,
         itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
-            key: Key(order[index].ordersId.toString()),
+            key: Key(product[index].ordersId.toString()),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
               setState(() {
@@ -64,17 +52,15 @@ class _OrderListScreenState extends State<OrderListScreen> {
               ),
               child: Row(
                 children: [
+
+
+
                   Spacer(),
                   SvgPicture.asset("assets/icons/Trash.svg"),
                 ],
               ),
             ),
-            child: GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(
-                           MaterialPageRoute(builder: (context) => OrderProductsScreen(product: order[index].data,)));
-                },
-                child: OrderCard(order: order[index])),
+            child: OrderProductsCard(product: product[index]),
           ),
         ),
       ),
@@ -90,7 +76,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${order.data.length} items",
+            "${widget.product.length} items",
             style: Theme.of(context).textTheme.caption,
           ),
         ],

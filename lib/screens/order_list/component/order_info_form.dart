@@ -4,6 +4,7 @@ import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/components/loading_screen.dart';
 import 'package:shop_app/models/user.dart';
+import 'package:shop_app/screens/order_success/login_success_screen.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/api_order.dart';
@@ -62,9 +63,9 @@ class _OrderFormState extends State<OrderForm> {
         await ApiOrder.instance.makeOrder(
             email, phone, city, address, selectedValue, widget.totalPrice);
 
-        // Navigator.of(context).popUntil((route) => route.isFirst);
-        // Navigator.of(context).pushReplacement(
-        //     MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
       }
     } on ApiException catch (_) {
       print('ApiException');
@@ -203,7 +204,7 @@ class _OrderFormState extends State<OrderForm> {
 
   TextFormField buildPhoneFormField() {
     return TextFormField(
-      //  initialValue: user.data.phone,
+        initialValue: user.data.phone,
       keyboardType: TextInputType.number,
       onSaved: (newValue) => phone = newValue,
       onChanged: (value) {
@@ -237,7 +238,7 @@ class _OrderFormState extends State<OrderForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
-      //  initialValue: user.data.email,
+        initialValue: user.data.email,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

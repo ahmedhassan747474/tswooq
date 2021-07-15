@@ -1,13 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/screens/order_list/order_info_screen.dart';
 import 'package:shop_app/utils/api_cart.dart';
+import 'package:shop_app/utils/api_exception.dart';
+import 'package:shop_app/utils/vars.dart';
 
 import '../../constants.dart';
 import '../../size_config.dart';
 import 'components/body.dart';
+import 'components/cart_card.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -40,12 +44,47 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
+  Future<void> _submit(int id) async {
+
+   // try {
+      print('0000000000000000000000000000');
+      await ApiCart.instance.removeCart(id);
+
+     // Navigator.of(context).popUntil((route) => route.isFirst);
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
+
+  //   } on ApiException catch (_) {
+  //     print('ApiException');
+  //     Navigator.of(context).pop();
+  //     ServerConstants.showDialog1(context, _.toString());
+  //   } on DioError catch (e) {
+  //     //<<<<< IN THIS LINE
+  //     print(
+  //         "e.response.statusCode    ////////////////////////////         DioError");
+  //     if (e.response.statusCode == 400) {
+  //       print(e.response.statusCode);
+  //     } else {
+  //       print(e.message);
+  //       //  print(e.request);
+  //     }
+  //   } catch (e) {
+  //     print('catch');
+  //     print(e);
+  //
+  //     Navigator.of(context).pop();
+  //     ServerConstants.showDialog1(context, e.toString());
+  //   } finally {
+  //     if (mounted) setState(() {});
+  //   }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(
-        cart: cart,
+      body: body(
+        cart.products,
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(
@@ -130,6 +169,94 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  Widget body(List<CartProduct> product) {
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      child: ListView.builder(
+        itemCount: product.length,
+        itemBuilder: (context, index) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Dismissible(
+            key: Key(product[index].productId.toString()),
+            direction: DismissDirection.endToStart,
+            onDismissed: (direction) {
+              setState(() {
+                   _submit(product[index].productId);
+              });
+            },
+            background: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: Color(0xFFFFE6E6),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                children: [
+                  Spacer(),
+                  SvgPicture.asset("assets/icons/Trash.svg"),
+                ],
+              ),
+            ),
+            child: cartCard( product[index])
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget cartCard(CartProduct product) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 88,
+          child: AspectRatio(
+            aspectRatio: 0.88,
+            child: Container(
+              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+              decoration: BoxDecoration(
+                color: Color(0xFFF5F6F9),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Image.network("https://tswooq.com/"+product.productDetail.productsImage),
+            ),
+          ),
+        ),
+        SizedBox(width: 20),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: (){
+                  _submit(product.productId);
+                  setState(() {
+
+                  });
+              },
+                child: Container ( alignment: Alignment.topRight,child: Icon(Icons.close))),
+            Text(
+              product.productDetail.productsName,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+              maxLines: 2,
+            ),
+            SizedBox(height: 10),
+            Text.rich(
+              TextSpan(
+                text: "\$${product.productDetail.productsPrice}",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600, color: kPrimaryColor),
+                children: [
+                  TextSpan(
+                      text: " x${product.quantity}",
+                      style: Theme.of(context).textTheme.bodyText1),
+                ],
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       title: Column(
