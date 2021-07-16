@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -123,6 +124,8 @@ class ProductDescriptionState extends State<ProductDescription> {
                   size: 12,
                   color: kPrimaryColor,
                 ),
+                SizedBox(width: 5),
+                Text(widget.product.defaultStock.toString())
               ],
             ),
           ),

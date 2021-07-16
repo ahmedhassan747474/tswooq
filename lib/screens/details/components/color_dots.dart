@@ -1,52 +1,67 @@
-// import 'package:flutter/material.dart';
-// import 'package:shop_app/components/rounded_icon_btn.dart';
-// import 'package:shop_app/models/Product.dart';
-// import 'package:shop_app/models/products.dart';
-//
-// import '../../../constants.dart';
-// import '../../../size_config.dart';
-//
-// class ColorDots extends StatelessWidget {
-//   const ColorDots({
-//     Key key,
-//     @required this.product,
-//   }) : super(key: key);
-//
-//   final Products product;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // Now this is fixed and only for demo
-//     int selectedColor = 3;
-//     return Padding(
-//       padding:
-//           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-//       child: Row(
-//         children: [
-//           ...List.generate(
-//           // //  product.colors.length,
-//           //   (index) => ColorDot(
-//           //     color: product.colors[index],
-//           //     isSelected: index == selectedColor,
-//           //   ),
-//           // ),
-//           Spacer(),
-//           RoundedIconBtn(
-//             icon: Icons.remove,
-//             press: () {},
-//           ),
-//           SizedBox(width: getProportionateScreenWidth(20)),
-//           RoundedIconBtn(
-//             icon: Icons.add,
-//             showShadow: true,
-//             press: () {},
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
+import 'package:flutter/material.dart';
+import 'package:shop_app/components/rounded_icon_btn.dart';
+
+import 'package:shop_app/models/products.dart';
+
+import '../../../constants.dart';
+import '../../../size_config.dart';
+
+class ColorDots extends StatefulWidget {
+  const ColorDots({
+    Key key,
+    @required this.product,
+  }) : super(key: key);
+
+  final Products product;
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ColorDotsState();
+  }
+}
+class ColorDotsState extends State<ColorDots>{
+  int counter =0;
+  @override
+  Widget build(BuildContext context) {
+    // Now this is fixed and only for demo
+    int selectedColor = 3;
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      child: Row(
+        children: [
+          // ...List.generate(
+          // //  product.colors.length,
+          //   (index) => ColorDot(
+          //     color: product.colors[index],
+          //     isSelected: index == selectedColor,
+          //   ),
+          // ),
+          Spacer(),
+          RoundedIconBtn(
+            icon: Icons.remove,
+            press: () {
+              setState(() {
+                counter--;
+              });
+            },
+          ),
+          SizedBox(width: getProportionateScreenWidth(20)),
+          Text(counter.toString()),
+          RoundedIconBtn(
+            icon: Icons.add,
+            showShadow: true,
+            press: () { setState(() {
+              counter++;
+            });},
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
 // class ColorDot extends StatelessWidget {
 //   const ColorDot({
 //     Key key,
@@ -78,4 +93,4 @@
 //       ),
 //     );
 //   }
-// }
+ }

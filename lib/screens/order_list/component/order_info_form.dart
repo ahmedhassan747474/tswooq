@@ -61,7 +61,7 @@ class _OrderFormState extends State<OrderForm> {
         _formKey.currentState.save();
         LoadingScreen.show(context);
         await ApiOrder.instance.makeOrder(
-            email, phone, city, address, selectedValue, widget.totalPrice);
+            email, phone, city, address, "selectedValue", widget.totalPrice);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.of(context).pushReplacement(
