@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/screens/order_list/order_info_screen.dart';
@@ -221,8 +222,11 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                           GestureDetector(
                               onTap: () {
-                                _submit(product[index].productId);
-                                product.removeAt(index);
+
+                                  _submit(product[index].productId);
+                                  product.removeAt(index);
+                                calculateTotal();
+                                _toastInfo("item is deleted");
                                 // _submit(product[index].productId);
                                 //   product.removeAt(index);
                                 //setState(() {});
@@ -279,6 +283,21 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ],
       ),
+      centerTitle: true,
     );
   }
+  _toastInfo(String info) {
+    Fluttertoast.showToast(
+        msg: info,
+        toastLength: Toast.LENGTH_LONG,
+        backgroundColor: Colors.green);
+  }
+
 }
+
+
+
+
+
+
+

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:shop_app/components/home_card.dart';
 import 'package:shop_app/models/brands.dart';
-import 'package:shop_app/screens/details/details_screen.dart';
+import 'package:shop_app/screens/brand_list/brand_list_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
+import 'package:shop_app/screens/product_list/product_by_brand.dart';
 import 'package:shop_app/utils/api_brands.dart';
 
 
@@ -40,7 +42,7 @@ class _BrandsState extends State<Brands> {
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: "Brands",
-            press: () {},
+            press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => BrandListScreen(brands: brands,)));},
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
@@ -60,7 +62,10 @@ class _BrandsState extends State<Brands> {
                   child: CategoryCard(
                     icon: brands.data[index].icon,
                     text: brands.data[index].categoriesName,
-                    press: () { },
+                   // press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductBrandScreen(id: brands.data[index].i,)));},
+                    cardWidth: 100,
+                    imgWidth: 80,
+                    imgHeight: 80,
                   ),
                 ),
             ),
@@ -71,119 +76,50 @@ class _BrandsState extends State<Brands> {
   }
 }
 
-
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
-    Key key,
-    @required this.icon,
-    @required this.text,
-    @required this.press,
-  }) : super(key: key);
-
-  final String icon, text;
-  final GestureTapCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
-      child: SizedBox(
-        width: getProportionateScreenWidth(100),
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-              height: getProportionateScreenWidth(80),
-              width: getProportionateScreenWidth(80),
-              decoration: BoxDecoration(
-                color: Color(0xFFFFECDF),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  Image.network(
-                    icon,
-                    fit: BoxFit.cover,
-                  ),
-                 // SizedBox(height: 5),
-              //    Text(text, textAlign: TextAlign.center , style: TextStyle(fontSize: 12),)
-                ],
-              ),
-            ),
-          //  SizedBox(height: 5),
-          //  Text(text, textAlign: TextAlign.center , style: TextStyle(fontSize: 12),)
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-// Widget categoryGridView(
-//     BuildContext context, CategoriesModel categoriesModel, bool loading) {
-//   return new StaggeredGridView.countBuilder(
-//     // shrinkWrap: true,
-//     // primary: false,
-//     scrollDirection: Axis.horizontal,
-//     crossAxisCount: 2,
-//     itemCount:  brands.data == null ? 0 : (brands.data.length > 16 ? 16 : brands.data.length),
-//     itemBuilder: (BuildContext context, int index) => Card(
-//       child: loading
-//           ? loadingShimmerWidget(45, 100)
-//           : InkWell(
-//         onTap: () {
-//           // Navigator.of(context).push(MaterialPageRoute(
-//           //   builder: (context) =>
-//           //       ProductCategoryScreen(categoriesModel.data[index].id),
-//           // ));
-//           // Navigator.of(context).push(PageRouteBuilder(
-//           //     pageBuilder: (, _, _) => new ProductCategoryScreen(
-//           // categoriesModel.data[index].id,
-//           //     categoriesModel.data[index].name),
-//           //     transitionDuration: Duration(milliseconds: 750),
-//           //     transitionsBuilder:
-//           //     (, Animation<double> animation, _, Widget child) {
-//           //     return Opacity(
-//           //     opacity: animation.value,
-//           //     child: child,
-//           //     );
-//           //     }));
-//         },
+//
+// class CategoryCard extends StatelessWidget {
+//   const CategoryCard({
+//     Key key,
+//     @required this.icon,
+//     @required this.text,
+//     @required this.press,
+//   }) : super(key: key);
+//
+//   final String icon, text;
+//   final GestureTapCallback press;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: press,
+//       child: SizedBox(
+//         width: getProportionateScreenWidth(100),
 //         child: Column(
-//           children: <Widget>[
-//             SizedBox(
-//               height: 10,
-//             ),
+//           children: [
 //             Container(
-//               height: 80,
-//               width: 80,
-//               child: imageWidget(
-//                   "${categoriesModel.data[index].media[0].url}",
-//                   BoxFit.fill),
-//             ),
-//             Spacer(),
-//             Padding(
-//               padding: const EdgeInsets.all(4.0),
-//               child: Text(
-//                 "${categoriesModel.data[index].name}",
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   fontFamily: "Sans",
-//                   fontSize: 15.0,
-//                   fontWeight: FontWeight.w500,
-//                 ),
-//                 overflow: TextOverflow.ellipsis,
-//                 maxLines: 3,
+//               padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+//               height: getProportionateScreenWidth(80),
+//               width: getProportionateScreenWidth(80),
+//               decoration: BoxDecoration(
+//                 color: Color(0xFFFFECDF),
+//                 borderRadius: BorderRadius.circular(10),
 //               ),
-//             )
+//               child: Column(
+//                 children: [
+//                   Image.network(
+//                     icon,
+//                     fit: BoxFit.cover,
+//                   ),
+//                  // SizedBox(height: 5),
+//               //    Text(text, textAlign: TextAlign.center , style: TextStyle(fontSize: 12),)
+//                 ],
+//               ),
+//             ),
+//           //  SizedBox(height: 5),
+//           //  Text(text, textAlign: TextAlign.center , style: TextStyle(fontSize: 12),)
 //           ],
 //         ),
 //       ),
-//     ),
-//     mainAxisSpacing: 1,
-//     crossAxisSpacing: 1,
-//     padding: EdgeInsets.all(0.0),
-//     staggeredTileBuilder: (_) => StaggeredTile.extent(1, 150),
-//   );
-//}
+//     );
+//   }
+// }

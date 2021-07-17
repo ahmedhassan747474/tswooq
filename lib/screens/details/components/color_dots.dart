@@ -42,12 +42,14 @@ class ColorDotsState extends State<ColorDots>{
             icon: Icons.remove,
             press: () {
               setState(() {
+                if(counter>0)
                 counter--;
               });
             },
           ),
           SizedBox(width: getProportionateScreenWidth(20)),
-          Text(counter.toString()),
+          Text(counter.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+          SizedBox(width: getProportionateScreenWidth(20)),
           RoundedIconBtn(
             icon: Icons.add,
             showShadow: true,

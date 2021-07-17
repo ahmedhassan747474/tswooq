@@ -124,11 +124,14 @@ class ProductDescriptionState extends State<ProductDescription> {
                   size: 12,
                   color: kPrimaryColor,
                 ),
-                SizedBox(width: 5),
-                Text(widget.product.defaultStock.toString())
               ],
             ),
           ),
+        ),
+        SizedBox(width: 5),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: widget.product.defaultStock==0?Center(child: Text("Not Available",style: TextStyle(color: Colors.red),)):Container(),
         )
       ],
     );

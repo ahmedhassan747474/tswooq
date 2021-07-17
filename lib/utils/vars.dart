@@ -72,6 +72,8 @@ class ServerConstants {
   static const String AllCategories = "${API}get_categories";
   static const String Brands = "${API}get_brands";
   static const String Products = "${API}getallproducts";
+  static const String Products_By_Category = "${API}getproductsbycategory";
+  static const String Products_By_Brand = "${API}getproductsbybrand";
 
   static const String getListOfTables =
       "${API}get_list_of_tables?restaurant_id=";
