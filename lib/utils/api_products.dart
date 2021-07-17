@@ -57,4 +57,71 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
+  Future<ProductsModel> getProductsByCategory(int id) async {
+    // Json Data
+    var _data = {
+      "language_id": 1,
+      "limit": 100,
+      "page": 1,
+      "category_id": id
+
+    };
+    var _response = await dio.post(ServerConstants.Products_By_Category,
+        data: _data,
+        options: Options(
+          headers: {...apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      products = ProductsModel.fromJson(_response.data);
+      return products;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+  Future<ProductsModel> getProductsByBrand(int id) async {
+    // Json Data
+    var _data = {
+      "language_id": 1,
+      "limit": 100,
+      "page": 1,
+      "brand_id": id
+
+    };
+    var _response = await dio.post(ServerConstants.Products_By_Brand,
+        data: _data,
+        options: Options(
+          headers: {...apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      products = ProductsModel.fromJson(_response.data);
+      return products;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
 }
+
+
