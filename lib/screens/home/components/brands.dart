@@ -4,14 +4,9 @@ import 'package:shop_app/components/home_card.dart';
 import 'package:shop_app/models/brands.dart';
 import 'package:shop_app/screens/brand_list/brand_list_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
-import 'package:shop_app/screens/product_list/product_by_brand.dart';
 import 'package:shop_app/utils/api_brands.dart';
 
-
-import '../../../size_config.dart';
-
 class Brands extends StatefulWidget {
-
   @override
   _BrandsState createState() => _BrandsState();
 }
@@ -19,18 +14,15 @@ class Brands extends StatefulWidget {
 class _BrandsState extends State<Brands> {
   BrandsModel brands = new BrandsModel(data: []);
 
-
   @override
   void initState() {
     super.initState();
     _initData();
   }
 
-  _initData() async{
+  _initData() async {
     brands = await ApiBrands.instance.brands();
-    if(mounted) setState(() {
-
-    });
+    if (mounted) setState(() {});
   }
 
   @override
@@ -38,36 +30,43 @@ class _BrandsState extends State<Brands> {
     return Column(
       children: [
         Padding(
-          padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
             title: "Brands",
-            press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => BrandListScreen(brands: brands,)));},
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => BrandListScreen(
+                        brands: brands,
+                      )));
+            },
           ),
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
-        Expanded(
+        SizedBox(height: 20),
+        SizedBox(
+          height: 250,
           child: Padding(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+            padding: EdgeInsets.all(6),
             child: StaggeredGridView.countBuilder(
               scrollDirection: Axis.horizontal,
               crossAxisCount: 2,
-              mainAxisSpacing: 0,
-              crossAxisSpacing: 0,
+              mainAxisSpacing: 2,
+              crossAxisSpacing: 2,
               padding: EdgeInsets.all(0.0),
               staggeredTileBuilder: (_) => StaggeredTile.extent(1, 100),
-              itemCount:  brands.data == null ? 0 : (brands.data.length > 16 ? 16 : brands.data.length),
-                itemBuilder: (ctx,index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: CategoryCard(
-                    icon: brands.data[index].icon,
-                    text: brands.data[index].categoriesName,
-                   // press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductBrandScreen(id: brands.data[index].i,)));},
-                    cardWidth: 100,
-                    imgWidth: 80,
-                    imgHeight: 80,
-                  ),
+              itemCount: brands.data == null
+                  ? 0
+                  : (brands.data.length > 16 ? 16 : brands.data.length),
+              itemBuilder: (ctx, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: CategoryCard(
+                  icon: brands.data[index].icon,
+                  text: brands.data[index].categoriesName,
+                  // press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductBrandScreen(id: brands.data[index].i,)));},
+                  cardWidth: 100,
+                  imgWidth: 80,
+                  imgHeight: 80,
                 ),
+              ),
             ),
           ),
         ),

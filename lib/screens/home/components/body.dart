@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
             Container(height: 170, child: Categories()),
             SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(30)),
-            Container(height: 280, child: Brands()),
+            Container(height: 320, child: Brands()),
             SizedBox(height: getProportionateScreenWidth(30)),
             Container(height: 300, child: PopularProduct()),
             SizedBox(height: getProportionateScreenWidth(80)),
