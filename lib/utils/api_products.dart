@@ -32,7 +32,7 @@ class ApiProducts {
     var _data = {
       "language_id": 1,
       "page": 1,
-      "limit": 100,
+      "limit": 20,
     };
     var _response = await dio.post(ServerConstants.Products,
         data: _data,
