@@ -68,8 +68,7 @@ Widget helpLoading() {
 
 Widget helpImage(String image, double radius) {
   return CachedNetworkImage(
-    imageUrl:
-        "https://cdn.al-ain.com/images/2020/7/27/143-133729-is-bitcoin-15-thousand-dollars_700x400.jpg",
+    imageUrl: image,
     // imageUrl: "$image",
     fit: BoxFit.contain,
     imageBuilder: (ctx, image) {
