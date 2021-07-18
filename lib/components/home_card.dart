@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/helper/help.dart';
 
 import '../size_config.dart';
 
@@ -33,14 +34,17 @@ class CategoryCard extends StatelessWidget {
                 color: Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.network(
+              child: helpImage(
                 icon,
-                fit: BoxFit.cover,
+                0,
               ),
             ),
             SizedBox(height: 5),
-            Text(text, textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 12),)
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12),
+            )
           ],
         ),
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/order.dart';
 
 import '../../../constants.dart';
-import '../../../size_config.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({
@@ -22,13 +22,13 @@ class OrderCard extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 0.88,
               child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                 decoration: BoxDecoration(
                   color: Color(0xFFF5F6F9),
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Image.network(
-                    "https://images.unsplash.com/photo-1581067721837-e4809b29692d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2hvcHBpbmclMjBjYXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                child: helpImage(
+                    "https://images.unsplash.com/photo-1581067721837-e4809b29692d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2hvcHBpbmclMjBjYXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    15),
               ),
             ),
           ),
