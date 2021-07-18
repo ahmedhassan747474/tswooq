@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/order.dart';
-import '';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -15,47 +14,50 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 88,
-          child: AspectRatio(
-            aspectRatio: 0.88,
-            child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F6F9),
-                borderRadius: BorderRadius.circular(15),
+    return Card(
+      child: Row(
+        children: [
+          SizedBox(
+            width: 88,
+            child: AspectRatio(
+              aspectRatio: 0.88,
+              child: Container(
+                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5F6F9),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Image.network(
+                    "https://images.unsplash.com/photo-1581067721837-e4809b29692d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2hvcHBpbmclMjBjYXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
               ),
-              child: Image.network("https://images.unsplash.com/photo-1581067721837-e4809b29692d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2hvcHBpbmclMjBjYXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
             ),
           ),
-        ),
-        SizedBox(width: 20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              order.ordersId.toString(),
-              style: TextStyle(color: Colors.black, fontSize: 16),
-              maxLines: 2,
-            ),
-            SizedBox(height: 10),
-            Text.rich(
-              TextSpan(
-                text: "\$${order.orderPrice}",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, color: kPrimaryColor),
-                children: [
-                  TextSpan(
-                      text: " x${order.totalTax}",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
+          SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                order.ordersId.toString(),
+                style: TextStyle(color: Colors.black, fontSize: 16),
+                maxLines: 2,
               ),
-            )
-          ],
-        )
-      ],
+              SizedBox(height: 10),
+              Text.rich(
+                TextSpan(
+                  text: "\$${order.orderPrice}",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: kPrimaryColor),
+                  children: [
+                    TextSpan(
+                        text: " x${order.totalTax}",
+                        style: Theme.of(context).textTheme.bodyText1),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/screens/order_list/order_products.dart';
 import 'package:shop_app/utils/api_order.dart';
 
-import '../../enums.dart';
 import '../../size_config.dart';
 import 'component/order_card.dart';
 
 class OrderListScreen extends StatefulWidget {
-
   @override
   _OrderListScreenState createState() => _OrderListScreenState();
 }
@@ -32,12 +29,11 @@ class _OrderListScreenState extends State<OrderListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: buildAppBar(context),
-        body: body(
-          order.data,
-        ),
-        bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.orders),
-        );
+      appBar: buildAppBar(context),
+      body: body(
+        order.data,
+      ),
+    );
   }
 
   Widget body(List<OrderDetails> order) {
@@ -70,9 +66,11 @@ class _OrderListScreenState extends State<OrderListScreen> {
               ),
             ),
             child: GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(
-                           MaterialPageRoute(builder: (context) => OrderProductsScreen(product: order[index].data,)));
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => OrderProductsScreen(
+                            product: order[index].data,
+                          )));
                 },
                 child: OrderCard(order: order[index])),
           ),
