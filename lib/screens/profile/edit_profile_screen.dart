@@ -1,11 +1,13 @@
-import 'dart:html';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/user.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
+import 'package:shop_app/utils/contents.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import '../../constants.dart';
@@ -25,6 +27,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String userName;
   String email;
   String phone;
+  XFile tmpFile;
+
+  bool showNawImage = false;
+
+  choseImage(ImageSource source) async {
+    final ImagePicker _picker = ImagePicker();
+    tmpFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: ImageConfig.QUALITY,
+      maxWidth: ImageConfig.WIDTH,
+      maxHeight: ImageConfig.HEIGHT,
+    );
+    setState(() {});
+  }
 
   bool showPassword = false;
   final List<String> errors = [];
@@ -33,6 +49,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void initState() {
     user = ApiProvider.user;
   }
+
   void addError({String error}) {
     if (!errors.contains(error))
       setState(() {
@@ -54,8 +71,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
       if (_formKey.currentState.validate()) {
         print('111111111111111111111');
         _formKey.currentState.save();
-      //  LoadingScreen.show(context);
-        await ApiProvider.instance.editProfile(phone, "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",userName, firstName, lastName,email);
+        //  LoadingScreen.show(context);
+        await ApiProvider.instance.editProfile(
+            phone,
+            "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+            userName,
+            firstName,
+            lastName,
+            email);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
         // Navigator.of(context).pushReplacement(
@@ -85,12 +108,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
       if (mounted) setState(() {});
     }
   }
+
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
+        title: Text(
+          "Edit Profile",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+        ),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -102,7 +132,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           IconButton(
             icon: Icon(
               Icons.settings,
-            //  color: Colors.green,
+              //  color: Colors.green,
             ),
             onPressed: () {
               // Navigator.of(context).push(MaterialPageRoute(
@@ -112,19 +142,62 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+        padding: EdgeInsets.only(left: 16, right: 16),
         child: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
           },
           child: ListView(
             children: [
-              Text(
-                "Edit Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
               SizedBox(
-                height: 15,
+                height: 35,
+              ),
+              InkWell(
+                onTap: () {
+                  choseImage(ImageSource.gallery);
+                  showNawImage = true;
+                },
+                child: Center(
+                  child: Container(
+                    height: height * 0.14,
+                    width: width * 0.31,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: tmpFile != null
+                          ? Image.file(File(tmpFile.path))
+                          : Container(
+                              width: 100,
+                              height: 100,
+                              child: Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 50,
+                                    child: helpImage("_userInfo.avatar", 50),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        color: kColorAccent,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: Colors.black87,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
               ),
               Center(
                 child: Stack(
@@ -165,7 +238,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             color: Colors.green,
                           ),
                           child: IconButton(
-                            onPressed: () async{
+                            onPressed: () async {
                               // File image;
                               // var imagePicker = await ImagePicker.pickImage(source: ImageSource.gallery);
                               // if(imagePicker!= null){
@@ -175,9 +248,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               // }
                             },
                             icon: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
                           ),
                         )),
                   ],
@@ -201,7 +274,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       buildPhoneFormField(),
                     ],
                   )),
-
               SizedBox(
                 height: 35,
               ),
@@ -220,7 +292,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             color: Colors.black)),
                   ),
                   RaisedButton(
-                    onPressed: () {_submit();},
+                    onPressed: () {
+                      _submit();
+                    },
                     color: Colors.green,
                     padding: EdgeInsets.symmetric(horizontal: 50),
                     elevation: 2,
@@ -243,33 +317,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-   TextFormField buildFirstNameFormField() {
-      return TextFormField(
-        initialValue: user.data.firstName,
-        onSaved: (newValue) => firstName = newValue,
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            removeError(error: kPassNullError);
-          }
-          firstName = value;
-        },
-        validator: (value) {
-          if (value.isEmpty) {
-            addError(error: kPassNullError);
-            return "";
-          }
-          return null;
-        },
-        decoration: InputDecoration(
-          labelText: "First Name",
-          hintText: "Enter your First Name",
-          // If  you are using latest version of flutter then lable text and hint text shown like this
-          // if you r using flutter less then 1.20.* then maybe this is not working properly
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
-        ),
-      );
-    }
+  TextFormField buildFirstNameFormField() {
+    return TextFormField(
+      initialValue: user.data.firstName,
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
+        }
+        firstName = value;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPassNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "First Name",
+        hintText: "Enter your First Name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+      ),
+    );
+  }
 
   TextFormField buildLastNameFormField() {
     return TextFormField(
@@ -372,7 +446,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
-        email=value;
+        email = value;
       },
       validator: (value) {
         if (value.isEmpty) {
@@ -394,6 +468,4 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
-
-
-  }
+}
