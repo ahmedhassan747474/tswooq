@@ -36,6 +36,9 @@ dependencies:
   fluttertoast: ^8.0.7
   google_fonts: ^2.1.0
   cached_network_image:
+  get: ^4.1.4
+  image_picker: ^0.8.2
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
