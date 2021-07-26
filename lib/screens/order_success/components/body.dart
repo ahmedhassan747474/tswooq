@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -15,7 +17,7 @@ class Body extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
-          "Order Success",
+          LocaleKeys.Order_Success.tr(),
           style: TextStyle(
             fontSize: getProportionateScreenWidth(30),
             fontWeight: FontWeight.bold,
@@ -26,7 +28,7 @@ class Body extends StatelessWidget {
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
-            text: "Back to home",
+            text:  LocaleKeys.Back_to_home.tr(),
             press: () {
               Navigator.pushNamed(context, HomeScreen.routeName);
             },

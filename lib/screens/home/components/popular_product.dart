@@ -3,7 +3,9 @@ import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../size_config.dart';
 
@@ -39,7 +41,7 @@ class _PopularProductState extends State<PopularProduct> {
           padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-            title: "Popular Products",
+            title:(LocaleKeys.Popular_Products_translate.tr()),
             press: () {},
           ),
         ),

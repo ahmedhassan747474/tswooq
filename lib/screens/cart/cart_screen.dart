@@ -5,9 +5,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/screens/order_list/order_info_screen.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_cart.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/vars.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 import '../../constants.dart';
 import '../../size_config.dart';
@@ -121,7 +124,7 @@ class _CartScreenState extends State<CartScreen> {
                     child: SvgPicture.asset("assets/icons/receipt.svg"),
                   ),
                   Spacer(),
-                  Text("Add voucher code"),
+                  Text( LocaleKeys.Add_Voucher_translate.tr(),),
                   const SizedBox(width: 10),
                   Icon(
                     Icons.arrow_forward_ios,
@@ -136,7 +139,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   Text.rich(
                     TextSpan(
-                      text: "Total:\n",
+                      text: LocaleKeys.Total_translate.tr()+"\n",
                       children: [
                         TextSpan(
                           text: "\$$sum",
@@ -148,7 +151,7 @@ class _CartScreenState extends State<CartScreen> {
                   SizedBox(
                     width: getProportionateScreenWidth(190),
                     child: DefaultButton(
-                      text: "Check Out",
+                      text:  LocaleKeys.Check_Out_translate.tr(),
                       press: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => OrderInfoScreen(
@@ -226,7 +229,7 @@ class _CartScreenState extends State<CartScreen> {
                                   _submit(product[index].productId);
                                   product.removeAt(index);
                                 calculateTotal();
-                                _toastInfo("item is deleted");
+                                _toastInfo(LocaleKeys.item_is_deleted_translate.tr());
                                 // _submit(product[index].productId);
                                 //   product.removeAt(index);
                                 //setState(() {});
@@ -274,11 +277,11 @@ class _CartScreenState extends State<CartScreen> {
       title: Column(
         children: [
           Text(
-            "Your Cart",
+          LocaleKeys.Cart_translate.tr(),
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${cart.products.length} items",
+            "${cart.products.length}"+ LocaleKeys.items_translate.tr(),
             style: Theme.of(context).textTheme.caption,
           ),
         ],

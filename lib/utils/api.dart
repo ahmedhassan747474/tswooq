@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/user.dart';
@@ -117,16 +119,19 @@ class ApiProvider {
     }
   }
 
-  Future<UserModel> editProfile( String phone, String image, String userName ,String firstName, String lastName, String email) async {
+  Future<UserModel> editProfile( String phone, File image, String userName ,String firstName, String lastName, String email) async {
+    String fileName = image.path.split('/').last;
     // Json Data
-    var _data = {
+    FormData  _data = FormData.fromMap({
       "user_name": "$userName",
       "first_name": "$firstName",
       "last_name": "$lastName",
       "phone": "$phone",
       "email": "$email",
-      "image": "$image",
-    };
+    "image":
+    await MultipartFile.fromFile(image.path, filename:fileName,),
+
+    });
     String token = await _getUserToken();
     var _response = await dio.post(ServerConstants.Update_profile,
         data: _data,

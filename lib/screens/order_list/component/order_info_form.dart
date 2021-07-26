@@ -5,10 +5,12 @@ import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/components/loading_screen.dart';
 import 'package:shop_app/models/user.dart';
 import 'package:shop_app/screens/order_success/login_success_screen.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/api_order.dart';
 import 'package:shop_app/utils/vars.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -110,12 +112,12 @@ class _OrderFormState extends State<OrderForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 3.0),
             child: Text(
-              'Payment Method',
+              LocaleKeys.Payment_Method.tr(),
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
           ),
           ListTile(
-            title: const Text('Cash'),
+            title:  Text(LocaleKeys.Cash.tr()),
             leading: Radio(
               value: "cash",
               groupValue: selectedValue,
@@ -127,7 +129,7 @@ class _OrderFormState extends State<OrderForm> {
             ),
           ),
           ListTile(
-            title: const Text('Visa'),
+            title:  Text( LocaleKeys.Visa.tr(),),
             leading: Radio(
               value: "visa",
               groupValue: selectedValue,
@@ -140,7 +142,7 @@ class _OrderFormState extends State<OrderForm> {
           ),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
+            text:  LocaleKeys.continue_translate.tr(),
             press: _submit,
           ),
         ],
@@ -165,8 +167,8 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Address ",
-        hintText: "Enter your Address",
+        labelText:  LocaleKeys.Address_translate.tr(),
+        hintText: LocaleKeys.Address_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -192,8 +194,8 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "City",
-        hintText: "Enter your city",
+        labelText:LocaleKeys.City.tr(),
+        hintText: LocaleKeys.City_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -226,8 +228,8 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Phone",
-        hintText: "Enter your Phone",
+        labelText:  LocaleKeys.Phone.tr(),
+        hintText:  LocaleKeys.Phone_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -260,8 +262,8 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email",
+        labelText:  LocaleKeys.email_translate.tr(),
+        hintText: LocaleKeys.email_hint_translate.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

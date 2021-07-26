@@ -5,11 +5,13 @@ import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_cart.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/vars.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-import 'color_dots.dart';
+
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
@@ -130,10 +132,10 @@ class BodyState extends State<Body> {
                             top: getProportionateScreenWidth(15),
                           ),
                           child: DefaultButton(
-                            text: "Add To Cart",
+                            text: (LocaleKeys.Add_To_Cart.tr()),
                             press:(){
                               if(widget.product.defaultStock==0)
-                                _toastInfo("can't add it to cart");
+                                _toastInfo(LocaleKeys.not_added_translate.tr());
                               else
                               _submit();},
                           ),

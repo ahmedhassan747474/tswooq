@@ -4,7 +4,9 @@ import 'package:shop_app/components/home_card.dart';
 import 'package:shop_app/models/brands.dart';
 import 'package:shop_app/screens/brand_list/brand_list_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_brands.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Brands extends StatefulWidget {
   @override
@@ -32,7 +34,7 @@ class _BrandsState extends State<Brands> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
-            title: "Brands",
+            title: LocaleKeys.Brands_translate.tr(),
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => BrandListScreen(

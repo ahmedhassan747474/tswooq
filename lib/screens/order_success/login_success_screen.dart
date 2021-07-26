@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'components/body.dart';
 
@@ -9,7 +11,7 @@ class OrderSuccessScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: SizedBox(),
-        title: Text("Order Success"),
+        title: Text(LocaleKeys.Order_Success.tr(),),
       ),
       body: Body(),
     );

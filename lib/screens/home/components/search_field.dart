@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -25,7 +27,7 @@ class SearchField extends StatelessWidget {
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
-            hintText: "Search product",
+            hintText: (LocaleKeys.Search_Product_translate.tr()),
             prefixIcon: Icon(Icons.search)),
       ),
     );

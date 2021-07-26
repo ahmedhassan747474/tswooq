@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/screens/order_list/order_products.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_order.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../size_config.dart';
 import 'component/order_card.dart';
@@ -61,11 +63,11 @@ class _OrderListScreenState extends State<OrderListScreen> {
       title: Column(
         children: [
           Text(
-            "Your Order",
+            LocaleKeys.Your_Order_translate.tr(),
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${order.data.length} items",
+            "${order.data.length} "+ LocaleKeys.items_translate.tr(),
             style: Theme.of(context).textTheme.caption,
           ),
         ],

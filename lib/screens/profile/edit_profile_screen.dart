@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/user.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/contents.dart';
 import 'package:shop_app/utils/vars.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../constants.dart';
 import '../../size_config.dart';
@@ -74,7 +76,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         //  LoadingScreen.show(context);
         await ApiProvider.instance.editProfile(
             phone,
-            "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+            File(tmpFile.path),
             userName,
             firstName,
             lastName,
@@ -118,9 +120,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
         title: Text(
-          "Edit Profile",
+          LocaleKeys.Edit_Profile_translate.tr(),
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
         ),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -199,63 +202,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
               ),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1),
-                                offset: Offset(0, 10))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                              ))),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
-                            color: Colors.green,
-                          ),
-                          child: IconButton(
-                            onPressed: () async {
-                              // File image;
-                              // var imagePicker = await ImagePicker.pickImage(source: ImageSource.gallery);
-                              // if(imagePicker!= null){
-                              //   setState(() {
-                              //     image=imagePicker;
-                              //   });
-                              // }
-                            },
-                            icon: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )),
-                  ],
-                ),
-              ),
               SizedBox(
                 height: 35,
               ),
@@ -285,7 +231,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     onPressed: () {},
-                    child: Text("CANCEL",
+                    child: Text(LocaleKeys.CANCEL_translate.tr(),
                         style: TextStyle(
                             fontSize: 14,
                             letterSpacing: 2.2,
@@ -301,7 +247,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     child: Text(
-                      "SAVE",
+                      LocaleKeys.SAVE_translate.tr(),
                       style: TextStyle(
                           fontSize: 14,
                           letterSpacing: 2.2,
@@ -335,8 +281,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your First Name",
+        labelText: LocaleKeys.First_Name_translate.tr(),
+        hintText: LocaleKeys.Enter_your_First_Name_translate.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -363,8 +309,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your Last Name",
+        labelText: LocaleKeys.Last_Name_translate.tr(),
+        hintText: LocaleKeys.Last_Name_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -391,8 +337,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Usr Name",
-        hintText: "Enter your User Name",
+        labelText: LocaleKeys.User_Name.tr(),
+        hintText: LocaleKeys.User_Name_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -425,8 +371,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Phone",
-        hintText: "Enter your Phone",
+        labelText: LocaleKeys.Phone.tr(),
+        hintText: LocaleKeys.Phone_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -459,8 +405,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email",
+        labelText: LocaleKeys.email_translate.tr(),
+        hintText: LocaleKeys.email_hint_translate.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

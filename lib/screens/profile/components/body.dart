@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/profile/language_screen.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../edit_profile_screen.dart';
 import 'profile_menu.dart';
@@ -14,27 +17,32 @@ class Body extends StatelessWidget {
           ProfilePic(),
           SizedBox(height: 20),
           ProfileMenu(
-            text: "My Account",
+            text: LocaleKeys.MyAccount.tr(),
             icon: "assets/icons/User Icon.svg",
             press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProfilePage()));},
           ),
           ProfileMenu(
-            text: "Notifications",
+            text: LocaleKeys.Notifications.tr(),
             icon: "assets/icons/Bell.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Settings",
+            text: LocaleKeys.Settings.tr(),
             icon: "assets/icons/Settings.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Help Center",
+            text: LocaleKeys.Help_Center.tr(),
             icon: "assets/icons/Question mark.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Log Out",
+            text: LocaleKeys.language_translate.tr(),
+            icon: "assets/icons/Log out.svg",
+            press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => LanguageScreen()));},
+          ),
+          ProfileMenu(
+            text: LocaleKeys.Log_Out.tr(),
             icon: "assets/icons/Log out.svg",
             press: () {},
           ),

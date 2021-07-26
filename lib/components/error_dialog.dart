@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/vars.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ErrorPopUp extends StatelessWidget {
   final String message;
@@ -11,7 +13,7 @@ class ErrorPopUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
       title: Text(
-        "عذرا..",
+          LocaleKeys.sorry_translate.tr(),
         style: TextStyle(),
       ),
       content: Column(
@@ -27,7 +29,7 @@ class ErrorPopUp extends StatelessWidget {
           RaisedButton(
             color: AppColors.PRIMARY_COLOR,
             child: Text(
-              "حسنا",
+              LocaleKeys.ok_translate.tr(),
               style: TextStyle(
                 color: Colors.white,
               ),

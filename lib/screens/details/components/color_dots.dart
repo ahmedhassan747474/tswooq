@@ -20,7 +20,7 @@ class ColorDots extends StatefulWidget {
   }
 }
 class ColorDotsState extends State<ColorDots>{
-  int counter =0;
+  int counter =1;
   @override
   Widget build(BuildContext context) {
     // Now this is fixed and only for demo
@@ -42,7 +42,7 @@ class ColorDotsState extends State<ColorDots>{
             icon: Icons.remove,
             press: () {
               setState(() {
-                if(counter>0)
+                if(counter>1)
                 counter--;
               });
             },

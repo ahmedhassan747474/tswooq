@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 
 import '../../../size_config.dart';
 
@@ -27,7 +29,7 @@ class SectionTitle extends StatelessWidget {
         GestureDetector(
           onTap: press,
           child: Text(
-            "See More",
+          LocaleKeys.See_More_translate.tr(),
             style: TextStyle(color: Color(0xFFBBBBBB)),
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 
 import 'sign_up_form.dart';
 
@@ -17,11 +19,11 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Register Account", style: headingStyle),
-                Text(
-                  "Complete your details or continue \nwith social media",
-                  textAlign: TextAlign.center,
-                ),
+                Text(LocaleKeys.sign_up_translate.tr(), style: headingStyle),
+                // Text(
+                //   "Complete your details or continue \nwith social media",
+                //   textAlign: TextAlign.center,
+                // ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignUpForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
@@ -43,11 +45,11 @@ class Body extends StatelessWidget {
                 //   ],
                 // ),
                 SizedBox(height: getProportionateScreenHeight(20)),
-                Text(
-                  'By continuing your confirm that you agree \nwith our Term and Condition',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.caption,
-                )
+                // Text(
+                //   'By continuing your confirm that you agree \nwith our Term and Condition',
+                //   textAlign: TextAlign.center,
+                //   style: Theme.of(context).textTheme.caption,
+                // )
               ],
             ),
           ),

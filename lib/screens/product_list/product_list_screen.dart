@@ -4,7 +4,9 @@ import 'package:shop_app/components/home_card.dart';
 import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../size_config.dart';
 
@@ -42,7 +44,7 @@ class ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Products",
+          LocaleKeys.Products.tr(),
           style: TextStyle(color: Colors.black),
         ),
 
