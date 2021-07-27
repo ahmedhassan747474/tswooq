@@ -26,7 +26,7 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class ProductListScreenState extends State<ProductListScreen> {
-  ProductsModel product = new ProductsModel(data: []);
+  ProductsModel product = new ProductsModel(productData: []);
   bool isGridView=true;
   @override
   void initState() {
@@ -73,14 +73,14 @@ class ProductListScreenState extends State<ProductListScreen> {
     return  Padding(
         padding: EdgeInsets.all(getProportionateScreenWidth(40)),
         child: ListView.builder(
-          itemCount: product.data.length ?? 0,
+          itemCount: product.productData.length ?? 0,
           itemBuilder:  (ctx,index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: GestureDetector(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsScreen(product: product.data[index],)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsScreen(product: product.productData[index],)));
               },
-                child: ProductCard(product: product.data[index]))))
+                child: ProductCard(product: product.productData[index]))))
         );
   }
   Widget gridView(ProductsModel product) {
@@ -92,7 +92,7 @@ class ProductListScreenState extends State<ProductListScreen> {
 
             staggeredTileBuilder: (_) => StaggeredTile.extent(1, 230),
             // //  controller: popularProvider.scrollController,/
-            itemCount: product.data.length ?? 0,
+            itemCount: product.productData.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -100,10 +100,10 @@ class ProductListScreenState extends State<ProductListScreen> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => DetailsScreen(
-                              product: product.data[index],
+                              product: product.productData[index],
                             )));
                       },
-                      child: ProductCard(product: product.data[index])));
+                      child: ProductCard(product: product.productData[index])));
             }),
     );
   }

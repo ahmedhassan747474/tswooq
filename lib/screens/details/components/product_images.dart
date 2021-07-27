@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/helper/keyboard.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/products.dart';
 
 import '../../../constants.dart';
@@ -29,7 +29,7 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: " ${helpHero()}" + widget.product.productsId.toString(),
-              child: Image.network(widget.product.productsImage),
+              child: helpImage(widget.product.productsImage,0),
             ),
           ),
         ),
@@ -63,7 +63,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.network(widget.product.productsImage),
+        child: helpImage(widget.product.productsImage,0),
       ),
     );
   }

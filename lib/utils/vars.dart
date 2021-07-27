@@ -81,7 +81,7 @@ class ServerConstants {
       "${API}list_of_restaurants_by_category?id=";
   static const String Notifications = "${API}customer/notifications";
   static const String restaurant_qr = "${API}restaurant_qr/";
-  static const String search = "${API}search";
+  static const String search = "${API}getfilterproducts";
 
   //BasicCategories_List
   static const String BasicCategories_List = "${API}basic-categories";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/products.dart';
 
 import '../constants.dart';
@@ -33,7 +34,7 @@ class ProductCard extends StatelessWidget {
                 ),
                 child: Hero(
                   tag: product.productsId.toString(),
-                  child: Image.network(product.productsImage),
+                  child: helpImage(product.productsImage,0),
                 ),
               ),
             ),

@@ -17,7 +17,7 @@ class PopularProduct extends StatefulWidget {
 }
 
 class _PopularProductState extends State<PopularProduct> {
-  ProductsModel products = new ProductsModel(data: []);
+  ProductsModel products = new ProductsModel(productData: []);
 
 
   @override
@@ -49,14 +49,14 @@ class _PopularProductState extends State<PopularProduct> {
         Expanded(
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: products.data.length ?? 0,
+            itemCount: products.productData.length ?? 0,
             itemBuilder:  (ctx,index) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: GestureDetector(
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsScreen(product: products.data[index],)));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsScreen(product: products.productData[index],)));
                 },
-                  child: ProductCard(product: products.data[index]))
+                  child: ProductCard(product: products.productData[index]))
             ),
           ),
         ),

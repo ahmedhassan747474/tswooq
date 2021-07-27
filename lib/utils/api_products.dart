@@ -122,6 +122,42 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
+  Future<ProductsModel> filter(int pageNumber, int  minPrice, int maxPrice,) async {
+    // Json Data
+    var _data = {
+      "page_number": pageNumber,
+      "minPrice": minPrice,
+      "maxPrice": maxPrice,
+      "language_id": 1,
+      "current_currency": "SAR",
+      "currency_code":  "SAR",
+      "filters[0][name]": "Memory",
+      "filters[0][value]": "64GB"
+    };
+    var _response = await dio.post(ServerConstants.search,
+        data: _data,
+        options: Options(
+          headers: {...apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      products = ProductsModel.fromJson(_response.data);
+      return products;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
 }
 
 

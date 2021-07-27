@@ -116,7 +116,9 @@ class ProductDescriptionState extends State<ProductDescription> {
             child: Row(
               children: [
                 Text(
-                  flag ? LocaleKeys.See_More_translate.tr() :  LocaleKeys.show_less_translate.tr(),
+                  flag
+                      ? LocaleKeys.See_More_translate.tr()
+                      : LocaleKeys.show_less_translate.tr(),
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
                 ),
@@ -130,10 +132,31 @@ class ProductDescriptionState extends State<ProductDescription> {
             ),
           ),
         ),
+        SizedBox(width: 10),
+        for (var item in widget.product.attributes)
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+            child: Text(item.color),
+          ),
+        SizedBox(
+          height: 5,
+        ),
+        for (var item in widget.product.attributes)
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+            child: item.size != null ? Text(item.color) : Container(),
+          ),
         SizedBox(width: 5),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: widget.product.defaultStock==0?Center(child: Text(LocaleKeys.Not_Available.tr(),style: TextStyle(color: Colors.red),)):Container(),
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: widget.product.defaultStock == 0
+              ? Center(
+                  child: Text(
+                  LocaleKeys.Not_Available.tr(),
+                  style: TextStyle(color: Colors.red),
+                ))
+              : Container(),
         )
       ],
     );
