@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/form_error.dart';
@@ -9,7 +10,6 @@ import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/vars.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -67,7 +67,7 @@ class _SignFormState extends State<SignForm> {
         print(e.response.statusCode);
       } else {
         print(e.message);
-       // print(e.request);
+        // print(e.request);
       }
     } catch (e) {
       print('catch');
@@ -92,16 +92,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           Row(
             children: [
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
-              Text(LocaleKeys.remember_translate.tr(),),
+              SizedBox(),
               Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(

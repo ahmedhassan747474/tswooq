@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/helper/help.dart';
 
 import '../../../size_config.dart';
 
@@ -30,10 +31,12 @@ class CustomAppBar extends PreferredSize {
                 color: Colors.white,
                 padding: EdgeInsets.zero,
                 onPressed: () => Navigator.pop(context),
-                child: SvgPicture.asset(
-                  "assets/icons/Back ICon.svg",
-                  height: 15,
-                ),
+                child: helpEn(context)
+                    ? SvgPicture.asset(
+                        "assets/icons/Back ICon.svg",
+                        height: 15,
+                      )
+                    : Icon(Icons.arrow_back_ios_rounded),
               ),
             ),
             Spacer(),

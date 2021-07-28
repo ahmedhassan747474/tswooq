@@ -1,22 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/routes.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/theme.dart';
 import 'package:shop_app/translations/codegen_loader.g.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
-    path: "assets/translations",
+      path: "assets/translations",
       supportedLocales: [
-        Locale("en"),
         Locale("ar"),
+        Locale("en"),
       ],
       fallbackLocale: Locale("en"),
       assetLoader: CodegenLoader(),
+      saveLocale: true,
       child: MyApp()));
 }
 

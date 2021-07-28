@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/default_button.dart';
@@ -9,12 +10,10 @@ import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_cart.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/vars.dart';
-import 'package:easy_localization/easy_localization.dart';
-
 
 import 'product_description.dart';
-import 'top_rounded_container.dart';
 import 'product_images.dart';
+import 'top_rounded_container.dart';
 
 class Body extends StatefulWidget {
   final Products product;
@@ -29,7 +28,7 @@ class Body extends StatefulWidget {
 }
 
 class BodyState extends State<Body> {
-  int counter = 0;
+  int counter = 1;
 
   Future<void> _submit() async {
     try {
@@ -88,23 +87,16 @@ class BodyState extends State<Body> {
                             horizontal: getProportionateScreenWidth(20)),
                         child: Row(
                           children: [
-                            // ...List.generate(
-                            // //  product.colors.length,
-                            //   (index) => ColorDot(
-                            //     color: product.colors[index],
-                            //     isSelected: index == selectedColor,
-                            //   ),
-                            // ),
                             Spacer(),
                             RoundedIconBtn(
                               icon: Icons.remove,
                               press: () {
                                 setState(() {
-                                  if (counter > 0) counter--;
+                                  if (counter > 1) counter--;
                                 });
                               },
                             ),
-                            SizedBox(width: getProportionateScreenWidth(20)),
+                            SizedBox(width: 20),
                             Text(
                               counter.toString(),
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -131,14 +123,38 @@ class BodyState extends State<Body> {
                             bottom: getProportionateScreenWidth(40),
                             top: getProportionateScreenWidth(15),
                           ),
-                          child: DefaultButton(
-                            text: (LocaleKeys.Add_To_Cart.tr()),
-                            press:(){
-                              if(widget.product.defaultStock==0)
-                                _toastInfo(LocaleKeys.not_added_translate.tr());
-                              else
-                              _submit();},
-                          ),
+                          child: widget.product.defaultStock == 0
+                              ? Container(
+                                  height: 50,
+                                  color: Colors.red,
+                                  width: 56,
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height: 56,
+                                    child: FlatButton(
+                                      color: Colors.amber,
+                                      // onPressed: press,
+                                      child: Text(
+                                        "غير متوفر",
+                                        style: TextStyle(
+                                          fontSize:
+                                              getProportionateScreenWidth(18),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : DefaultButton(
+                                  text: (LocaleKeys.Add_To_Cart.tr()),
+                                  press: () {
+                                    if (widget.product.defaultStock == 0)
+                                      _toastInfo(
+                                          LocaleKeys.not_added_translate.tr());
+                                    else
+                                      _submit();
+                                  },
+                                ),
                         ),
                       ),
                     ],
@@ -151,6 +167,7 @@ class BodyState extends State<Body> {
       ),
     );
   }
+
   _toastInfo(String info) {
     Fluttertoast.showToast(
         msg: info,

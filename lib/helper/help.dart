@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,9 +24,15 @@ int helpHero() {
   return i++;
 }
 
+String helpLanguage = 'ar';
 Locale helpLocale = Locale('en');
-helpEn() {
-  return helpLocale.toString() == 'en';
+helpEn(BuildContext context) {
+  if (context.locale == EasyLocalization.of(context).supportedLocales[0]) {
+    helpLanguage = 'en';
+  } else {
+    helpLanguage = 'ar';
+  }
+  return context.locale == EasyLocalization.of(context).supportedLocales[0];
 }
 
 class LoadingClass extends StatelessWidget {
