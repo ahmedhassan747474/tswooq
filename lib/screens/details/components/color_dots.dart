@@ -10,9 +10,11 @@ class ColorDots extends StatefulWidget {
   const ColorDots({
     Key key,
     @required this.product,
+    @required this.price,
   }) : super(key: key);
 
   final Products product;
+  final String price;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -37,6 +39,7 @@ class ColorDotsState extends State<ColorDots>{
           //     isSelected: index == selectedColor,
           //   ),
           // ),
+          Text(widget.price),
           Spacer(),
           RoundedIconBtn(
             icon: Icons.remove,

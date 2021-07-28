@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
@@ -11,6 +12,7 @@ import 'package:shop_app/utils/api_cart.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/vars.dart';
 
+import '../../../constants.dart';
 import 'product_description.dart';
 import 'product_images.dart';
 import 'top_rounded_container.dart';
@@ -29,6 +31,35 @@ class Body extends StatefulWidget {
 
 class BodyState extends State<Body> {
   int counter = 1;
+  String price= '';
+  List images;
+  int id = 0;
+ double  borderWidth =1.0;
+  String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    return htmlText.replaceAll(exp, '');
+  }
+
+  String firstHalf;
+  String secondHalf;
+
+  bool flag = true;
+
+
+  @override
+  void initState() {
+    super.initState();
+    id = widget.product.productsId;
+
+    if (widget.product.productsDescription.length > 50) {
+      firstHalf = widget.product.productsDescription.substring(0, 50);
+      secondHalf = widget.product.productsDescription
+          .substring(50, widget.product.productsDescription.length);
+    } else {
+      firstHalf = widget.product.productsDescription;
+      secondHalf = "";
+    }
+  }
 
   Future<void> _submit() async {
     try {
@@ -74,9 +105,125 @@ class BodyState extends State<Body> {
             color: Colors.white,
             child: Column(
               children: [
-                ProductDescription(
-                  product: widget.product,
-                  pressOnSeeMore: () {},
+                Padding(
+                  padding:
+                  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+                  child: Text(
+                    widget.product.productsName,
+                   // price,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+                    width: getProportionateScreenWidth(64),
+                    decoration: BoxDecoration(
+                      color: widget.product.isLiked == "0"
+                          ? Color(0xFFFFE6E6)
+                          : Color(0xFFF5F6F9),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                    ),
+                    child: SvgPicture.asset(
+                      "assets/icons/Heart Icon_2.svg",
+                      color: widget.product.isLiked == "0"
+                          ? Color(0xFFFF4848)
+                          : Color(0xFFDBDEE4),
+                      height: getProportionateScreenWidth(16),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: getProportionateScreenWidth(20),
+                    right: getProportionateScreenWidth(64),
+                  ),
+                  child: secondHalf.isEmpty
+                      ? Text(
+                    removeAllHtmlTags(firstHalf),
+                    maxLines: 3,
+                  )
+                      : Text(flag
+                      ? (removeAllHtmlTags(firstHalf) + "...")
+                      : (removeAllHtmlTags(firstHalf) +
+                      removeAllHtmlTags(secondHalf))),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20),
+                    vertical: 10,
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        flag = !flag;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          flag
+                              ? LocaleKeys.See_More_translate.tr()
+                              : LocaleKeys.show_less_translate.tr(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: kPrimaryColor),
+                        ),
+                        SizedBox(width: 5),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 12,
+                          color: kPrimaryColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+
+                for (var item in widget.product.attributes)
+
+                  GestureDetector(
+                    onTap: (){
+                      price = item.price;
+                      id = item.id;
+                      if (item.id == id )
+                        borderWidth = 3.0;
+
+                      setState(() {
+
+                      });
+                    },
+                    child: Container(
+                      height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                        padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+                        decoration: BoxDecoration(
+                          border:  Border.all(color: Colors.black, width: borderWidth)
+                        ),
+                        child:Row(
+                          children: [
+                            Text(item.color),
+                            item.size != null ? Text(item.size) : Container(),
+                          ],
+                        )
+
+                    ),
+                  ),
+                SizedBox(width: 5),
+                Padding(
+                  padding:
+                  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+                  child: widget.product.defaultStock == 0
+                      ? Center(
+                      child: Text(
+                        LocaleKeys.Not_Available.tr(),
+                        style: TextStyle(color: Colors.red),
+                      ))
+                      : Container(),
                 ),
                 TopRoundedContainer(
                   color: Color(0xFFF6F7F9),
@@ -87,6 +234,9 @@ class BodyState extends State<Body> {
                             horizontal: getProportionateScreenWidth(20)),
                         child: Row(
                           children: [
+                            price != ''?
+                            Text(price):
+                            Text(widget.product.attributes[0].price),
                             Spacer(),
                             RoundedIconBtn(
                               icon: Icons.remove,

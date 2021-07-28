@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/helper/help.dart';
 
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
@@ -27,6 +28,7 @@ class ProductDescription extends StatefulWidget {
 }
 
 class ProductDescriptionState extends State<ProductDescription> {
+  String price;
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
     return htmlText.replaceAll(exp, '');
@@ -134,17 +136,23 @@ class ProductDescriptionState extends State<ProductDescription> {
         ),
         SizedBox(width: 10),
         for (var item in widget.product.attributes)
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-            child: Text(item.color),
-          ),
-        SizedBox(
-          height: 5,
-        ),
-        for (var item in widget.product.attributes)
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-            child: item.size != null ? Text(item.color) : Container(),
+          GestureDetector(
+            onTap: (){
+              price = item.price;
+            },
+            child: Container(
+              padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+              decoration: BoxDecoration(
+                border: Border(),
+              ),
+              child:Row(
+              children: [
+                Text(widget.product.attributes.length.toString()),
+                item.size != null ? Text(item.size) : Container(),
+              ],
+              )
+
+            ),
           ),
         SizedBox(width: 5),
         Padding(
