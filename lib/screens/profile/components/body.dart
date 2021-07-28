@@ -42,6 +42,10 @@ class Body extends StatelessWidget {
             text: LocaleKeys.language_translate.tr(),
             icon: "assets/icons/Log out.svg",
             press: () async {
+              print(context
+                  .supportedLocales); // output: [en_US, ar_DZ, de_DE, ru_RU]
+
+              print(context.fallbackLocale);
               if (context.locale ==
                   EasyLocalization.of(context).supportedLocales[0]) {
                 // await context.setLocale(

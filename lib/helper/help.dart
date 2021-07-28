@@ -32,7 +32,7 @@ helpEn(BuildContext context) {
   } else {
     helpLanguage = 'ar';
   }
-  return context.locale == EasyLocalization.of(context).supportedLocales[0];
+  return context.locale == EasyLocalization.of(context).supportedLocales[1];
 }
 
 class LoadingClass extends StatelessWidget {
