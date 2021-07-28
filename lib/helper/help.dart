@@ -27,12 +27,12 @@ int helpHero() {
 String helpLanguage = 'ar';
 Locale helpLocale = Locale('en');
 helpEn(BuildContext context) {
-  if (context.locale == EasyLocalization.of(context).supportedLocales[0]) {
+  if (context.locale.toString() == 'ar') {
     helpLanguage = 'en';
   } else {
     helpLanguage = 'ar';
   }
-  return context.locale == EasyLocalization.of(context).supportedLocales[1];
+  return context.locale.toString() == 'en';
 }
 
 class LoadingClass extends StatelessWidget {

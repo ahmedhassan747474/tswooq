@@ -42,24 +42,18 @@ class Body extends StatelessWidget {
             text: LocaleKeys.language_translate.tr(),
             icon: "assets/icons/Log out.svg",
             press: () async {
-              print(context
-                  .supportedLocales); // output: [en_US, ar_DZ, de_DE, ru_RU]
-
-              print(context.fallbackLocale);
-              if (context.locale ==
-                  EasyLocalization.of(context).supportedLocales[0]) {
-                // await context.setLocale(
-                //   Locale("en"),
-                // );
-                await context.setLocale(
-                  Locale("ar"),
-                );
-              } else {
-                // await context.setLocale(
-                //   Locale("ar"),
-                // );
+              // print(context
+              //     .supportedLocales); // output: [en_US, ar_DZ, de_DE, ru_RU]
+              // print("${context.deviceLocale.toString()}");
+              // print(context.fallbackLocale);
+              // print(context.locale.toString());
+              if (context.locale.toString() == 'ar') {
                 await context.setLocale(
                   Locale("en"),
+                );
+              } else {
+                await context.setLocale(
+                  Locale("ar"),
                 );
               }
             },
