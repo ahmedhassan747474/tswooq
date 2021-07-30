@@ -21,7 +21,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  CartModel cart = new CartModel(products: []);
+  CartModel cart = new CartModel(productData: []);
   double sum = 0;
   bool _isLoading = true;
 
@@ -39,9 +39,9 @@ class _CartScreenState extends State<CartScreen> {
 
   calculateTotal() {
     sum = 0;
-    if (cart.products?.length != 0) {
-      cart.products.forEach((element) {
-        sum += double.parse(element.productDetail.productsPrice);
+    if (cart.productData?.length != 0) {
+      cart.productData.forEach((element) {
+        sum += double.parse(element.attributes.productsPrice);
       });
     }
   }
@@ -84,7 +84,7 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: body(
-        cart.products,
+        cart.productData,
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(
@@ -180,11 +180,11 @@ class _CartScreenState extends State<CartScreen> {
           itemBuilder: (context, index) => Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Dismissible(
-                key: Key(product[index].productId.toString()),
+                key: Key(product[index].productsId.toString()),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
                   setState(() {
-                    _submit(product[index].productId);
+                    _submit(product[index].productsId);
                   });
                 },
                 background: Container(
@@ -214,7 +214,7 @@ class _CartScreenState extends State<CartScreen> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Image.network("https://tswooq.com/" +
-                              product[index].productDetail.productsImage),
+                              product[index].productsImage),
                         ),
                       ),
                     ),
@@ -226,7 +226,7 @@ class _CartScreenState extends State<CartScreen> {
                           GestureDetector(
                               onTap: () {
 
-                                  _submit(product[index].productId);
+                                  _submit(product[index].productsId);
                                   product.removeAt(index);
                                 calculateTotal();
                                 _toastInfo(LocaleKeys.item_is_deleted_translate.tr());
@@ -241,7 +241,7 @@ class _CartScreenState extends State<CartScreen> {
                                     color: Colors.red,
                                   ))),
                           Text(
-                            product[index].productDetail.productsName,
+                            product[index].productsName,
                             style: TextStyle(color: Colors.black, fontSize: 16),
                             maxLines: 2,
                           ),
@@ -249,13 +249,13 @@ class _CartScreenState extends State<CartScreen> {
                           Text.rich(
                             TextSpan(
                               text:
-                                  "\$${product[index].productDetail.productsPrice}",
+                                  "\$${product[index].attributes[index].price}",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: kPrimaryColor),
                               children: [
                                 TextSpan(
-                                    text: " x${product[index].quantity}",
+                                    text: " x${product[index].productsQuantity}",
                                     style:
                                         Theme.of(context).textTheme.bodyText1),
                               ],
@@ -281,7 +281,7 @@ class _CartScreenState extends State<CartScreen> {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${cart.products.length}"+ LocaleKeys.items_translate.tr(),
+            "${cart.productData.length}"+ LocaleKeys.items_translate.tr(),
             style: Theme.of(context).textTheme.caption,
           ),
         ],

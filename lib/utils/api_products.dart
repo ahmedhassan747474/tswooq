@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/user.dart';
+import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -158,6 +160,120 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+  Future<ProductsModel> likeProduct(int productId) async {
+    // Json Data
+    var _data = {
+      "product_id": productId,
+    };
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.Like_Product,
+        data: _data,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      products = ProductsModel.fromJson(_response.data);
+      return products;
+      // categories = AllCategoriesModel.fromJson(_response.data);
+      //return categories;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....like***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+  Future<ProductsModel> unLikeProduct(int productId) async {
+    // Json Data
+    var _data = {
+      "product_id": productId,
+    };
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.UnLike_Product,
+        data: _data,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      products = ProductsModel.fromJson(_response.data);
+      return products;
+      // categories = AllCategoriesModel.fromJson(_response.data);
+      //return categories;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....like***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+  Future<ProductsModel> getFav() async {
+    // Json Data
+    var _data = {
+      "language_id": 1,
+      "page": 1,
+      "limit": 30,
+    };
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.Get_Fav,
+        data: _data,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      products = ProductsModel.fromJson(_response.data);
+      return products;
+      // categories = AllCategoriesModel.fromJson(_response.data);
+      //return categories;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....fav***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
 }
 
 
+Future<String> _getUserToken() async {
+  print('_getUserToken()');
+  UserModel user = UserModel();
+  print('UserModel');
+
+  String userToken = await user.getToken;
+  print(userToken);
+  if (userToken == null) throw "User Not Logged In";
+  return userToken;
+}
