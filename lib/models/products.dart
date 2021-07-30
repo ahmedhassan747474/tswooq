@@ -202,7 +202,8 @@ class Products {
                 ? null
                 : json["products_right_banner_expire_date"],
         currency: currencyValues.map[json["currency"]],
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: json["images"] != [] ??
+            List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
         categories: List<Category>.from(
             json["categories"].map((x) => Category.fromJson(x))),
         rating: json["rating"],
@@ -210,8 +211,8 @@ class Products {
             List<dynamic>.from(json["reviewed_customers"].map((x) => x)),
         defaultStock: json["defaultStock"],
         isLiked: json["isLiked"],
-        attributes: List<Attribute>.from(
-            json["attributes"].map((x) => Attribute.fromJson(x))),
+        // attributes: List<Attribute>.from(
+        //     json["attributes"].map((x) => Attribute.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -302,7 +303,7 @@ class Attribute {
         color: json["color"],
         id: json["id"],
         price: json["price"].toString() ?? '',
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        // images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
         memory: json["Memory"] == null ? null : json["Memory"],
         size: json["size"] == null ? null : json["size"],
       );

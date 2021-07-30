@@ -188,7 +188,6 @@ class BodyState extends State<Body> {
                     onTap: () {
                       price = item.price;
                       id = item.id;
-                      // if (item.id == id) borderWidth = 3.0;
 
                       setState(() {});
                     },

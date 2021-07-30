@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/models/user.dart';
-import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -62,13 +62,7 @@ class ApiProducts {
 
   Future<ProductsModel> getProductsByCategory(int id) async {
     // Json Data
-    var _data = {
-      "language_id": 1,
-      "limit": 100,
-      "page": 1,
-      "category_id": id
-
-    };
+    var _data = {"language_id": 1, "limit": 100, "page": 1, "category_id": id};
     var _response = await dio.post(ServerConstants.Products_By_Category,
         data: _data,
         options: Options(
@@ -92,15 +86,10 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
   Future<ProductsModel> getProductsByBrand(int id) async {
     // Json Data
-    var _data = {
-      "language_id": 1,
-      "limit": 100,
-      "page": 1,
-      "brand_id": id
-
-    };
+    var _data = {"language_id": 1, "limit": 100, "page": 1, "brand_id": id};
     var _response = await dio.post(ServerConstants.Products_By_Brand,
         data: _data,
         options: Options(
@@ -125,7 +114,11 @@ class ApiProducts {
     }
   }
 
-  Future<ProductsModel> filter(int pageNumber, int  minPrice, int maxPrice,) async {
+  Future<ProductsModel> filter(
+    int pageNumber,
+    int minPrice,
+    int maxPrice,
+  ) async {
     // Json Data
     var _data = {
       "page_number": pageNumber,
@@ -133,7 +126,7 @@ class ApiProducts {
       "maxPrice": maxPrice,
       "language_id": 1,
       "current_currency": "SAR",
-      "currency_code":  "SAR",
+      "currency_code": "SAR",
       "filters[0][name]": "Memory",
       "filters[0][value]": "64GB"
     };
@@ -160,7 +153,8 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
-  Future<ProductsModel> search(String search) async {
+
+  Future<SearchProduct> search(String search) async {
     // Json Data
     var _data = {
       "page_number": 1,
@@ -168,7 +162,7 @@ class ApiProducts {
       "maxPrice": 10000000,
       "language_id": 1,
       "current_currency": "SAR",
-      "currency_code":  "SAR",
+      "currency_code": "SAR",
       "search": search
     };
     var _response = await dio.post(ServerConstants.search,
@@ -181,7 +175,7 @@ class ApiProducts {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      products = ProductsModel.fromJson(_response.data);
+      products = SearchProduct.fromJson(_response.data);
       return products;
     } else {
       // DioErrorType type;
@@ -194,6 +188,7 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
   Future<ProductsModel> likeProduct(int productId) async {
     // Json Data
     var _data = {
@@ -228,6 +223,7 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
   Future<ProductsModel> unLikeProduct(int productId) async {
     // Json Data
     var _data = {
@@ -262,6 +258,7 @@ class ApiProducts {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
   Future<ProductsModel> getFav() async {
     // Json Data
     var _data = {
@@ -299,7 +296,6 @@ class ApiProducts {
     }
   }
 }
-
 
 Future<String> _getUserToken() async {
   print('_getUserToken()');
