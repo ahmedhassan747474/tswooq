@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/search_product.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -29,7 +29,7 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: " ${helpHero()}" + widget.product.productsId.toString(),
-              child: helpImage(widget.product.productsImage,0),
+              child: helpImage(widget.product.productsImage, 0),
             ),
           ),
         ),
@@ -63,7 +63,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: helpImage(widget.product.productsImage,0),
+        child: helpImage(widget.product.productsImage, 0),
       ),
     );
   }

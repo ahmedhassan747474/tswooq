@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
-import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_cart.dart';

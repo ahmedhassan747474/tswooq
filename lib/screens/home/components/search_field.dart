@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/loading_screen.dart';
-import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/screens/search_result/search_result_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_exception.dart';
@@ -25,7 +25,7 @@ class SearchField extends StatefulWidget {
 }
 
 class SearchFieldState extends State<SearchField> {
-  ProductsModel products = new ProductsModel(productData: []);
+  SearchProduct products = new SearchProduct(productData: []);
   final _formKey = GlobalKey<FormState>();
   String search;
 

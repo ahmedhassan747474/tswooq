@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:shop_app/models/search_product.dart';
+
 ProductsModel productsModelFromJson(String str) =>
     ProductsModel.fromJson(json.decode(str));
 
@@ -38,249 +40,249 @@ class ProductsModel {
       };
 }
 
-class Products {
-  Products({
-    this.serverTime,
-    this.productsId,
-    this.productsQuantity,
-    this.productsModel,
-    this.productsImage,
-    this.productsVideoLink,
-    this.priceBuy,
-    this.productsPrice,
-    this.productsDateAdded,
-    this.productsLastModified,
-    this.productsDateAvailable,
-    this.productsWeight,
-    this.productsWeightUnit,
-    this.productsStatus,
-    this.isCurrent,
-    this.productsTaxClassId,
-    this.manufacturersId,
-    this.productsOrdered,
-    this.productsLiked,
-    this.lowLimit,
-    this.isFeature,
-    this.productsSlug,
-    this.productsType,
-    this.productsMinOrder,
-    this.productsMaxStock,
-    this.productParentId,
-    this.barcode,
-    this.id,
-    this.languageId,
-    this.productsName,
-    this.productsDescription,
-    this.productsUrl,
-    this.productsViewed,
-    this.productsLeftBanner,
-    this.productsLeftBannerStartDate,
-    this.productsLeftBannerExpireDate,
-    this.productsRightBanner,
-    this.productsRightBannerStartDate,
-    this.productsRightBannerExpireDate,
-    this.discountPrice,
-    this.currency,
-    this.images,
-    this.categories,
-    this.rating,
-    this.reviewedCustomers,
-    this.defaultStock,
-    this.isLiked,
-    this.attributes,
-  });
-
-  int serverTime;
-  int productsId;
-  int productsQuantity;
-  dynamic productsModel;
-  String productsImage;
-  dynamic productsVideoLink;
-  String priceBuy;
-  int productsPrice;
-  ProductsDateAdded productsDateAdded;
-  dynamic productsLastModified;
-  dynamic productsDateAvailable;
-  dynamic productsWeight;
-  dynamic productsWeightUnit;
-  int productsStatus;
-  int isCurrent;
-  int productsTaxClassId;
-  dynamic manufacturersId;
-  int productsOrdered;
-  int productsLiked;
-  int lowLimit;
-  int isFeature;
-  String productsSlug;
-  int productsType;
-  int productsMinOrder;
-  dynamic productsMaxStock;
-  int productParentId;
-  String barcode;
-  dynamic createdAt;
-  dynamic updatedAt;
-  int id;
-  int languageId;
-  String productsName;
-  String productsDescription;
-  dynamic productsUrl;
-  int productsViewed;
-  String productsLeftBanner;
-  int productsLeftBannerStartDate;
-  int productsLeftBannerExpireDate;
-  String productsRightBanner;
-  int productsRightBannerStartDate;
-  int productsRightBannerExpireDate;
-  dynamic discountPrice;
-  Currency currency;
-  List<Image> images;
-  List<Category> categories;
-  String rating;
-
-  List<dynamic> reviewedCustomers;
-  int defaultStock;
-  String isLiked;
-  List<Attribute> attributes;
-
-  factory Products.fromJson(Map<String, dynamic> json) => Products(
-        serverTime: json["server_time"],
-        productsId: json["products_id"],
-        productsQuantity: json["products_quantity"],
-        productsModel: json["products_model"],
-        productsImage: json["products_image"],
-        productsVideoLink: json["products_video_link"],
-        priceBuy: json["price_buy"],
-        productsPrice: json["products_price"],
-        productsDateAdded:
-            productsDateAddedValues.map[json["products_date_added"]],
-        productsLastModified: json["products_last_modified"],
-        productsDateAvailable: json["products_date_available"],
-        productsWeight: json["products_weight"],
-        productsWeightUnit: json["products_weight_unit"],
-        productsStatus: json["products_status"],
-        isCurrent: json["is_current"],
-        productsTaxClassId: json["products_tax_class_id"],
-        manufacturersId: json["manufacturers_id"],
-        productsOrdered: json["products_ordered"],
-        productsLiked: json["products_liked"],
-        lowLimit: json["low_limit"],
-        isFeature: json["is_feature"],
-        productsSlug: json["products_slug"],
-        productsType: json["products_type"],
-        productsMinOrder: json["products_min_order"],
-        productsMaxStock: json["products_max_stock"],
-        productParentId: json["product_parent_id"] == null
-            ? null
-            : json["product_parent_id"],
-        barcode: json["barcode"],
-        id: json["id"],
-        languageId: json["language_id"],
-        productsName: json["products_name"],
-        productsDescription: json["products_description"],
-        productsUrl: json["products_url"],
-        productsViewed: json["products_viewed"],
-        productsLeftBanner: json["products_left_banner"] == null
-            ? null
-            : json["products_left_banner"],
-        productsLeftBannerStartDate:
-            json["products_left_banner_start_date"] == null
-                ? null
-                : json["products_left_banner_start_date"],
-        productsLeftBannerExpireDate:
-            json["products_left_banner_expire_date"] == null
-                ? null
-                : json["products_left_banner_expire_date"],
-        productsRightBanner: json["products_right_banner"] == null
-            ? null
-            : json["products_right_banner"],
-        productsRightBannerStartDate:
-            json["products_right_banner_start_date"] == null
-                ? null
-                : json["products_right_banner_start_date"],
-        productsRightBannerExpireDate:
-            json["products_right_banner_expire_date"] == null
-                ? null
-                : json["products_right_banner_expire_date"],
-        currency: currencyValues.map[json["currency"]],
-        images: json["images"] != [] ??
-            List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-        categories: List<Category>.from(
-            json["categories"].map((x) => Category.fromJson(x))),
-        rating: json["rating"],
-        reviewedCustomers:
-            List<dynamic>.from(json["reviewed_customers"].map((x) => x)),
-        defaultStock: json["defaultStock"],
-        isLiked: json["isLiked"],
-        // attributes: List<Attribute>.from(
-        //     json["attributes"].map((x) => Attribute.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "server_time": serverTime,
-        "products_id": productsId,
-        "products_quantity": productsQuantity,
-        "products_model": productsModel,
-        "products_image": productsImage,
-        "products_video_link": productsVideoLink,
-        "price_buy": priceBuy,
-        "products_price": productsPrice,
-        "products_date_added":
-            productsDateAddedValues.reverse[productsDateAdded],
-        "products_last_modified": productsLastModified,
-        "products_date_available": productsDateAvailable,
-        "products_weight": productsWeight,
-        "products_weight_unit": productsWeightUnit,
-        "products_status": productsStatus,
-        "is_current": isCurrent,
-        "products_tax_class_id": productsTaxClassId,
-        "manufacturers_id": manufacturersId,
-        "products_ordered": productsOrdered,
-        "products_liked": productsLiked,
-        "low_limit": lowLimit,
-        "is_feature": isFeature,
-        "products_slug": productsSlug,
-        "products_type": productsType,
-        "products_min_order": productsMinOrder,
-        "products_max_stock": productsMaxStock,
-        "product_parent_id": productParentId == null ? null : productParentId,
-        "barcode": barcode,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "id": id,
-        "language_id": languageId,
-        "products_name": productsName,
-        "products_description": productsDescription,
-        "products_url": productsUrl,
-        "products_viewed": productsViewed,
-        "products_left_banner":
-            productsLeftBanner == null ? null : productsLeftBanner,
-        "products_left_banner_start_date": productsLeftBannerStartDate == null
-            ? null
-            : productsLeftBannerStartDate,
-        "products_left_banner_expire_date": productsLeftBannerExpireDate == null
-            ? null
-            : productsLeftBannerExpireDate,
-        "products_right_banner":
-            productsRightBanner == null ? null : productsRightBanner,
-        "products_right_banner_start_date": productsRightBannerStartDate == null
-            ? null
-            : productsRightBannerStartDate,
-        "products_right_banner_expire_date":
-            productsRightBannerExpireDate == null
-                ? null
-                : productsRightBannerExpireDate,
-        "discount_price": discountPrice,
-        "currency": currencyValues.reverse[currency],
-        "images": List<dynamic>.from(images.map((x) => x.toJson())),
-        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-        "rating": rating,
-        "reviewed_customers":
-            List<dynamic>.from(reviewedCustomers.map((x) => x)),
-        "defaultStock": defaultStock,
-        "isLiked": isLiked,
-        "attributes": List<dynamic>.from(attributes.map((x) => x.toJson())),
-      };
-}
+// class Products {
+//   Products({
+//     this.serverTime,
+//     this.productsId,
+//     this.productsQuantity,
+//     this.productsModel,
+//     this.productsImage,
+//     this.productsVideoLink,
+//     this.priceBuy,
+//     this.productsPrice,
+//     this.productsDateAdded,
+//     this.productsLastModified,
+//     this.productsDateAvailable,
+//     this.productsWeight,
+//     this.productsWeightUnit,
+//     this.productsStatus,
+//     this.isCurrent,
+//     this.productsTaxClassId,
+//     this.manufacturersId,
+//     this.productsOrdered,
+//     this.productsLiked,
+//     this.lowLimit,
+//     this.isFeature,
+//     this.productsSlug,
+//     this.productsType,
+//     this.productsMinOrder,
+//     this.productsMaxStock,
+//     this.productParentId,
+//     this.barcode,
+//     this.id,
+//     this.languageId,
+//     this.productsName,
+//     this.productsDescription,
+//     this.productsUrl,
+//     this.productsViewed,
+//     this.productsLeftBanner,
+//     this.productsLeftBannerStartDate,
+//     this.productsLeftBannerExpireDate,
+//     this.productsRightBanner,
+//     this.productsRightBannerStartDate,
+//     this.productsRightBannerExpireDate,
+//     this.discountPrice,
+//     this.currency,
+//     this.images,
+//     this.categories,
+//     this.rating,
+//     this.reviewedCustomers,
+//     this.defaultStock,
+//     this.isLiked,
+//     this.attributes,
+//   });
+//
+//   int serverTime;
+//   int productsId;
+//   int productsQuantity;
+//   dynamic productsModel;
+//   String productsImage;
+//   dynamic productsVideoLink;
+//   String priceBuy;
+//   int productsPrice;
+//   ProductsDateAdded productsDateAdded;
+//   dynamic productsLastModified;
+//   dynamic productsDateAvailable;
+//   dynamic productsWeight;
+//   dynamic productsWeightUnit;
+//   int productsStatus;
+//   int isCurrent;
+//   int productsTaxClassId;
+//   dynamic manufacturersId;
+//   int productsOrdered;
+//   int productsLiked;
+//   int lowLimit;
+//   int isFeature;
+//   String productsSlug;
+//   int productsType;
+//   int productsMinOrder;
+//   dynamic productsMaxStock;
+//   int productParentId;
+//   String barcode;
+//   dynamic createdAt;
+//   dynamic updatedAt;
+//   int id;
+//   int languageId;
+//   String productsName;
+//   String productsDescription;
+//   dynamic productsUrl;
+//   int productsViewed;
+//   String productsLeftBanner;
+//   int productsLeftBannerStartDate;
+//   int productsLeftBannerExpireDate;
+//   String productsRightBanner;
+//   int productsRightBannerStartDate;
+//   int productsRightBannerExpireDate;
+//   dynamic discountPrice;
+//   Currency currency;
+//   List<Image> images;
+//   List<Category> categories;
+//   String rating;
+//
+//   List<dynamic> reviewedCustomers;
+//   int defaultStock;
+//   String isLiked;
+//   List<Attribute> attributes;
+//
+//   factory Products.fromJson(Map<String, dynamic> json) => Products(
+//         serverTime: json["server_time"],
+//         productsId: json["products_id"],
+//         productsQuantity: json["products_quantity"],
+//         productsModel: json["products_model"],
+//         productsImage: json["products_image"],
+//         productsVideoLink: json["products_video_link"],
+//         priceBuy: json["price_buy"],
+//         productsPrice: json["products_price"],
+//         productsDateAdded:
+//             productsDateAddedValues.map[json["products_date_added"]],
+//         productsLastModified: json["products_last_modified"],
+//         productsDateAvailable: json["products_date_available"],
+//         productsWeight: json["products_weight"],
+//         productsWeightUnit: json["products_weight_unit"],
+//         productsStatus: json["products_status"],
+//         isCurrent: json["is_current"],
+//         productsTaxClassId: json["products_tax_class_id"],
+//         manufacturersId: json["manufacturers_id"],
+//         productsOrdered: json["products_ordered"],
+//         productsLiked: json["products_liked"],
+//         lowLimit: json["low_limit"],
+//         isFeature: json["is_feature"],
+//         productsSlug: json["products_slug"],
+//         productsType: json["products_type"],
+//         productsMinOrder: json["products_min_order"],
+//         productsMaxStock: json["products_max_stock"],
+//         productParentId: json["product_parent_id"] == null
+//             ? null
+//             : json["product_parent_id"],
+//         barcode: json["barcode"],
+//         id: json["id"],
+//         languageId: json["language_id"],
+//         productsName: json["products_name"],
+//         productsDescription: json["products_description"],
+//         productsUrl: json["products_url"],
+//         productsViewed: json["products_viewed"],
+//         productsLeftBanner: json["products_left_banner"] == null
+//             ? null
+//             : json["products_left_banner"],
+//         productsLeftBannerStartDate:
+//             json["products_left_banner_start_date"] == null
+//                 ? null
+//                 : json["products_left_banner_start_date"],
+//         productsLeftBannerExpireDate:
+//             json["products_left_banner_expire_date"] == null
+//                 ? null
+//                 : json["products_left_banner_expire_date"],
+//         productsRightBanner: json["products_right_banner"] == null
+//             ? null
+//             : json["products_right_banner"],
+//         productsRightBannerStartDate:
+//             json["products_right_banner_start_date"] == null
+//                 ? null
+//                 : json["products_right_banner_start_date"],
+//         productsRightBannerExpireDate:
+//             json["products_right_banner_expire_date"] == null
+//                 ? null
+//                 : json["products_right_banner_expire_date"],
+//         currency: currencyValues.map[json["currency"]],
+//         images: json["images"] != [] ??
+//             List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+//         categories: List<Category>.from(
+//             json["categories"].map((x) => Category.fromJson(x))),
+//         rating: json["rating"],
+//         reviewedCustomers:
+//             List<dynamic>.from(json["reviewed_customers"].map((x) => x)),
+//         defaultStock: json["defaultStock"],
+//         isLiked: json["isLiked"],
+//         // attributes: List<Attribute>.from(
+//         //     json["attributes"].map((x) => Attribute.fromJson(x))),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "server_time": serverTime,
+//         "products_id": productsId,
+//         "products_quantity": productsQuantity,
+//         "products_model": productsModel,
+//         "products_image": productsImage,
+//         "products_video_link": productsVideoLink,
+//         "price_buy": priceBuy,
+//         "products_price": productsPrice,
+//         "products_date_added":
+//             productsDateAddedValues.reverse[productsDateAdded],
+//         "products_last_modified": productsLastModified,
+//         "products_date_available": productsDateAvailable,
+//         "products_weight": productsWeight,
+//         "products_weight_unit": productsWeightUnit,
+//         "products_status": productsStatus,
+//         "is_current": isCurrent,
+//         "products_tax_class_id": productsTaxClassId,
+//         "manufacturers_id": manufacturersId,
+//         "products_ordered": productsOrdered,
+//         "products_liked": productsLiked,
+//         "low_limit": lowLimit,
+//         "is_feature": isFeature,
+//         "products_slug": productsSlug,
+//         "products_type": productsType,
+//         "products_min_order": productsMinOrder,
+//         "products_max_stock": productsMaxStock,
+//         "product_parent_id": productParentId == null ? null : productParentId,
+//         "barcode": barcode,
+//         "created_at": createdAt,
+//         "updated_at": updatedAt,
+//         "id": id,
+//         "language_id": languageId,
+//         "products_name": productsName,
+//         "products_description": productsDescription,
+//         "products_url": productsUrl,
+//         "products_viewed": productsViewed,
+//         "products_left_banner":
+//             productsLeftBanner == null ? null : productsLeftBanner,
+//         "products_left_banner_start_date": productsLeftBannerStartDate == null
+//             ? null
+//             : productsLeftBannerStartDate,
+//         "products_left_banner_expire_date": productsLeftBannerExpireDate == null
+//             ? null
+//             : productsLeftBannerExpireDate,
+//         "products_right_banner":
+//             productsRightBanner == null ? null : productsRightBanner,
+//         "products_right_banner_start_date": productsRightBannerStartDate == null
+//             ? null
+//             : productsRightBannerStartDate,
+//         "products_right_banner_expire_date":
+//             productsRightBannerExpireDate == null
+//                 ? null
+//                 : productsRightBannerExpireDate,
+//         "discount_price": discountPrice,
+//         "currency": currencyValues.reverse[currency],
+//         "images": List<dynamic>.from(images.map((x) => x.toJson())),
+//         "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
+//         "rating": rating,
+//         "reviewed_customers":
+//             List<dynamic>.from(reviewedCustomers.map((x) => x)),
+//         "defaultStock": defaultStock,
+//         "isLiked": isLiked,
+//         "attributes": List<dynamic>.from(attributes.map((x) => x.toJson())),
+//       };
+// }
 
 class Attribute {
   Attribute({

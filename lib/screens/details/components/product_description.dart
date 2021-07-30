@@ -1,11 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/helper/help.dart';
-
-import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -137,22 +135,21 @@ class ProductDescriptionState extends State<ProductDescription> {
         SizedBox(width: 10),
         for (var item in widget.product.attributes)
           GestureDetector(
-            onTap: (){
+            onTap: () {
               price = item.price;
             },
             child: Container(
-              padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-              decoration: BoxDecoration(
-                border: Border(),
-              ),
-              child:Row(
-              children: [
-                Text(widget.product.attributes.length.toString()),
-                item.size != null ? Text(item.size) : Container(),
-              ],
-              )
-
-            ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20)),
+                decoration: BoxDecoration(
+                  border: Border(),
+                ),
+                child: Row(
+                  children: [
+                    Text(widget.product.attributes.length.toString()),
+                    item.size != null ? Text(item.size) : Container(),
+                  ],
+                )),
           ),
         SizedBox(width: 5),
         Padding(

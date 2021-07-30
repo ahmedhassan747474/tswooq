@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/api_products.dart';
 import 'package:shop_app/utils/vars.dart';
@@ -24,10 +24,11 @@ class ProductCard extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return ProductCardState();  }
+    return ProductCardState();
+  }
 }
-class ProductCardState extends State<ProductCard>{
 
+class ProductCardState extends State<ProductCard> {
   Future<void> _unLikeSubmit() async {
     try {
       print('0000000000000000000000000000');
@@ -60,6 +61,7 @@ class ProductCardState extends State<ProductCard>{
       if (mounted) setState(() {});
     }
   }
+
   Future<void> _likeSubmit() async {
     try {
       print('0000000000000000000000000000');
@@ -92,7 +94,6 @@ class ProductCardState extends State<ProductCard>{
       if (mounted) setState(() {});
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -147,11 +148,11 @@ class ProductCardState extends State<ProductCard>{
                     shape: BoxShape.circle,
                   ),
                   child: GestureDetector(
-                    onTap: (){
-                     if(widget.product.isLiked == "0")
-                       _likeSubmit();
-                         else
-                           _unLikeSubmit();
+                    onTap: () {
+                      if (widget.product.isLiked == "0")
+                        _likeSubmit();
+                      else
+                        _unLikeSubmit();
                     },
                     child: SvgPicture.asset(
                       "assets/icons/Heart Icon_2.svg",
@@ -168,6 +169,4 @@ class ProductCardState extends State<ProductCard>{
       ),
     );
   }
-
-
 }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/products.dart';
+import 'package:shop_app/models/search_product.dart';
 
 import 'components/body.dart';
 import 'components/custom_app_bar.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class DetailsScreen extends StatelessWidget {
-
   final Products product;
 
   const DetailsScreen({Key key, @required this.product}) : super(key: key);
