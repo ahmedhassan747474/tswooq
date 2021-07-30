@@ -12,6 +12,7 @@ class ApiProducts {
 
   static final ApiProducts instance = ApiProducts._();
   static ProductsModel products;
+  static SearchProduct searchProduct;
 
   var dio = Dio()
     ..interceptors.add(PrettyDioLogger(
@@ -175,8 +176,8 @@ class ApiProducts {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      products = SearchProduct.fromJson(_response.data);
-      return products;
+      searchProduct = SearchProduct.fromJson(_response.data);
+      return searchProduct;
     } else {
       // DioErrorType type;
       // No Success
