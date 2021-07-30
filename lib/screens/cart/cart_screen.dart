@@ -41,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
     sum = 0;
     if (cart.productData?.length != 0) {
       cart.productData.forEach((element) {
-        sum += double.parse(element.attributes.productsPrice);
+       // sum += double.parse(element.attributes.productsPrice);
       });
     }
   }

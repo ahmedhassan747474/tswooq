@@ -149,13 +149,13 @@ class ProductCardState extends State<ProductCard>{
                   child: GestureDetector(
                     onTap: (){
                      if(widget.product.isLiked == "0")
-                       _unLikeSubmit();
+                       _likeSubmit();
                          else
-                           _likeSubmit();
+                           _unLikeSubmit();
                     },
                     child: SvgPicture.asset(
                       "assets/icons/Heart Icon_2.svg",
-                      color: widget.product.isLiked == "0"
+                      color: widget.product.isLiked != "0"
                           ? Color(0xFFFF4848)
                           : Color(0xFFDBDEE4),
                     ),

@@ -108,21 +108,5 @@ class ProductListScreenState extends State<ProductListScreen> {
     );
   }
 
-  // AppBar buildAppBar(BuildContext context) {
-  //   return AppBar(
-  //     title: Text(
-  //       "Products",
-  //       style: TextStyle(color: Colors.black),
-  //     ),
-  //
-  //     centerTitle: true,
-  //     actions: [
-  //       IconButton(
-  //         icon: Icon(Icons.),
-  //         onPressed: () {},
-  //         color: Colors.white,
-  //       )
-  //     ],
-  //   );
-  // }
+
 }
