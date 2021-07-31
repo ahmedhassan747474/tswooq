@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
 
-class DiscountBanner extends StatelessWidget {
+class DiscountBanner extends StatefulWidget {
   const DiscountBanner({
     Key key,
   }) : super(key: key);
-
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return DiscountBannerState();
+  }
+}
+class DiscountBannerState extends State<DiscountBanner>{
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,4 +44,6 @@ class DiscountBanner extends StatelessWidget {
       ),
     );
   }
+
+
 }

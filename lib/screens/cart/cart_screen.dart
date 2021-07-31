@@ -41,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
     sum = 0;
     if (cart.productData?.length != 0) {
       cart.productData.forEach((element) {
-       // sum += double.parse(element.attributes.productsPrice);
+        sum += double.parse(element.attributes[0].price.toString());
       });
     }
   }
@@ -213,8 +213,8 @@ class _CartScreenState extends State<CartScreen> {
                             color: Color(0xFFF5F6F9),
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Image.network("https://tswooq.com/" +
-                              product[index].productsImage),
+                          // child: Image.network("https://tswooq.com/" +
+                          //     product[index].productsImage),
                         ),
                       ),
                     ),
@@ -249,7 +249,7 @@ class _CartScreenState extends State<CartScreen> {
                           Text.rich(
                             TextSpan(
                               text:
-                                  "\$${product[index].attributes[index].price}",
+                                  "\$${product[index].attributes[0].price}",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: kPrimaryColor),
