@@ -69,7 +69,7 @@ class BodyState extends State<Body> {
       //
       // Navigator.of(context).popUntil((route) => route.isFirst);
       helpShowLongToast(
-        LocaleKeys.AddedToCart.tr(),
+        LocaleKeys.Add_To_Cart_translate.tr(),
       );
     } on ApiException catch (_) {
       print('ApiException');
@@ -270,7 +270,7 @@ class BodyState extends State<Body> {
                                       color: Colors.amber,
                                       // onPressed: press,
                                       child: Text(
-                                        "غير متوفر",
+                                        LocaleKeys.Not_Available.tr(),
                                         style: TextStyle(
                                           fontSize:
                                               getProportionateScreenWidth(18),
@@ -281,7 +281,7 @@ class BodyState extends State<Body> {
                                   ),
                                 )
                               : DefaultButton(
-                                  text: (LocaleKeys.Add_To_Cart.tr()),
+                                  text: (LocaleKeys.Add_To_Cart_translate.tr()),
                                   press: () {
                                     if (widget.product.defaultStock == 0)
                                       _toastInfo(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // This is the best practice
 import '../components/splash_content.dart';
@@ -16,16 +18,16 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
+      "text": LocaleKeys.welcome_splash.tr(),
       "image": "assets/images/splash_1.png"
     },
     {
       "text":
-          "We help people conect with store \naround United State of America",
+      LocaleKeys.help_splash.tr() + "\n" + LocaleKeys.help_splash2.tr(),
       "image": "assets/images/splash_2.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "text": LocaleKeys.text31_splash.tr() + "\n" + LocaleKeys.text32_splash.tr(),
       "image": "assets/images/splash_3.png"
     },
   ];
@@ -68,7 +70,7 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(flex: 3),
                     DefaultButton(
-                      text: "Continue",
+                      text: LocaleKeys.continue_translate.tr(),
                       press: () {
                         Navigator.pushNamed(context, SignInScreen.routeName);
                       },
