@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shop_app/models/fav_model.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/models/user.dart';
@@ -12,6 +13,7 @@ class ApiProducts {
 
   static final ApiProducts instance = ApiProducts._();
   static ProductsModel products;
+  static FavModel fav;
   static SearchProduct searchProduct;
 
   var dio = Dio()

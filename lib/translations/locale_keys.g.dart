@@ -9,7 +9,7 @@ abstract class  LocaleKeys {
   static const remember_translate = 'remember_translate';
   static const forget_password_translate = 'forget_password_translate';
   static const sign_up_translate = 'sign_up_translate';
-  static const Dont_have_an_account_translate = 'Dont_have_an_account?_translate';
+  static const Dont_have_an_account_translate = 'Dont_have_an_account_translate';
   static const Brands_translate = 'Brands_translate';
   static const Popular_Products_translate = 'Popular_Products_translate';
   static const See_More_translate = 'See_More_translate';
@@ -26,10 +26,10 @@ abstract class  LocaleKeys {
   static const CANCEL_translate = 'CANCEL_translate';
   static const SAVE_translate = 'SAVE_translate';
   static const First_Name_translate = 'First_Name_translate';
-  static const Enter_your_First_Name_translate = 'Enter your First Name_translate';
+  static const Enter_your_First_Name_translate = 'Enter_your_First_Name_translate';
   static const Last_Name_translate = 'Last_Name_translate';
   static const Last_Name_hint = 'Last_Name_hint';
-  static const User_Name = 'Usr Name';
+  static const User_Name = 'User_Name';
   static const User_Name_hint = 'User_Name_hint';
   static const Phone = 'Phone';
   static const Phone_hint = 'Phone_hint';

@@ -11,11 +11,11 @@ import 'package:shop_app/utils/api_products.dart';
 import '../../size_config.dart';
 
 class ProductListScreen extends StatefulWidget {
-  final int id;
+  final ProductsModel product;
 
   const ProductListScreen({
     Key key,
-    @required this.id,
+    @required this.product,
   }) : super(key: key);
 
   @override
@@ -26,20 +26,20 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class ProductListScreenState extends State<ProductListScreen> {
-  ProductsModel product = new ProductsModel(productData: []);
+ // ProductsModel product = new ProductsModel(productData: []);
   bool isGridView = true;
   bool _isLoading = true;
   @override
-  void initState() {
-    super.initState();
-    _initData();
-  }
-
-  _initData() async {
-    product = await ApiProducts.instance.getProductsByCategory(widget.id);
-    _isLoading = false;
-    if (mounted) setState(() {});
-  }
+  // void initState() {
+  //   super.initState();
+  //   _initData();
+  // }
+  //
+  // _initData() async {
+  //   product = await ApiProducts.instance.getProducts();
+  //   _isLoading = false;
+  //   if (mounted) setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +65,9 @@ class ProductListScreenState extends State<ProductListScreen> {
           )
         ],
       ),
-      body: _isLoading
-          ? helpLoading()
-          : isGridView
-              ? gridView(product)
-              : listView(product),
+      body: isGridView
+          ? gridView(widget.product)
+          : listView(widget.product),
     );
   }
 
@@ -84,8 +82,8 @@ class ProductListScreenState extends State<ProductListScreen> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailsScreen(
-                                product: product.productData[index],
-                              )));
+                            product: product.productData[index],
+                          )));
                     },
                     child: ProductCard(product: product.productData[index])))));
   }
@@ -106,8 +104,8 @@ class ProductListScreenState extends State<ProductListScreen> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailsScreen(
-                                product: product.productData[index],
-                              )));
+                            product: product.productData[index],
+                          )));
                     },
                     child: ProductCard(product: product.productData[index])));
           }),

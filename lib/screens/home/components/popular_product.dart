@@ -5,6 +5,7 @@ import 'package:shop_app/helper/loading_shimmer.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
+import 'package:shop_app/screens/product_list/product_list.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
 
@@ -39,7 +40,12 @@ class _PopularProductState extends State<PopularProduct> {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: (LocaleKeys.Popular_Products_translate.tr()),
-            press: () {},
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    product: products,
+                  )));
+            },
           ),
         ),
         SizedBox(height: 20),

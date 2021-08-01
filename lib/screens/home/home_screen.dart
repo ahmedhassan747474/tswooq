@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shop_app/screens/favorite/favorite_screen.dart';
 import 'package:shop_app/screens/order_list/order_list_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 
@@ -19,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _pages = [
     Body(),
-    Body(),
+    FavoriteScreen(),
     // OrderProduct(),
     OrderListScreen(),
     ProfileScreen(),
