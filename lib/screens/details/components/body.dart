@@ -68,7 +68,9 @@ class BodyState extends State<Body> {
       await ApiCart.instance.addToCart(widget.product.productsId, counter);
       //
       // Navigator.of(context).popUntil((route) => route.isFirst);
-
+      helpShowLongToast(
+        LocaleKeys.AddedToCart.tr(),
+      );
     } on ApiException catch (_) {
       print('ApiException');
       Navigator.of(context).pop();

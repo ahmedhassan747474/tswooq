@@ -35,6 +35,7 @@ class _CartScreenState extends State<CartScreen> {
   _initData() async {
     cart = await ApiCart.instance.getCart();
     calculateTotal();
+    _isLoading = false;
     if (mounted) setState(() {});
   }
 
@@ -85,7 +86,7 @@ class _CartScreenState extends State<CartScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: buildAppBar(context),
-        body: body(cart.productData, context),
+        body: _isLoading ? helpLoading() : body(cart.productData, context),
         bottomNavigationBar: cart.productData.length == 0
             ? SizedBox()
             : Container(

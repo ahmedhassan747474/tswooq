@@ -28,7 +28,7 @@ class ApiCart {
     // "X-Requested-With": "XMLHttpRequest",
   };
 
-  Future<CartModel> addToCart(int productId, int quantity) async {
+  Future<void> addToCart(int productId, int quantity) async {
     // Json Data
     var _data = {
       "product_id": productId,
@@ -48,10 +48,7 @@ class ApiCart {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      cart = CartModel.fromJson(_response.data);
-      return cart;
-      // categories = AllCategoriesModel.fromJson(_response.data);
-      //return categories;
+
     } else {
       // DioErrorType type;
       // No Success
