@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shop_app/helper/help.dart';
@@ -10,7 +11,6 @@ import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/contents.dart';
 import 'package:shop_app/utils/vars.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../constants.dart';
 import '../../size_config.dart';
@@ -75,12 +75,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         _formKey.currentState.save();
         //  LoadingScreen.show(context);
         await ApiProvider.instance.editProfile(
-            phone,
-            File(tmpFile.path),
-            userName,
-            firstName,
-            lastName,
-            email);
+            phone, File(tmpFile.path), userName, firstName, lastName, email);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
         // Navigator.of(context).pushReplacement(
@@ -129,7 +124,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Icons.arrow_back,
             color: Colors.green,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
         actions: [
           IconButton(

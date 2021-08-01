@@ -69,6 +69,7 @@ class ServerConstants {
 
   //Home
   static const String Home = "${API}main";
+  static const String getSliders = "${API}getsliders";
   static const String AllCategories = "${API}get_categories";
   static const String Brands = "${API}get_brands";
   static const String Products = "${API}getallproducts";
@@ -78,25 +79,8 @@ class ServerConstants {
   static const String UnLike_Product = "${API}unlikeproduct";
   static const String Get_Fav = "${API}getfavourites";
 
-
-  static const String getListOfTables =
-      "${API}get_list_of_tables?restaurant_id=";
-  static const String listOfRestaurantsByCategory =
-      "${API}list_of_restaurants_by_category?id=";
-  static const String Notifications = "${API}customer/notifications";
-  static const String restaurant_qr = "${API}restaurant_qr/";
   static const String search = "${API}getfilterproducts";
 
-  //BasicCategories_List
-  static const String BasicCategories_List = "${API}basic-categories";
-
-  //BasicCategories_List
-  static const String PaginateStore_List = "${API}client/basic-categories/";
-
-  //BasicCategories_List
-  static const String ShowStoreCategories_List = "${API}client/stores/";
-  //Paginate Products
-  static const String Paginate_Products_List = "${API}client/stores/";
   //Get_Cart
   static const String Get_Cart = "${API}get_cart";
   static const String Add_Cart = "${API}add_to_cart";

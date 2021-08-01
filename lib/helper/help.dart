@@ -59,6 +59,28 @@ void helpShowLongToast(String s) {
   );
 }
 
+helpCurrency(String s, Color c, BuildContext context) {
+  String currency;
+  if (context.locale.toString() == 'ar')
+    currency = "رس";
+  else
+    currency = "SAR";
+  return RichText(
+    text: TextSpan(
+      children: <TextSpan>[
+        TextSpan(
+          text: '${double.parse(s).toStringAsFixed(2) ?? ''}',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: c),
+        ),
+        TextSpan(
+          text: '$currency',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: c),
+        ),
+      ],
+    ),
+  );
+}
+
 Widget helpLoading() {
   return Container(
     margin: EdgeInsets.only(top: 4.0),

@@ -33,19 +33,16 @@ class SearchProduct {
 
 class Products {
   int productsId;
-
+  int quantityOrdered;
   int productsQuantity;
   String productsModel;
   String productsImage;
   String productsVideoLink;
-
   int productsPrice;
-
   String productsWeight;
   String productsWeightUnit;
   int productsStatus;
   int isCurrent;
-
   int productsLiked;
   int lowLimit;
   int isFeature;
@@ -53,17 +50,15 @@ class Products {
   int productsType;
   int productsMinOrder;
   String productsMaxStock;
-
   String barcode;
-
   int id;
   String productsName;
   String productsDescription;
-
   String discountPrice;
   String currency;
   List<Categories> categories;
   String rating;
+  String path;
   List<dynamic> reviewedCustomers;
   String isLiked;
   int defaultStock;
@@ -71,6 +66,8 @@ class Products {
 
   Products(
       {this.productsId,
+      this.path,
+      this.quantityOrdered,
       this.productsQuantity,
       this.productsModel,
       this.productsImage,
@@ -102,19 +99,17 @@ class Products {
 
   Products.fromJson(Map<String, dynamic> json) {
     productsId = json['products_id'];
-
+    path = json['path'];
+    quantityOrdered = json['quantity_ordered'];
     productsQuantity = json['products_quantity'];
     productsModel = json['products_model'];
     productsImage = json['products_image'];
     productsVideoLink = json['products_video_link'];
-
     productsPrice = json['products_price'];
-
     productsWeight = json['products_weight'];
     productsWeightUnit = json['products_weight_unit'];
     productsStatus = json['products_status'];
     isCurrent = json['is_current'];
-
     productsLiked = json['products_liked'];
     lowLimit = json['low_limit'];
     isFeature = json['is_feature'];
@@ -122,18 +117,13 @@ class Products {
     productsType = json['products_type'];
     productsMinOrder = json['products_min_order'];
     productsMaxStock = json['products_max_stock'];
-
     barcode = json['barcode'];
-
     id = json['id'];
     productsName = json['products_name'];
     productsDescription = json['products_description'];
-
     discountPrice = json['discount_price'];
     currency = json['currency'];
-
     rating = json['rating'];
-
     isLiked = json['isLiked'];
     defaultStock = json['defaultStock'];
     if (json['attributes'] != null) {

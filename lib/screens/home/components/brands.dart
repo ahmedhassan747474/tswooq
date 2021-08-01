@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/home_card.dart';
+import 'package:shop_app/helper/loading_shimmer.dart';
 import 'package:shop_app/models/brands.dart';
 import 'package:shop_app/screens/brand_list/brand_list_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_brands.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class Brands extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class Brands extends StatefulWidget {
 
 class _BrandsState extends State<Brands> {
   BrandsModel brands = new BrandsModel(data: []);
-
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -24,6 +25,7 @@ class _BrandsState extends State<Brands> {
 
   _initData() async {
     brands = await ApiBrands.instance.brands();
+    _isLoading = false;
     if (mounted) setState(() {});
   }
 
@@ -55,20 +57,34 @@ class _BrandsState extends State<Brands> {
               crossAxisSpacing: 2,
               padding: EdgeInsets.all(0.0),
               staggeredTileBuilder: (_) => StaggeredTile.extent(1, 100),
-              itemCount: brands.data == null
-                  ? 0
-                  : (brands.data.length > 16 ? 16 : brands.data.length),
-              itemBuilder: (ctx, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: CategoryCard(
-                  icon: brands.data[index].icon,
-                  text: brands.data[index].categoriesName,
-                  // press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductBrandScreen(id: brands.data[index].i,)));},
-                  cardWidth: 100,
-                  imgWidth: 80,
-                  imgHeight: 80,
-                ),
-              ),
+              itemCount: _isLoading
+                  ? 20
+                  : brands.data == null
+                      ? 0
+                      : (brands.data.length > 16 ? 16 : brands.data.length),
+              itemBuilder: (ctx, index) => _isLoading
+                  ? Column(
+                      children: [
+                        Container(
+                            margin:
+                                EdgeInsets.only(bottom: 0, right: 5, left: 5),
+                            child: loadingShimmerWidget(75, 75, 10)),
+                        Container(
+                            margin: EdgeInsets.only(top: 5, right: 5, left: 5),
+                            child: loadingShimmerWidget(75, 20, 10)),
+                      ],
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: CategoryCard(
+                        icon: brands.data[index].icon,
+                        text: brands.data[index].categoriesName,
+                        // press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductBrandScreen(id: brands.data[index].i,)));},
+                        cardWidth: 100,
+                        imgWidth: 80,
+                        imgHeight: 80,
+                      ),
+                    ),
             ),
           ),
         ),

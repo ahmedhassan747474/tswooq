@@ -141,6 +141,7 @@ class _SignFormState extends State<SignForm> {
       decoration: InputDecoration(
         labelText: LocaleKeys.password_translate.tr(),
         hintText: LocaleKeys.password_hint.tr(),
+        labelStyle: TextStyle(color: kPrimaryColor),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -172,8 +173,11 @@ class _SignFormState extends State<SignForm> {
         }
         return null;
       },
+      // style: TextStyle(fontSize: 20.0, color: Colors.redAccent),
+
       decoration: InputDecoration(
         labelText: LocaleKeys.email_translate.tr(),
+        labelStyle: TextStyle(color: kPrimaryColor),
         hintText: LocaleKeys.email_hint_translate.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
