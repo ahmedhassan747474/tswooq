@@ -251,24 +251,29 @@ class _CartScreenState extends State<CartScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      _submit(product[index].productsId);
-                                      product.removeAt(index);
-                                      calculateTotal();
-                                      _toastInfo(LocaleKeys
-                                          .item_is_deleted_translate
-                                          .tr());
-                                      // _submit(product[index].productId);
-                                      //   product.removeAt(index);
-                                      //setState(() {});
-                                    },
-                                    child: Container(
-                                        alignment: Alignment.topRight,
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.red,
-                                        ))),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          _submit(product[index].productsId);
+                                          product.removeAt(index);
+                                          calculateTotal();
+                                          _toastInfo(LocaleKeys
+                                              .item_is_deleted_translate
+                                              .tr());
+                                          // _submit(product[index].productId);
+                                          //   product.removeAt(index);
+                                          //setState(() {});
+                                        },
+                                        child: Container(
+                                            alignment: Alignment.topRight,
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Colors.red,
+                                            ))),
+                                  ],
+                                ),
                                 Text(
                                   product[index].productsName,
                                   style: TextStyle(
