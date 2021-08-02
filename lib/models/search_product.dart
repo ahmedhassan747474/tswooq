@@ -37,7 +37,6 @@ class Products {
   int productsQuantity;
   String productsModel;
   String productsImage;
-  String productsVideoLink;
   int productsPrice;
   String productsWeight;
   String productsWeightUnit;
@@ -71,7 +70,6 @@ class Products {
       this.productsQuantity,
       this.productsModel,
       this.productsImage,
-      this.productsVideoLink,
       this.productsPrice,
       this.productsWeight,
       this.productsWeightUnit,
@@ -104,7 +102,6 @@ class Products {
     productsQuantity = json['products_quantity'];
     productsModel = json['products_model'];
     productsImage = json['products_image'];
-    productsVideoLink = json['products_video_link'];
     productsPrice = json['products_price'];
     productsWeight = json['products_weight'];
     productsWeightUnit = json['products_weight_unit'];
@@ -142,7 +139,6 @@ class Products {
     data['products_quantity'] = this.productsQuantity;
     data['products_model'] = this.productsModel;
     data['products_image'] = this.productsImage;
-    data['products_video_link'] = this.productsVideoLink;
 
     data['products_price'] = this.productsPrice;
 
