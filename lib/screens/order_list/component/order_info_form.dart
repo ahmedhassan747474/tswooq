@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
@@ -10,7 +11,6 @@ import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/api_order.dart';
 import 'package:shop_app/utils/vars.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -63,7 +63,7 @@ class _OrderFormState extends State<OrderForm> {
         _formKey.currentState.save();
         LoadingScreen.show(context);
         await ApiOrder.instance.makeOrder(
-             phone,email, city, address, selectedValue, widget.totalPrice);
+            phone, email, city, address, selectedValue, widget.totalPrice);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.of(context).pushReplacement(
@@ -83,6 +83,7 @@ class _OrderFormState extends State<OrderForm> {
         print(e.message);
         //  print(e.request);
       }
+      Navigator.of(context).pop();
     } catch (e) {
       print('catch');
       print(e);
@@ -117,7 +118,7 @@ class _OrderFormState extends State<OrderForm> {
             ),
           ),
           ListTile(
-            title:  Text(LocaleKeys.Cash.tr()),
+            title: Text(LocaleKeys.Cash.tr()),
             leading: Radio(
               value: "cash",
               groupValue: selectedValue,
@@ -129,7 +130,9 @@ class _OrderFormState extends State<OrderForm> {
             ),
           ),
           ListTile(
-            title:  Text( LocaleKeys.Visa.tr(),),
+            title: Text(
+              LocaleKeys.Visa.tr(),
+            ),
             leading: Radio(
               value: "visa",
               groupValue: selectedValue,
@@ -142,7 +145,7 @@ class _OrderFormState extends State<OrderForm> {
           ),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text:  LocaleKeys.continue_translate.tr(),
+            text: LocaleKeys.continue_translate.tr(),
             press: _submit,
           ),
         ],
@@ -167,7 +170,7 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText:  LocaleKeys.Address_translate.tr(),
+        labelText: LocaleKeys.Address_translate.tr(),
         hintText: LocaleKeys.Address_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
@@ -194,7 +197,7 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText:LocaleKeys.City.tr(),
+        labelText: LocaleKeys.City.tr(),
         hintText: LocaleKeys.City_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
@@ -206,7 +209,7 @@ class _OrderFormState extends State<OrderForm> {
 
   TextFormField buildPhoneFormField() {
     return TextFormField(
-        initialValue: user.data.phone,
+      initialValue: user.data.phone,
       keyboardType: TextInputType.number,
       onSaved: (newValue) => phone = newValue,
       onChanged: (value) {
@@ -228,8 +231,8 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText:  LocaleKeys.Phone.tr(),
-        hintText:  LocaleKeys.Phone_hint.tr(),
+        labelText: LocaleKeys.Phone.tr(),
+        hintText: LocaleKeys.Phone_hint.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -240,7 +243,7 @@ class _OrderFormState extends State<OrderForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
-        initialValue: user.data.email,
+      initialValue: user.data.email,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
@@ -262,7 +265,7 @@ class _OrderFormState extends State<OrderForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText:  LocaleKeys.email_translate.tr(),
+        labelText: LocaleKeys.email_translate.tr(),
         hintText: LocaleKeys.email_hint_translate.tr(),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly

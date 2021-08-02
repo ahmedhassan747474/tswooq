@@ -7,7 +7,6 @@ import 'categories.dart';
 import 'home_header.dart';
 import 'like_card.dart';
 import 'popular_product.dart';
-import 'special_offers.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -21,8 +20,8 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(10)),
             ImageSlider(),
             Container(height: 170, child: Categories()),
-            SpecialOffers(),
-            SizedBox(height: getProportionateScreenWidth(30)),
+            // SpecialOffers(),/**/
+            // SizedBox(height: getProportionateScreenWidth(30)),
             Container(height: 320, child: Brands()),
             Container(height: 350, child: LikeCardScreen()),
             SizedBox(height: getProportionateScreenWidth(30)),
