@@ -106,7 +106,7 @@ Widget helpImage(String image, double radius) {
           borderRadius: BorderRadius.circular(radius),
           image: DecorationImage(
             image: image,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
           ),
         ),
       );

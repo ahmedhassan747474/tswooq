@@ -5,6 +5,7 @@ import 'package:shop_app/screens/home/components/brands.dart';
 import '../../../size_config.dart';
 import 'categories.dart';
 import 'home_header.dart';
+import 'like_card.dart';
 import 'popular_product.dart';
 import 'special_offers.dart';
 
@@ -23,8 +24,9 @@ class Body extends StatelessWidget {
             SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(30)),
             Container(height: 320, child: Brands()),
+            Container(height: 350, child: LikeCardScreen()),
             SizedBox(height: getProportionateScreenWidth(30)),
-            Container(height: 320, child: PopularProduct()),
+            Container(height: 330, child: PopularProduct()),
             SizedBox(height: getProportionateScreenWidth(80)),
           ],
         ),

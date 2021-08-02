@@ -70,6 +70,9 @@ class ServerConstants {
   //Home
   static const String Home = "${API}main";
   static const String getSliders = "${API}getsliders";
+  static const String productLikeCard = "${API}search";
+  static const String get_like_card_categories =
+      "${API}get_like_card_categories";
   static const String AllCategories = "${API}get_categories";
   static const String Brands = "${API}get_brands";
   static const String Products = "${API}getallproducts";

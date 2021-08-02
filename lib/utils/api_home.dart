@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shop_app/models/category_like_card.dart';
+import 'package:shop_app/models/producr_like_card.dart';
 import 'package:shop_app/models/slider_model.dart';
 import 'package:shop_app/models/user.dart';
 import 'package:shop_app/utils/vars.dart';
@@ -41,6 +43,63 @@ class ApiHome {
       // OK
       slider = SlidersModel.fromJson(_response.data);
       return slider;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<CategoriesLikeCard> likeCardCategory() async {
+    // Json Data
+
+    var _response = await dio.post(ServerConstants.get_like_card_categories,
+        // data: _data,
+        options: Options(
+          headers: {...apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+
+      return CategoriesLikeCard.fromJson(_response.data);
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<ProductLikeCard> likeCardProduct(int id) async {
+    // Json Data
+    var _data = {
+      'poscategory': "$id",
+      'possubcategory': "all",
+    };
+    var _response = await dio.post(ServerConstants.productLikeCard,
+        data: _data,
+        options: Options(
+          headers: {...apiHeaders, "language_id": 1},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+
+      return ProductLikeCard.fromJson(_response.data);
     } else {
       // DioErrorType type;
       // No Success

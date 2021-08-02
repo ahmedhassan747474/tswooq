@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/utils/api_exception.dart';
@@ -117,54 +117,61 @@ class ProductCardState extends State<ProductCard> {
             ),
           ),
           const SizedBox(height: 5),
-          Text(
-            widget.product.productsName,
-            style: TextStyle(color: Colors.black),
-            overflow: TextOverflow.visible,
-            // maxLines: 2,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "\$${widget.product.productsPrice}",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  fontWeight: FontWeight.w600,
-                  color: kPrimaryColor,
+          SizedBox(
+            height: 100,
+            child: Column(
+              children: [
+                Text(
+                  widget.product.productsName,
+                  style: TextStyle(color: Colors.black),
+                  overflow: TextOverflow.visible,
+                  // maxLines: 2,
                 ),
-              ),
-              InkWell(
-                borderRadius: BorderRadius.circular(50),
-                onTap: () {},
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                  height: getProportionateScreenWidth(28),
-                  width: getProportionateScreenWidth(28),
-                  decoration: BoxDecoration(
-                    color: widget.product.isLiked == "0"
-                        ? kPrimaryColor.withOpacity(0.15)
-                        : kSecondaryColor.withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      if (widget.product.isLiked == "0")
-                        _likeSubmit();
-                      else
-                        _unLikeSubmit();
-                    },
-                    child: SvgPicture.asset(
-                      "assets/icons/Heart Icon_2.svg",
-                      color: widget.product.isLiked != "0"
-                          ? Color(0xFFFF4848)
-                          : Color(0xFFDBDEE4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "\$${widget.product.productsPrice}",
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18),
+                        fontWeight: FontWeight.w600,
+                        color: kPrimaryColor,
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ],
-          )
+                    InkWell(
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(getProportionateScreenWidth(8)),
+                        height: getProportionateScreenWidth(28),
+                        width: getProportionateScreenWidth(28),
+                        decoration: BoxDecoration(
+                          color: widget.product.isLiked == "0"
+                              ? kPrimaryColor.withOpacity(0.15)
+                              : kSecondaryColor.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            if (widget.product.isLiked == "0")
+                              _likeSubmit();
+                            else
+                              _unLikeSubmit();
+                          },
+                          child: SvgPicture.asset(
+                            "assets/icons/Heart Icon_2.svg",
+                            color: widget.product.isLiked != "0"
+                                ? Color(0xFFFF4848)
+                                : Color(0xFFDBDEE4),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -2,11 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/product_card.dart';
-import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:shop_app/utils/api_products.dart';
 
 import '../../size_config.dart';
 
@@ -26,7 +24,7 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class ProductListScreenState extends State<ProductListScreen> {
- // ProductsModel product = new ProductsModel(productData: []);
+  // ProductsModel product = new ProductsModel(productData: []);
   bool isGridView = true;
   bool _isLoading = true;
   @override
@@ -65,9 +63,7 @@ class ProductListScreenState extends State<ProductListScreen> {
           )
         ],
       ),
-      body: isGridView
-          ? gridView(widget.product)
-          : listView(widget.product),
+      body: isGridView ? gridView(widget.product) : listView(widget.product),
     );
   }
 
@@ -82,8 +78,8 @@ class ProductListScreenState extends State<ProductListScreen> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailsScreen(
-                            product: product.productData[index],
-                          )));
+                                product: product.productData[index],
+                              )));
                     },
                     child: ProductCard(product: product.productData[index])))));
   }
@@ -94,7 +90,7 @@ class ProductListScreenState extends State<ProductListScreen> {
       child: StaggeredGridView.countBuilder(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
-          staggeredTileBuilder: (_) => StaggeredTile.extent(1, 230),
+          staggeredTileBuilder: (_) => StaggeredTile.extent(1, 290),
           // //  controller: popularProvider.scrollController,/
           itemCount: product.productData.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
@@ -104,8 +100,8 @@ class ProductListScreenState extends State<ProductListScreen> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailsScreen(
-                            product: product.productData[index],
-                          )));
+                                product: product.productData[index],
+                              )));
                     },
                     child: ProductCard(product: product.productData[index])));
           }),
