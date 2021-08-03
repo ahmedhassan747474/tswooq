@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/screens/order_list/order_products.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
@@ -15,7 +16,7 @@ class OrderListScreen extends StatefulWidget {
 
 class _OrderListScreenState extends State<OrderListScreen> {
   OrderModel order = new OrderModel(data: []);
-
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -24,6 +25,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
 
   _initData() async {
     order = await ApiOrder.instance.getOrder();
+    _isLoading = false;
     if (mounted) setState(() {});
   }
 
@@ -31,9 +33,11 @@ class _OrderListScreenState extends State<OrderListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: body(
-        order.data,
-      ),
+      body: _isLoading
+          ? helpLoading()
+          : body(
+              order.data,
+            ),
     );
   }
 

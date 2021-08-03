@@ -59,33 +59,35 @@ class _LikeCardProductScreenState extends State<LikeCardProductScreen> {
           )
         ],
       ),
-      body: productLikeCard.data.length == 0
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: Container(
-                      padding: EdgeInsets.all(8),
-                      height: helpHeight(context) * .3,
-                      width: helpWidth(context) * .5,
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor.withOpacity(1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.asset('assets/logo-likeCard.png')),
-                ),
-                Text(
-                  LocaleKeys.no_Product.tr(),
-                  style: TextStyle(color: Colors.black, fontSize: 16),
-                  overflow: TextOverflow.visible,
-                  // maxLines: 2,
-                ),
-              ],
-            )
-          : isGridView
-              ? gridView(productLikeCard.data)
-              : listView(productLikeCard.data),
+      body: _isLoading
+          ? helpLoading()
+          : productLikeCard.data.length == 0
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Container(
+                          padding: EdgeInsets.all(8),
+                          height: helpHeight(context) * .3,
+                          width: helpWidth(context) * .5,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor.withOpacity(1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.asset('assets/logo-likeCard.png')),
+                    ),
+                    Text(
+                      LocaleKeys.no_Product.tr(),
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      overflow: TextOverflow.visible,
+                      // maxLines: 2,
+                    ),
+                  ],
+                )
+              : isGridView
+                  ? gridView(productLikeCard.data)
+                  : listView(productLikeCard.data),
     );
   }
 
