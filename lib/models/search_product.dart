@@ -15,6 +15,12 @@ class SearchProduct {
         productData.add(new Products.fromJson(v));
       });
     }
+    if (json['data'] != null) {
+      productData = new List<Products>();
+      json['data'].forEach((v) {
+        productData.add(new Products.fromJson(v));
+      });
+    }
     message = json['message'];
     totalRecord = json['total_record'];
   }
@@ -113,7 +119,7 @@ class Products {
     productsSlug = json['products_slug'];
     productsType = json['products_type'];
     productsMinOrder = json['products_min_order'];
-    productsMaxStock = json['products_max_stock'];
+    productsMaxStock = json['products_max_stock'].toString() ?? "";
     barcode = json['barcode'];
     id = json['id'];
     productsName = json['products_name'];

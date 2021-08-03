@@ -262,7 +262,7 @@ class ApiProducts {
     }
   }
 
-  Future<ProductsModel> getFav() async {
+  Future<SearchProduct> getFav() async {
     // Json Data
     var _data = {
       "language_id": 1,
@@ -283,8 +283,8 @@ class ApiProducts {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      products = ProductsModel.fromJson(_response.data);
-      return products;
+
+      return SearchProduct.fromJson(_response.data);
       // categories = AllCategoriesModel.fromJson(_response.data);
       //return categories;
     } else {

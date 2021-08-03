@@ -43,8 +43,8 @@ class _PopularProductState extends State<PopularProduct> {
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ProductListScreen(
-                    product: products,
-                  )));
+                        product: products,
+                      )));
             },
           ),
         ),
