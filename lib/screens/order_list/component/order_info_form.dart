@@ -225,7 +225,7 @@ class _OrderFormState extends State<OrderForm> {
           addError(error: kPassNullError);
           return "";
         } else if (value.length < 11) {
-          addError(error: kShortPassError);
+          addError(error: kShortPhoneError);
           return "";
         }
         return null;

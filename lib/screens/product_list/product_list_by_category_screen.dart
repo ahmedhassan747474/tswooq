@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/product_card.dart';
+import 'package:shop_app/components/twest_card.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
@@ -87,7 +88,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
                                 product: product.productData[index],
                               )));
                     },
-                    child: ProductCard(product: product.productData[index])))));
+                    child: TwistCard(product: product.productData[index])))));
   }
 
   Widget gridView(ProductsModel product) {

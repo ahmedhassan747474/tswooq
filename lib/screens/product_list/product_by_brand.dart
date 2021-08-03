@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/home_card.dart';
 import 'package:shop_app/components/product_card.dart';
+import 'package:shop_app/components/twest_card.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
@@ -74,7 +75,7 @@ class ProductBrandScreenState extends State<ProductBrandScreen> {
             itemBuilder: (ctx, index) =>
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: ProductCard(product: product.productData[index])))
+                    child: TwistCard(product: product.productData[index])))
     );
   }
 

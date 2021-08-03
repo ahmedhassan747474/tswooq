@@ -10,8 +10,8 @@ import 'package:shop_app/utils/vars.dart';
 import '../constants.dart';
 import '../size_config.dart';
 
-class ProductCard extends StatefulWidget {
-  const ProductCard({
+class TwistCard extends StatefulWidget {
+  const TwistCard({
     Key key,
     this.width = 140,
     this.aspectRetio = 1.02,
@@ -24,11 +24,11 @@ class ProductCard extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return ProductCardState();
+    return TwistCardState();
   }
 }
 
-class ProductCardState extends State<ProductCard> {
+class TwistCardState extends State<TwistCard> {
   Future<void> _unLikeSubmit() async {
     try {
       print('0000000000000000000000000000');
@@ -99,34 +99,33 @@ class ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: getProportionateScreenWidth(widget.width),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          AspectRatio(
-            aspectRatio: 1.02,
-            child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-              decoration: BoxDecoration(
-                color: kSecondaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Hero(
-                tag: widget.product.productsId.toString(),
-                child: helpImage(widget.product.productsImage, 0),
+          SizedBox(
+            width: 88,
+            child: AspectRatio(
+              aspectRatio: 0.88,
+              child: Container(
+                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5F6F9),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Image.network(widget.product.productsImage),
               ),
             ),
           ),
-          const SizedBox(height: 5),
-          SizedBox(
-            height: 100,
+          SizedBox(width: 20),
+          Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.product.productsName,
-                  style: TextStyle(color: Colors.black),
-                  overflow: TextOverflow.visible,
-                  // maxLines: 2,
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  maxLines: 2,
                 ),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -166,9 +165,9 @@ class ProductCardState extends State<ProductCard> {
                 )
               ],
             ),
-          ),
+          )
         ],
-      ),
+      )
     );
   }
 }
