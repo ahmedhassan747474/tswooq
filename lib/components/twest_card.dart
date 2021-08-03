@@ -98,76 +98,72 @@ class TwistCardState extends State<TwistCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: getProportionateScreenWidth(widget.width),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 88,
-            child: AspectRatio(
-              aspectRatio: 0.88,
-              child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5F6F9),
-                  borderRadius: BorderRadius.circular(15),
+        width: getProportionateScreenWidth(widget.width),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 88,
+              child: AspectRatio(
+                aspectRatio: 0.88,
+                child: Container(
+                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5F6F9),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Image.network(widget.product.productsImage),
                 ),
-                child: Image.network(widget.product.productsImage),
               ),
             ),
-          ),
-          SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.product.productsName,
-                  style: TextStyle(color: Colors.black, fontSize: 16),
-                  maxLines: 2,
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "\$${widget.product.productsPrice}",
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(18),
-                        fontWeight: FontWeight.w600,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                    InkWell(
-                      borderRadius: BorderRadius.circular(50),
-                      onTap: () {if (widget.product.isLiked == "0")
-                        _likeSubmit();
-                      else
-                        _unLikeSubmit();},
-                      child: Container(
-                        padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                        height: getProportionateScreenWidth(28),
-                        width: getProportionateScreenWidth(28),
-                        decoration: BoxDecoration(
-                          color: widget.product.isLiked == "0"
-                              ? kPrimaryColor.withOpacity(0.15)
-                              : kSecondaryColor.withOpacity(0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: SvgPicture.asset(
-                          "assets/icons/Heart Icon_2.svg",
-                          color: widget.product.isLiked != "0"
-                              ? Color(0xFFFF4848)
-                              : Color(0xFFDBDEE4),
+            SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.product.productsName,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    maxLines: 2,
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      helpCurrency("${widget.product.productsPrice}",
+                          Colors.deepOrange, context),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          if (widget.product.isLiked == "0")
+                            _likeSubmit();
+                          else
+                            _unLikeSubmit();
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.all(getProportionateScreenWidth(8)),
+                          height: getProportionateScreenWidth(28),
+                          width: getProportionateScreenWidth(28),
+                          decoration: BoxDecoration(
+                            color: widget.product.isLiked == "0"
+                                ? kPrimaryColor.withOpacity(0.15)
+                                : kSecondaryColor.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: SvgPicture.asset(
+                            "assets/icons/Heart Icon_2.svg",
+                            color: widget.product.isLiked != "0"
+                                ? Color(0xFFFF4848)
+                                : Color(0xFFDBDEE4),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      )
-    );
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }

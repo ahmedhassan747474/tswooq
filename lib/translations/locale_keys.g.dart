@@ -1,6 +1,7 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
+  static const no_Product = 'no_Product';
   static const continue_translate = 'continue_translate';
   static const sign_in_translate = 'sign_in_translate';
   static const welcome_translate = 'welcome_translate';
@@ -9,7 +10,8 @@ abstract class  LocaleKeys {
   static const remember_translate = 'remember_translate';
   static const forget_password_translate = 'forget_password_translate';
   static const sign_up_translate = 'sign_up_translate';
-  static const Dont_have_an_account_translate = 'Dont_have_an_account_translate';
+  static const Dont_have_an_account_translate =
+      'Dont_have_an_account_translate';
   static const Brands_translate = 'Brands_translate';
   static const Popular_Products_translate = 'Popular_Products_translate';
   static const See_More_translate = 'See_More_translate';
@@ -20,13 +22,15 @@ abstract class  LocaleKeys {
   static const Total_translate = 'Total_translate';
   static const items_translate = 'items_translate';
   static const Your_Order_translate = 'Your_Order_translate';
+  static const Order_Number = 'Order_Number';
   static const Confirm_Password_translate = 'Confirm_Password_translate';
   static const Reenter_pass_translate = 'Re-enter_pass_translate';
   static const Edit_Profile_translate = 'Edit_Profile_translate';
   static const CANCEL_translate = 'CANCEL_translate';
   static const SAVE_translate = 'SAVE_translate';
   static const First_Name_translate = 'First_Name_translate';
-  static const Enter_your_First_Name_translate = 'Enter_your_First_Name_translate';
+  static const Enter_your_First_Name_translate =
+      'Enter_your_First_Name_translate';
   static const Last_Name_translate = 'Last_Name_translate';
   static const Last_Name_hint = 'Last_Name_hint';
   static const User_Name = 'User_Name';
@@ -68,6 +72,4 @@ abstract class  LocaleKeys {
   static const help_splash2 = 'help_splash2';
   static const text31_splash = 'text31_splash';
   static const text32_splash = 'text32_splash';
-
-
 }

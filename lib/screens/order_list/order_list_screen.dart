@@ -1,9 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/screens/order_list/order_products.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_order.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../size_config.dart';
 import 'component/order_card.dart';
@@ -41,20 +41,47 @@ class _OrderListScreenState extends State<OrderListScreen> {
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-      child: ListView.builder(
-        itemCount: order.length,
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrderProductsScreen(
-                          product: order[index].data,
-                        )));
-              },
-              child: OrderCard(order: order[index])),
-        ),
-      ),
+      child: order.length == 0
+          ? Center(
+              child: Column(
+              children: [
+                SizedBox(
+                  height: 80,
+                ),
+                Image.asset(
+                  "assets/images/shopcart.gif",
+                ),
+                // FlatButton(
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(20)),
+                //   color: kPrimaryColor,
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //   },
+                //   child: Text(
+                //     "Go To Home",
+                //     style: TextStyle(
+                //       fontSize: 16,
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // )
+              ],
+            ))
+          : ListView.builder(
+              itemCount: order.length,
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => OrderProductsScreen(
+                                product: order[index].data,
+                              )));
+                    },
+                    child: OrderCard(order: order[index])),
+              ),
+            ),
     );
   }
 
@@ -67,7 +94,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${order.data.length} "+ LocaleKeys.items_translate.tr(),
+            "${order.data.length} " + LocaleKeys.items_translate.tr(),
             style: Theme.of(context).textTheme.caption,
           ),
         ],

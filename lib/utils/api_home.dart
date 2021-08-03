@@ -82,7 +82,7 @@ class ApiHome {
     }
   }
 
-  Future<ProductLikeCard> likeCardProduct(int id) async {
+  Future<ProductLikeCard> likeCardProduct(String id) async {
     // Json Data
     var _data = {
       'poscategory': "$id",
@@ -98,7 +98,7 @@ class ApiHome {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-
+      if (_response.data["response"] == 0) return ProductLikeCard(data: []);
       return ProductLikeCard.fromJson(_response.data);
     } else {
       // DioErrorType type;

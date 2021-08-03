@@ -130,20 +130,16 @@ class ProductCardState extends State<ProductCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "\$${widget.product.productsPrice}",
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(18),
-                        fontWeight: FontWeight.w600,
-                        color: kPrimaryColor,
-                      ),
-                    ),
+                    helpCurrency("${widget.product.productsPrice}",
+                        Colors.deepOrange, context),
                     InkWell(
                       borderRadius: BorderRadius.circular(50),
-                      onTap: () {if (widget.product.isLiked == "0")
-                        _likeSubmit();
-                      else
-                        _unLikeSubmit();},
+                      onTap: () {
+                        if (widget.product.isLiked == "0")
+                          _likeSubmit();
+                        else
+                          _unLikeSubmit();
+                      },
                       child: Container(
                         padding: EdgeInsets.all(getProportionateScreenWidth(8)),
                         height: getProportionateScreenWidth(28),

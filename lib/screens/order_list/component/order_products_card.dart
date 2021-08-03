@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/order.dart';
-import '';
+import 'package:shop_app/utils/vars.dart';
 
-import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class OrderProductsCard extends StatelessWidget {
@@ -27,7 +27,7 @@ class OrderProductsCard extends StatelessWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-                 child: Image.network(product.image),
+              child: helpImage(ServerConstants.DOMAIN + product.image, 0),
             ),
           ),
         ),
@@ -41,18 +41,14 @@ class OrderProductsCard extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(height: 10),
-            Text.rich(
-              TextSpan(
-                text: "\$${product.productsPrice}",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, color: kPrimaryColor),
-                children: [
-                  TextSpan(
-                      text: " x${product.productsQuantity}",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
-              ),
-            )
+            Row(
+              children: [
+                Text(" x ${product.productsQuantity}",
+                    style: Theme.of(context).textTheme.bodyText1),
+                helpCurrency(
+                    "${product.productsPrice}", Colors.deepOrange, context),
+              ],
+            ),
           ],
         )
       ],

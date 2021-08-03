@@ -8,6 +8,8 @@ import 'package:shop_app/screens/home/components/section_title.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_home.dart';
 
+import 'like_card_screen.dart';
+
 class LikeCardScreen extends StatefulWidget {
   @override
   _LikeCardScreenState createState() => _LikeCardScreenState();
@@ -79,7 +81,12 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                       child: CategoryCard(
                         icon: categoriesLC.categories.data[index].amazonImage,
                         text: categoriesLC.categories.data[index].categoryName,
-                        // press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductBrandScreen(id: brands.data[index].i,)));},
+                        press: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => LikeCardProductScreen(
+                                    id: categoriesLC.categories.data[index].id,
+                                  )));
+                        },
                         cardWidth: 100,
                         imgWidth: 80,
                         imgHeight: 80,

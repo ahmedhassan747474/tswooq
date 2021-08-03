@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/order.dart';
-
-import '../../../constants.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({
@@ -36,24 +36,41 @@ class OrderCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                order.ordersId.toString(),
-                style: TextStyle(color: Colors.black, fontSize: 16),
-                maxLines: 2,
+              Row(
+                children: [
+                  Text(
+                    order.ordersId.toString(),
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    maxLines: 2,
+                  ),
+                  Text(
+                    LocaleKeys.Order_Number.tr(),
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    maxLines: 2,
+                  ),
+                ],
               ),
               SizedBox(height: 10),
-              Text.rich(
-                TextSpan(
-                  text: "\$${order.orderPrice}",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: kPrimaryColor),
-                  children: [
-                    TextSpan(
-                        text: " x${order.totalTax}",
-                        style: Theme.of(context).textTheme.bodyText1),
-                  ],
-                ),
-              )
+              Row(
+                children: [
+                  // Text(" x ${product.productsQuantity}",
+                  //     style: Theme.of(context).textTheme.bodyText1),
+                  helpCurrency(
+                      "${order.orderPrice}", Colors.deepOrange, context),
+                ],
+              ),
+              // Text.rich(
+              //   TextSpan(
+              //     text: "\$${order.orderPrice}",
+              //     style: TextStyle(
+              //         fontWeight: FontWeight.w600, color: kPrimaryColor),
+              //     children: [
+              //       TextSpan(
+              //           text: " x${order.totalTax}",
+              //           style: Theme.of(context).textTheme.bodyText1),
+              //     ],
+              //   ),
+              // )
             ],
           )
         ],

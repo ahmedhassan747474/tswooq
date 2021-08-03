@@ -28,7 +28,8 @@ class ApiProvider {
     // "X-Requested-With": "XMLHttpRequest",
   };
 
-  Future<UserModel> register(String email, String password, String confirmPassword) async {
+  Future<UserModel> register(
+      String email, String password, String confirmPassword) async {
     // Json Data
     var _data = {
       "email": "$email",
@@ -119,25 +120,40 @@ class ApiProvider {
     }
   }
 
-  Future<UserModel> editProfile( String phone, File image, String userName ,String firstName, String lastName, String email) async {
+  Future<UserModel> editProfile(String phone, File image, String userName,
+      String firstName, String lastName, String email) async {
     String fileName = image.path.split('/').last;
     // Json Data
-    FormData  _data = FormData.fromMap({
-      "user_name": "$userName",
-      "first_name": "$firstName",
-      "last_name": "$lastName",
-      "phone": "$phone",
-      "email": "$email",
-    "image":
-    await MultipartFile.fromFile(image.path, filename:fileName,),
 
-    });
+    FormData _formData;
+
+    if (image == null)
+      _formData = FormData.fromMap({
+        "user_name": "$userName",
+        "first_name": "$firstName",
+        "last_name": "$lastName",
+        "phone": "$phone",
+        "email": "$email",
+      });
+    else {
+      _formData = FormData.fromMap({
+        "user_name": "$userName",
+        "first_name": "$firstName",
+        "last_name": "$lastName",
+        "phone": "$phone",
+        "email": "$email",
+        // 'image': await MultipartFile.fromFile('${image.path}'
+
+        // )
+      });
+    }
     String token = await _getUserToken();
     var _response = await dio.post(ServerConstants.Update_profile,
-        data: _data,
+        data: _formData,
         options: Options(
+          responseType: ResponseType.json,
           headers: {
-            ...apiHeaders,
+            // ...apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -160,7 +176,8 @@ class ApiProvider {
     }
   }
 
-  Future<UserModel> changePassword( String oldPass, String newPass, String passwordConfirmation) async {
+  Future<UserModel> changePassword(
+      String oldPass, String newPass, String passwordConfirmation) async {
     // Json Data
     var _data = {
       "old_password": "$oldPass",
@@ -195,9 +212,6 @@ class ApiProvider {
     }
   }
 
-
-
-
   Future<UserModel> forgetPassword() async {
     String token = await _getUserToken();
     var _response = await dio.post(ServerConstants.Forget_Password,
@@ -225,9 +239,6 @@ class ApiProvider {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
-
-
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////

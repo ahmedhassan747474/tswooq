@@ -28,7 +28,7 @@ class ProductLC {
   String productId;
   String categoryId;
   String productName;
-  double productPrice;
+  String productPrice;
   String productPriceWithoutVat;
   String productImage;
   String productCurrency;
@@ -60,7 +60,7 @@ class ProductLC {
     productId = json['productId'];
     categoryId = json['categoryId'];
     productName = json['productName'];
-    productPrice = json['productPrice'];
+    productPrice = json['productPrice'].toString();
     productPriceWithoutVat = json['productPriceWithoutVat'];
     productImage = json['productImage'];
     productCurrency = json['productCurrency'];

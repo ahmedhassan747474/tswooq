@@ -24,6 +24,14 @@ int helpHero() {
   return i++;
 }
 
+double helpWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
+}
+
+double helpHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height;
+}
+
 String helpLanguage = 'ar';
 Locale helpLocale = Locale('en');
 helpEn(BuildContext context) {

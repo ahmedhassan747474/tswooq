@@ -36,7 +36,7 @@ class ApiOrder {
       "email": email,
       "delivery_street_address": address,
       "delivery_city": city,
-      "payment_method": 'Cash on Delivery',
+      "payment_method": 'cash_on_delivery',
       "payment_status": 1,
       "totalPrice": totalPrice,
       "currency_code": "SAR",
