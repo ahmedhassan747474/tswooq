@@ -156,6 +156,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onTap: () {
                   choseImage(ImageSource.gallery);
                   showNawImage = true;
+                  setState(() {
+
+                  });
                 },
                 child: Center(
                   child: Container(

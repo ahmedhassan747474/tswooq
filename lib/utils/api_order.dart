@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/order.dart';
@@ -46,6 +48,72 @@ class ApiOrder {
     String token = await _getUserToken();
     var _response = await dio.post(ServerConstants.OrderMake,
         data: _data,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      order = OrderModel.fromJson(_response.data);
+      return order;
+      // categories = AllCategoriesModel.fromJson(_response.data);
+      //return categories;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....make order***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<OrderModel> makeOrderByVisa(String phone, String email, String address,
+      String city, String paymentMethod, double totalPrice,  String bankAccountIban, File bankAccountImage,) async {
+    String fileName = bankAccountImage.path.split('/').last;
+    // Json Data
+    FormData _formData;
+
+    if (bankAccountImage == null)
+      _formData = FormData.fromMap({
+      "customers_telephone": phone,
+      "email": email,
+      "delivery_street_address": address,
+      "delivery_city": city,
+      "payment_method": 'cash_on_delivery',
+      "payment_status": 1,
+      "totalPrice": totalPrice,
+      "currency_code": "SAR",
+      "total_tax": 0.0,
+      "bank_account_iban": bankAccountIban,
+      "language_id": 1,
+      });
+    else {
+      _formData = FormData.fromMap({
+        "customers_telephone": phone,
+        "email": email,
+        "delivery_street_address": address,
+        "delivery_city": city,
+        "payment_method": 'cash_on_delivery',
+        "payment_status": 1,
+        "totalPrice": totalPrice,
+        "currency_code": "SAR",
+        "total_tax": 0.0,
+        "bank_account_image": bankAccountImage,
+        "bank_account_iban": bankAccountIban,
+        "language_id": 1,
+      });
+    };
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.OrderMake,
+        data: _formData,
         options: Options(
           headers: {
             ...apiHeaders,

@@ -5,6 +5,7 @@ import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/components/loading_screen.dart';
 import 'package:shop_app/models/user.dart';
+import 'package:shop_app/screens/order_list/visa_payment.dart';
 import 'package:shop_app/screens/order_success/login_success_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api.dart';
@@ -33,7 +34,7 @@ class _OrderFormState extends State<OrderForm> {
   bool remember = false;
   final List<String> errors = [];
 
-  String selectedValue = "cash";
+  String selectedValue = LocaleKeys.Cash.tr();
 
   @override
   void initState() {
@@ -65,10 +66,17 @@ class _OrderFormState extends State<OrderForm> {
         await ApiOrder.instance.makeOrder(
             phone, email, city, address, selectedValue, widget.totalPrice);
 
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
-      }
+     //   Navigator.of(context).popUntil((route) => route.isFirst);
+        if(selectedValue.compareTo(LocaleKeys.Cash.tr())==0)
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>  OrderSuccessScreen()));
+        else
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>  VisaPayment(phone: phone,address: address,city: city,totalPrice: widget.totalPrice,method: selectedValue,email: email,)));
+        }
+
+
+   //   }
     } on ApiException catch (_) {
       print('ApiException');
       Navigator.of(context).pop();
@@ -120,7 +128,7 @@ class _OrderFormState extends State<OrderForm> {
           ListTile(
             title: Text(LocaleKeys.Cash.tr()),
             leading: Radio(
-              value: "cash",
+              value:LocaleKeys.Cash.tr(),
               groupValue: selectedValue,
               onChanged: (newValue) {
                 setState(() {
@@ -134,7 +142,7 @@ class _OrderFormState extends State<OrderForm> {
               LocaleKeys.Visa.tr(),
             ),
             leading: Radio(
-              value: "visa",
+              value:  LocaleKeys.Visa.tr(),
               groupValue: selectedValue,
               onChanged: (newValue) {
                 setState(() {

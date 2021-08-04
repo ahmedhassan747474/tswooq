@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/product_card.dart';
+import 'package:shop_app/components/twest_card.dart';
 import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
@@ -75,7 +76,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                 product: product[index],
                               )));
                     },
-                    child: ProductCard(product: product[index])))));
+                    child: TwistCard(product: product[index])))));
   }
 
   Widget gridView(List<Products> product) {
