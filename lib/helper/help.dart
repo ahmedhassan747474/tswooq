@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:shop_app/utils/vars.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -100,7 +101,23 @@ Widget helpLoading() {
         topRight: Radius.circular(16.0),
       ),
     ),
-    child: LoadingWidget(color: Colors.red),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        LoadingWidget(color: Colors.red),
+        SizedBox(
+          height: 50,
+          width: 100,
+          child: LoadingIndicator(
+//          indicatorType: indicator,
+            indicatorType: Indicator.ballBeat,
+            color: Colors.deepOrange,
+//          color: Colors.red,
+          ),
+        ),
+      ],
+    ),
   );
 }
 
