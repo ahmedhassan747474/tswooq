@@ -15,6 +15,9 @@ class CodegenLoader extends AssetLoader {
   }
 
   static const Map<String, dynamic> ar = {
+    "NOFBank": "رقم التحويل",
+    "Bank": "تحويل بنكى",
+    "comments": "ملاحظات",
     "no_Product": "لا يوجد منتجات",
     "Order_Number": "رقم الطلب",
     "continue_translate": "استمرار",
@@ -86,6 +89,9 @@ class CodegenLoader extends AssetLoader {
     "text32_splash": "فقط ابق في الصفحة الرئيسية معنا"
   };
   static const Map<String, dynamic> en = {
+    "NOFBank": "Number transfer",
+    "Bank": "Bank transfer",
+    "comments": "Comment",
     "no_Product": "No Product",
     "Order_Number": "Order Number",
     "continue_translate": "Continue",

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/utils/vars.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'loading_screen.dart';
 
@@ -101,6 +102,19 @@ Widget helpLoading() {
     ),
     child: LoadingWidget(color: Colors.red),
   );
+}
+
+Future<void> helpLauncher(String url) async {
+  if (await canLaunch(url)) {
+    await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    );
+  } else {
+    throw 'Could not launch $url';
+  }
 }
 
 Widget helpImage(String image, double radius) {

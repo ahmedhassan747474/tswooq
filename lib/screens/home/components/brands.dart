@@ -6,6 +6,7 @@ import 'package:shop_app/helper/loading_shimmer.dart';
 import 'package:shop_app/models/brands.dart';
 import 'package:shop_app/screens/brand_list/brand_list_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
+import 'package:shop_app/screens/product_list/product_by_brand.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_brands.dart';
 
@@ -79,7 +80,12 @@ class _BrandsState extends State<Brands> {
                       child: CategoryCard(
                         icon: brands.data[index].icon,
                         text: brands.data[index].categoriesName,
-                        // press: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductBrandScreen(id: brands.data[index].i,)));},
+                        press: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ProductBrandScreen(
+                                    id: brands.data[index].categoriesId,
+                                  )));
+                        },
                         cardWidth: 100,
                         imgWidth: 80,
                         imgHeight: 80,

@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/order.dart';
+import 'package:shop_app/models/payment_method.dart';
 import 'package:shop_app/models/user.dart';
+import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -30,24 +32,58 @@ class ApiOrder {
     // "X-Requested-With": "XMLHttpRequest",
   };
 
-  Future<OrderModel> makeOrder(String phone, String email, String address,
-      String city, String paymentMethod, double totalPrice) async {
+  Future<OrderModel> makeOrder(
+      {String phone,
+      String email,
+      String address,
+      String city,
+      String paymentMethod,
+      double totalPrice,
+      String comments,
+      File image,
+      String bankNumber}) async {
     // Json Data
-    var _data = {
-      "customers_telephone": phone,
-      "email": email,
-      "delivery_street_address": address,
-      "delivery_city": city,
-      "payment_method": 'cash_on_delivery',
-      "payment_status": 1,
-      "totalPrice": totalPrice,
-      "currency_code": "SAR",
-      "total_tax": 0.0,
-      "language_id": 1,
-    };
+    UserModel user = ApiProvider.user;
+
+    FormData _formData;
+    if (paymentMethod == 'cash_on_delivery') {
+      _formData = FormData.fromMap({
+        'delivery_firstname': '${user.data.firstName}',
+        'delivery_lastname': '${user.data.lastName}',
+        "customers_telephone": phone,
+        "email": email,
+        "delivery_street_address": address,
+        "delivery_city": city,
+        "payment_method": 'cash_on_delivery',
+        "payment_status": 1,
+        "totalPrice": totalPrice,
+        "currency_code": "SAR",
+        "total_tax": 0.0,
+        "language_id": 1,
+        "comments": "$comments",
+      });
+    } else {
+      _formData = FormData.fromMap({
+        'delivery_firstname': '${user.data.firstName}',
+        'delivery_lastname': '${user.data.lastName}',
+        "customers_telephone": phone,
+        "email": email,
+        "delivery_street_address": address,
+        "delivery_city": city,
+        "payment_method": 'bank_account',
+        "payment_status": 1,
+        "totalPrice": totalPrice,
+        "currency_code": "SAR",
+        "total_tax": 0.0,
+        "language_id": 1,
+        "comments": "$comments",
+        "bank_account_image": await MultipartFile.fromFile('${image.path}'),
+        "bank_account_iban": "$bankNumber",
+      });
+    }
     String token = await _getUserToken();
     var _response = await dio.post(ServerConstants.OrderMake,
-        data: _data,
+        data: _formData,
         options: Options(
           headers: {
             ...apiHeaders,
@@ -75,25 +111,33 @@ class ApiOrder {
     }
   }
 
-  Future<OrderModel> makeOrderByVisa(String phone, String email, String address,
-      String city, String paymentMethod, double totalPrice,  String bankAccountIban, File bankAccountImage,) async {
+  Future<OrderModel> makeOrderByVisa(
+    String phone,
+    String email,
+    String address,
+    String city,
+    String paymentMethod,
+    double totalPrice,
+    String bankAccountIban,
+    File bankAccountImage,
+  ) async {
     String fileName = bankAccountImage.path.split('/').last;
     // Json Data
     FormData _formData;
 
     if (bankAccountImage == null)
       _formData = FormData.fromMap({
-      "customers_telephone": phone,
-      "email": email,
-      "delivery_street_address": address,
-      "delivery_city": city,
-      "payment_method": 'cash_on_delivery',
-      "payment_status": 1,
-      "totalPrice": totalPrice,
-      "currency_code": "SAR",
-      "total_tax": 0.0,
-      "bank_account_iban": bankAccountIban,
-      "language_id": 1,
+        "customers_telephone": phone,
+        "email": email,
+        "delivery_street_address": address,
+        "delivery_city": city,
+        "payment_method": 'cash_on_delivery',
+        "payment_status": 1,
+        "totalPrice": totalPrice,
+        "currency_code": "SAR",
+        "total_tax": 0.0,
+        "bank_account_iban": bankAccountIban,
+        "language_id": 1,
       });
     else {
       _formData = FormData.fromMap({
@@ -110,7 +154,8 @@ class ApiOrder {
         "bank_account_iban": bankAccountIban,
         "language_id": 1,
       });
-    };
+    }
+    ;
     String token = await _getUserToken();
     var _response = await dio.post(ServerConstants.OrderMake,
         data: _formData,
@@ -135,6 +180,35 @@ class ApiOrder {
       print(
           'ApiException....make order***********************************************************');
 
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<PaymentMethodModel> getMethod() async {
+    // String token = await _getUserToken();
+    // Json Data
+    var _data = {
+      "language_id": 1,
+    };
+    var _response = await dio.post(ServerConstants.PaymentMethodModel,
+        // data: _data,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            // 'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+
+      return PaymentMethodModel.fromJson(_response.data);
+    } else {
+      print('ApiException....get order************************');
       print('...................................................');
 
       throw ApiException.fromApi(_response.statusCode, _response.data);

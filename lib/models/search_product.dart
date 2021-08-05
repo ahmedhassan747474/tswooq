@@ -281,7 +281,7 @@ class Attributes {
     color = json['color'];
     size = json['size'];
     id = json['id'];
-    price = json['price'].toString() ?? "";
+    price = json['price'] == null ? "" : json['price'].toString() ?? "";
     homeImage = json['home_image'];
     if (json['images'] != null) {
       images = <Images>[];

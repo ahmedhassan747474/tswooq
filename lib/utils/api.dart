@@ -122,7 +122,6 @@ class ApiProvider {
 
   Future<UserModel> editProfile(String phone, File image, String userName,
       String firstName, String lastName, String email) async {
-    String fileName = image.path.split('/').last;
     // Json Data
 
     FormData _formData;
@@ -142,9 +141,7 @@ class ApiProvider {
         "last_name": "$lastName",
         "phone": "$phone",
         "email": "$email",
-        // 'image': await MultipartFile.fromFile('${image.path}'
-
-        // )
+        'image': await MultipartFile.fromFile('${image.path}')
       });
     }
     String token = await _getUserToken();
@@ -153,7 +150,7 @@ class ApiProvider {
         options: Options(
           responseType: ResponseType.json,
           headers: {
-            // ...apiHeaders,
+            ...apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {

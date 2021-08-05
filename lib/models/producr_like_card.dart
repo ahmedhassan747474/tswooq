@@ -75,20 +75,20 @@ class ProductLC {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['productId'] = this.productId;
-    data['categoryId'] = this.categoryId;
+    // data['productId'] = this.productId;
+    // data['categoryId'] = this.categoryId;
     data['productName'] = this.productName;
     data['productPrice'] = this.productPrice;
-    data['productPriceWithoutVat'] = this.productPriceWithoutVat;
+    // data['productPriceWithoutVat'] = this.productPriceWithoutVat;
     data['productImage'] = this.productImage;
     data['productCurrency'] = this.productCurrency;
-    data['optionalFieldsExist'] = this.optionalFieldsExist;
-    data['productOptionalFields'] = this.productOptionalFields;
-    data['sellPrice'] = this.sellPrice;
-    data['sellPriceWithoutVat'] = this.sellPriceWithoutVat;
-    data['available'] = this.available;
-    data['vatAmount'] = this.vatAmount;
-    data['vatPercentage'] = this.vatPercentage;
+    // data['optionalFieldsExist'] = this.optionalFieldsExist;
+    // data['productOptionalFields'] = this.productOptionalFields;
+    // data['sellPrice'] = this.sellPrice;
+    // data['sellPriceWithoutVat'] = this.sellPriceWithoutVat;
+    // data['available'] = this.available;
+    // data['vatAmount'] = this.vatAmount;
+    // data['vatPercentage'] = this.vatPercentage;
     return data;
   }
 }

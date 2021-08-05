@@ -122,10 +122,9 @@ class _LikeCardProductScreenState extends State<LikeCardProductScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: GestureDetector(
                     onTap: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => DetailsScreen(
-                      //           product: product[index],
-                      //         )));
+                      print('${product[index].toJson()}');
+                      helpLauncher(
+                          "https://wa.me/+201285620239?text=${product[index].toJson()}");
                     },
                     child: productWidget(product[index], context)));
           }),

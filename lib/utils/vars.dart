@@ -94,4 +94,6 @@ class ServerConstants {
   static const String Order_List = "${API}getorders";
   static const String OrderMake = "${API}addtoorder";
   static const String Order_Cancel = "${API}cancelorder";
+
+  static const String PaymentMethodModel = "${API}getpaymentmethods";
 }

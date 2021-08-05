@@ -1,16 +1,21 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/components/loading_screen.dart';
+import 'package:shop_app/helper/help.dart';
+import 'package:shop_app/models/payment_method.dart';
 import 'package:shop_app/models/user.dart';
-import 'package:shop_app/screens/order_list/visa_payment.dart';
 import 'package:shop_app/screens/order_success/login_success_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/api_order.dart';
+import 'package:shop_app/utils/contents.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import '../../../constants.dart';
@@ -27,19 +32,40 @@ class OrderForm extends StatefulWidget {
 class _OrderFormState extends State<OrderForm> {
   UserModel user = new UserModel();
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String phone;
-  String address;
-  String city;
+  String email, phone, address, comments, city, nOFBank;
   bool remember = false;
   final List<String> errors = [];
+  XFile tmpFile;
 
-  String selectedValue = LocaleKeys.Cash.tr();
-
+  bool showNawImage = false;
+  PaymentMethodModel method = new PaymentMethodModel(data: []);
+  bool _isLoading = true;
   @override
   void initState() {
+    super.initState();
     user = ApiProvider.user;
+    _initData();
   }
+
+  _initData() async {
+    method = await ApiOrder.instance.getMethod();
+
+    _isLoading = false;
+    if (mounted) setState(() {});
+  }
+
+  choseImage(ImageSource source) async {
+    final ImagePicker _picker = ImagePicker();
+    tmpFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: ImageConfig.QUALITY,
+      maxWidth: ImageConfig.WIDTH,
+      maxHeight: ImageConfig.HEIGHT,
+    );
+    setState(() {});
+  }
+
+  String selectedValue = LocaleKeys.Cash.tr();
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -64,19 +90,28 @@ class _OrderFormState extends State<OrderForm> {
         _formKey.currentState.save();
         LoadingScreen.show(context);
         await ApiOrder.instance.makeOrder(
-            phone, email, city, address, selectedValue, widget.totalPrice);
+          phone: phone,
+          email: email,
+          city: city,
+          address: address,
+          // selectedValue,
+          totalPrice: widget.totalPrice,
+          comments: comments, bankNumber: nOFBank,
+          image: selectedValue == LocaleKeys.Cash.tr()
+              ? File("")
+              : File(tmpFile.path),
+          paymentMethod: selectedValue == LocaleKeys.Cash.tr()
+              ? "cash_on_delivery"
+              : 'bank_account',
+        );
 
-     //   Navigator.of(context).popUntil((route) => route.isFirst);
-        if(selectedValue.compareTo(LocaleKeys.Cash.tr())==0)
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>  OrderSuccessScreen()));
-        else
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>  VisaPayment(phone: phone,address: address,city: city,totalPrice: widget.totalPrice,method: selectedValue,email: email,)));
-        }
+        Navigator.of(context).popUntil((route) => route.isFirst);
 
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
+      }
 
-   //   }
+      //   }
     } on ApiException catch (_) {
       print('ApiException');
       Navigator.of(context).pop();
@@ -114,8 +149,10 @@ class _OrderFormState extends State<OrderForm> {
           buildCityFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildAddressFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30),
           buildPhoneFormField(),
+          SizedBox(height: 30),
+          buildCommentsFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           Padding(
@@ -128,7 +165,7 @@ class _OrderFormState extends State<OrderForm> {
           ListTile(
             title: Text(LocaleKeys.Cash.tr()),
             leading: Radio(
-              value:LocaleKeys.Cash.tr(),
+              value: LocaleKeys.Cash.tr(),
               groupValue: selectedValue,
               onChanged: (newValue) {
                 setState(() {
@@ -137,20 +174,77 @@ class _OrderFormState extends State<OrderForm> {
               },
             ),
           ),
-          ListTile(
-            title: Text(
-              LocaleKeys.Visa.tr(),
-            ),
-            leading: Radio(
-              value:  LocaleKeys.Visa.tr(),
-              groupValue: selectedValue,
-              onChanged: (newValue) {
-                setState(() {
-                  selectedValue = newValue;
-                });
-              },
-            ),
-          ),
+          _isLoading
+              ? SizedBox()
+              : method.data[8].active == 0
+                  ? SizedBox()
+                  : ListTile(
+                      title: Text(
+                        LocaleKeys.Bank.tr(),
+                      ),
+                      leading: Radio(
+                        value: LocaleKeys.Bank.tr(),
+                        groupValue: selectedValue,
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedValue = newValue;
+                          });
+                        },
+                      ),
+                    ),
+          selectedValue == LocaleKeys.Bank.tr()
+              ? InkWell(
+                  onTap: () {
+                    choseImage(ImageSource.gallery);
+                    showNawImage = true;
+                    setState(() {});
+                  },
+                  child: Center(
+                    child: Container(
+                      height: helpHeight(context) * 0.14,
+                      width: helpWidth(context) * 0.31,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: tmpFile != null
+                            ? Image.file(File(tmpFile.path))
+                            : Container(
+                                width: 100,
+                                height: 100,
+                                child: Stack(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 50,
+                                      child: helpImage("_userInfo.avatar", 50),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: BoxDecoration(
+                                          color: kColorAccent,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: Colors.black87,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
+                )
+              : SizedBox(),
+          selectedValue == LocaleKeys.Bank.tr()
+              ? buildNOFBankFormField()
+              : SizedBox(),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: LocaleKeys.continue_translate.tr(),
@@ -215,6 +309,27 @@ class _OrderFormState extends State<OrderForm> {
     );
   }
 
+  TextFormField buildCommentsFormField() {
+    return TextFormField(
+      onSaved: (newValue) => comments = newValue,
+      maxLines: 4,
+      decoration: InputDecoration(
+        labelText: LocaleKeys.comments.tr(),
+        hintText: LocaleKeys.comments.tr(),
+      ),
+    );
+  }
+
+  TextFormField buildNOFBankFormField() {
+    return TextFormField(
+      onSaved: (newValue) => nOFBank = newValue,
+      decoration: InputDecoration(
+        labelText: LocaleKeys.NOFBank.tr(),
+        hintText: LocaleKeys.NOFBank.tr(),
+      ),
+    );
+  }
+
   TextFormField buildPhoneFormField() {
     return TextFormField(
       initialValue: user.data.phone,
@@ -241,10 +356,7 @@ class _OrderFormState extends State<OrderForm> {
       decoration: InputDecoration(
         labelText: LocaleKeys.Phone.tr(),
         hintText: LocaleKeys.Phone_hint.tr(),
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }
