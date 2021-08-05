@@ -110,10 +110,8 @@ Widget helpLoading() {
           height: 50,
           width: 100,
           child: LoadingIndicator(
-//          indicatorType: indicator,
             indicatorType: Indicator.ballBeat,
             color: Colors.deepOrange,
-//          color: Colors.red,
           ),
         ),
       ],

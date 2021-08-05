@@ -20,14 +20,14 @@ class HomeHeader extends StatelessWidget {
         children: [
           SearchField(),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
-            press: () =>Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartScreen()))
-          ),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
-            press: () {},
-          ),
+              svgSrc: "assets/icons/Cart Icon.svg",
+              press: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => CartScreen()))),
+          // IconBtnWithCounter(
+          //   svgSrc: "assets/icons/Bell.svg",
+          //   numOfitem: 3,
+          //   press: () {},
+          // ),
         ],
       ),
     );

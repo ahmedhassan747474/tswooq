@@ -23,11 +23,11 @@ class Body extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => EditProfilePage()));
             },
           ),
-          ProfileMenu(
-            text: LocaleKeys.Notifications.tr(),
-            icon: "assets/icons/Bell.svg",
-            press: () {},
-          ),
+          // ProfileMenu(
+          //   text: LocaleKeys.Notifications.tr(),
+          //   icon: "assets/icons/Bell.svg",
+          //   press: () {},
+          // ),
           ProfileMenu(
             text: LocaleKeys.Settings.tr(),
             icon: "assets/icons/Settings.svg",

@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop_app/models/user.dart';
 import 'package:shop_app/utils/vars.dart';
@@ -120,7 +119,7 @@ class ApiProvider {
     }
   }
 
-  Future<UserModel> editProfile(String phone, File image, String userName,
+  Future<UserModel> editProfile(String phone, XFile image, String userName,
       String firstName, String lastName, String email) async {
     // Json Data
 

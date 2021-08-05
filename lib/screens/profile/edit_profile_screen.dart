@@ -74,8 +74,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         print('111111111111111111111');
         _formKey.currentState.save();
         //  LoadingScreen.show(context);
-        await ApiProvider.instance.editProfile(
-            phone, File(tmpFile.path), userName, firstName, lastName, email);
+        await ApiProvider.instance
+            .editProfile(phone, tmpFile, userName, firstName, lastName, email);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
         // Navigator.of(context).pushReplacement(
@@ -156,9 +156,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onTap: () {
                   choseImage(ImageSource.gallery);
                   showNawImage = true;
-                  setState(() {
-
-                  });
+                  setState(() {});
                 },
                 child: Center(
                   child: Container(
