@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/product_card.dart';
@@ -6,17 +5,18 @@ import 'package:shop_app/components/twest_card.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
 
 import '../../size_config.dart';
 
 class ProductByCategoryScreen extends StatefulWidget {
   final int id;
+  final String title;
 
   const ProductByCategoryScreen({
     Key key,
     @required this.id,
+    @required this.title,
   }) : super(key: key);
 
   @override
@@ -37,6 +37,8 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   }
 
   _initData() async {
+    // product = await ApiProducts.instance.getProductsByBrand(widget.id);
+    // //
     product = await ApiProducts.instance.getProductsByCategory(widget.id);
     _isLoading = false;
     if (mounted) setState(() {});
@@ -47,7 +49,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          LocaleKeys.Products.tr(),
+          widget.title,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,

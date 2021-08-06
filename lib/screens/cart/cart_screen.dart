@@ -43,7 +43,8 @@ class _CartScreenState extends State<CartScreen> {
     sum = 0;
     if (cart.productData?.length != 0) {
       cart.productData.forEach((element) {
-        sum += double.parse(element.attributes[0].price.toString());
+        sum += double.parse(element.attributes[0].price.toString()) *
+            element.quantityOrdered;
       });
     }
   }
@@ -113,30 +114,30 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          height: getProportionateScreenWidth(40),
-                          width: getProportionateScreenWidth(40),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF5F6F9),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: SvgPicture.asset("assets/icons/receipt.svg"),
-                        ),
-                        Spacer(),
-                        Text(
-                          LocaleKeys.Add_Voucher_translate.tr(),
-                        ),
-                        const SizedBox(width: 10),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 12,
-                          color: kTextColor,
-                        )
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Container(
+                    //       padding: EdgeInsets.all(10),
+                    //       height: getProportionateScreenWidth(40),
+                    //       width: getProportionateScreenWidth(40),
+                    //       decoration: BoxDecoration(
+                    //         color: Color(0xFFF5F6F9),
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       ),
+                    //       child: SvgPicture.asset("assets/icons/receipt.svg"),
+                    //     ),
+                    //     Spacer(),
+                    //     Text(
+                    //       LocaleKeys.Add_Voucher_translate.tr(),
+                    //     ),
+                    //     const SizedBox(width: 10),
+                    //     Icon(
+                    //       Icons.arrow_forward_ios,
+                    //       size: 12,
+                    //       color: kTextColor,
+                    //     )
+                    //   ],
+                    // ),
                     SizedBox(height: getProportionateScreenHeight(20)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -290,7 +291,11 @@ class _CartScreenState extends State<CartScreen> {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text(" x ${product[index].quantityOrdered}",
+                                    Text(" x ",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1),
+                                    Text("${product[index].quantityOrdered}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1),

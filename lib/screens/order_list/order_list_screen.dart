@@ -6,6 +6,7 @@ import 'package:shop_app/screens/order_list/order_products.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_order.dart';
 
+import '../../constants.dart';
 import '../../size_config.dart';
 import 'component/order_card.dart';
 
@@ -53,23 +54,23 @@ class _OrderListScreenState extends State<OrderListScreen> {
                   height: 80,
                 ),
                 Image.asset(
-                  "assets/images/shopcart.gif",
+                  "assets/logo.png",
                 ),
-                // FlatButton(
-                //   shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(20)),
-                //   color: kPrimaryColor,
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //   },
-                //   child: Text(
-                //     "Go To Home",
-                //     style: TextStyle(
-                //       fontSize: 16,
-                //       color: Colors.white,
-                //     ),
-                //   ),
-                // )
+                FlatButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  color: kPrimaryColor,
+                  onPressed: () {
+                    // Navigator.pop(context);
+                  },
+                  child: Text(
+                    LocaleKeys.no_order.tr(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
               ],
             ))
           : ListView.builder(

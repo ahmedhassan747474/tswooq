@@ -10,9 +10,10 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class LikeCardProductScreen extends StatefulWidget {
-  LikeCardProductScreen({this.id});
+  LikeCardProductScreen({this.id, this.title});
 
   String id;
+  String title;
 
   @override
   _LikeCardProductScreenState createState() => _LikeCardProductScreenState();
@@ -40,7 +41,7 @@ class _LikeCardProductScreenState extends State<LikeCardProductScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          LocaleKeys.Products.tr(),
+          widget.title,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,

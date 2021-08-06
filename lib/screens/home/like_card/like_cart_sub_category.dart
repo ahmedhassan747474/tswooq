@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/home_card.dart';
@@ -6,7 +5,6 @@ import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/category_like_card.dart';
 import 'package:shop_app/models/producr_like_card.dart';
 import 'package:shop_app/screens/home/like_card/like_cart_sub_category2.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -15,7 +13,7 @@ import 'like_card_screen.dart';
 class LikeCardCategoryScreen extends StatefulWidget {
   LikeCardCategoryScreen({this.categoriesLC});
 
-  List<ChildsLike> categoriesLC;
+  CategoriesData categoriesLC;
 
   @override
   _LikeCardCategoryScreenState createState() => _LikeCardCategoryScreenState();
@@ -43,7 +41,7 @@ class _LikeCardCategoryScreenState extends State<LikeCardCategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          LocaleKeys.Products.tr(),
+          widget.categoriesLC.categoryName,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -69,21 +67,24 @@ class _LikeCardCategoryScreenState extends State<LikeCardCategoryScreen> {
         crossAxisSpacing: 0,
         padding: EdgeInsets.all(8.0),
         staggeredTileBuilder: (_) => StaggeredTile.extent(1, 170),
-        itemCount: widget.categoriesLC.length,
+        itemCount: widget.categoriesLC.childs.length,
         itemBuilder: (ctx, index) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: CategoryCard(
-            icon: widget.categoriesLC[index].amazonImage,
-            text: widget.categoriesLC[index].categoryName,
+            icon: widget.categoriesLC.childs[index].amazonImage,
+            text: widget.categoriesLC.childs[index].categoryName,
             press: () {
-              widget.categoriesLC[index].childs.length == 0
+              widget.categoriesLC.childs[index].childs.length == 0
                   ? Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => LikeCardProductScreen(
-                            id: widget.categoriesLC[index].id,
+                            id: widget.categoriesLC.childs[index].id,
+                            title:
+                                widget.categoriesLC.childs[index].categoryName,
                           )))
                   : Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => LikeCardCategoryScreen2(
-                            categoriesLC: widget.categoriesLC[index].childs,
+                            categoriesLC:
+                                widget.categoriesLC.childs[index].childs,
                           )));
             },
             cardWidth: 100,

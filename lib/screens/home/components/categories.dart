@@ -61,6 +61,7 @@ class _CategoriesState extends State<Categories> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ProductByCategoryScreen(
                                 id: categories.data[index].categoriesId,
+                                title: categories.data[index].categoriesName,
                               )));
                     },
                   ),

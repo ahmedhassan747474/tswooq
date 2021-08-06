@@ -79,6 +79,7 @@ class _LikeCardCategoryScreen2State extends State<LikeCardCategoryScreen2> {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => LikeCardProductScreen(
                         id: widget.categoriesLC[index].id,
+                        title: widget.categoriesLC[index].categoryName,
                       )));
             },
             cardWidth: 100,

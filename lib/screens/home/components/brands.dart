@@ -84,6 +84,7 @@ class _BrandsState extends State<Brands> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ProductBrandScreen(
                                     id: brands.data[index].categoriesId,
+                                    title: brands.data[index].categoriesName,
                                   )));
                         },
                         cardWidth: 100,

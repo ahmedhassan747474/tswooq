@@ -8,6 +8,7 @@ import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
 
+import '../../constants.dart';
 import '../../size_config.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          LocaleKeys.Products.tr(),
+          LocaleKeys.favorite.tr(),
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -56,9 +57,36 @@ class FavoriteScreenState extends State<FavoriteScreen> {
           )
         ],
       ),
-      body: isGridView
-          ? gridView(product.productData)
-          : listView(product.productData),
+      body: product.productData.length == 0
+          ? Center(
+              child: Column(
+              children: [
+                SizedBox(
+                  height: 80,
+                ),
+                Image.asset(
+                  "assets/logo.png",
+                ),
+                FlatButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  color: kPrimaryColor,
+                  onPressed: () {
+                    // Navigator.pop(context);
+                  },
+                  child: Text(
+                    LocaleKeys.no_Product.tr(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            ))
+          : isGridView
+              ? gridView(product.productData)
+              : listView(product.productData),
     );
   }
 

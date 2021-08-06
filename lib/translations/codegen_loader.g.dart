@@ -15,6 +15,8 @@ class CodegenLoader extends AssetLoader {
   }
 
   static const Map<String, dynamic> ar = {
+    "no_order": "لا يوجد طلبات",
+    "favorite": "المفضلة",
     "NOFBank": "رقم التحويل",
     "Bank": "تحويل بنكى",
     "comments": "ملاحظات",
@@ -81,7 +83,7 @@ class CodegenLoader extends AssetLoader {
     "Register_Account": "انش",
     "sorry_translate": "عذرا",
     "ok_translate": "حسنا",
-    "language_translate": "اللغة",
+    "language_translate": "English",
     "welcome_splash": "مرحبًا بكم في تسوق، هيا نتسوق!",
     "help_splash": "نحن نساعد الناس على التواصل مع المتجر",
     "help_splash2": "حول الولايات المتحدة الأمريكية",
@@ -89,6 +91,8 @@ class CodegenLoader extends AssetLoader {
     "text32_splash": "فقط ابق في الصفحة الرئيسية معنا"
   };
   static const Map<String, dynamic> en = {
+    "no_order": "No order",
+    "favorite": "Wish list",
     "NOFBank": "Number transfer",
     "Bank": "Bank transfer",
     "comments": "Comment",
@@ -155,7 +159,7 @@ class CodegenLoader extends AssetLoader {
     "Register_Account": "Register Account",
     "sorry_translate": "Sorry",
     "ok_translate": "Ok",
-    "language_translate": "Language",
+    "language_translate": "العربية",
     "welcome_splash": "Welcome to Tokoto, Let’s shop!",
     "help_splash": "We help people conect with store",
     "help_splash2": "round United State of America",

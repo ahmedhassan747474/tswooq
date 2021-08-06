@@ -12,6 +12,8 @@ import 'like_card_screen.dart';
 import 'like_cart_sub_category.dart';
 
 class LikeCardScreen extends StatefulWidget {
+  // String s;
+  // LikeCardScreen(this.s);
   @override
   _LikeCardScreenState createState() => _LikeCardScreenState();
 }
@@ -91,11 +93,13 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                                   builder: (context) => LikeCardProductScreen(
                                         id: categoriesLC
                                             .categories.data[index].id,
+                                        title: categoriesLC
+                                            .categories.data[index].id,
                                       )))
                               : Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => LikeCardCategoryScreen(
-                                        categoriesLC: categoriesLC
-                                            .categories.data[index].childs,
+                                        categoriesLC:
+                                            categoriesLC.categories.data[index],
                                       )));
                         },
                         cardWidth: 100,
