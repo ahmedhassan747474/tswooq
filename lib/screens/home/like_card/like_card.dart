@@ -9,6 +9,7 @@ import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_home.dart';
 
 import 'like_card_screen.dart';
+import 'like_cart_sub_category.dart';
 
 class LikeCardScreen extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class LikeCardScreen extends StatefulWidget {
 
 class _LikeCardScreenState extends State<LikeCardScreen> {
   CategoriesLikeCard categoriesLC =
-      new CategoriesLikeCard(categories: Categories(data: []));
+      new CategoriesLikeCard(categories: CategoriesLike(data: []));
   bool _isLoading = true;
   @override
   void initState() {
@@ -82,10 +83,20 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                         icon: categoriesLC.categories.data[index].amazonImage,
                         text: categoriesLC.categories.data[index].categoryName,
                         press: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LikeCardProductScreen(
-                                    id: categoriesLC.categories.data[index].id,
-                                  )));
+                          print("lenght");
+                          print(categoriesLC
+                              .categories.data[index].childs.length);
+                          categoriesLC.categories.data[index].childs.length == 0
+                              ? Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LikeCardProductScreen(
+                                        id: categoriesLC
+                                            .categories.data[index].id,
+                                      )))
+                              : Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LikeCardCategoryScreen(
+                                        categoriesLC: categoriesLC
+                                            .categories.data[index].childs,
+                                      )));
                         },
                         cardWidth: 100,
                         imgWidth: 80,

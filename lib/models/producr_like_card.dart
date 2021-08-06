@@ -32,13 +32,13 @@ class ProductLC {
   String productPriceWithoutVat;
   String productImage;
   String productCurrency;
-  int optionalFieldsExist;
+  String optionalFieldsExist;
   String productOptionalFields;
   String sellPrice;
   String sellPriceWithoutVat;
   bool available;
-  int vatAmount;
-  int vatPercentage;
+  String vatAmount;
+  String vatPercentage;
 
   ProductLC(
       {this.productId,
@@ -57,20 +57,20 @@ class ProductLC {
       this.vatPercentage});
 
   ProductLC.fromJson(Map<String, dynamic> json) {
-    productId = json['productId'];
-    categoryId = json['categoryId'];
-    productName = json['productName'];
+    productId = json['productId'].toString();
+    categoryId = json['categoryId'].toString();
+    productName = json['productName'].toString();
     productPrice = json['productPrice'].toString();
-    productPriceWithoutVat = json['productPriceWithoutVat'];
-    productImage = json['productImage'];
-    productCurrency = json['productCurrency'];
-    optionalFieldsExist = json['optionalFieldsExist'];
-    productOptionalFields = json['productOptionalFields'];
-    sellPrice = json['sellPrice'];
-    sellPriceWithoutVat = json['sellPriceWithoutVat'];
+    productPriceWithoutVat = json['productPriceWithoutVat'].toString();
+    productImage = json['productImage'].toString();
+    productCurrency = json['productCurrency'].toString();
+    optionalFieldsExist = json['optionalFieldsExist'].toString();
+    productOptionalFields = json['productOptionalFields'].toString();
+    sellPrice = json['sellPrice'].toString();
+    sellPriceWithoutVat = json['sellPriceWithoutVat'].toString();
     available = json['available'];
-    vatAmount = json['vatAmount'];
-    vatPercentage = json['vatPercentage'];
+    vatAmount = "${json['vatAmount']}";
+    vatPercentage = json['vatPercentage'].toString();
   }
 
   Map<String, dynamic> toJson() {

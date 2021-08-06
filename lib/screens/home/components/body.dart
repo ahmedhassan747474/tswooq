@@ -3,9 +3,9 @@ import 'package:shop_app/helper/slider.dart';
 import 'package:shop_app/screens/home/components/brands.dart';
 
 import '../../../size_config.dart';
+import '../like_card/like_card.dart';
 import 'categories.dart';
 import 'home_header.dart';
-import 'like_card.dart';
 import 'popular_product.dart';
 
 class Body extends StatelessWidget {

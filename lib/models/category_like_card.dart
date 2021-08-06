@@ -1,6 +1,6 @@
 class CategoriesLikeCard {
   String success;
-  Categories categories;
+  CategoriesLike categories;
   String message;
 
   CategoriesLikeCard({this.success, this.categories, this.message});
@@ -8,7 +8,7 @@ class CategoriesLikeCard {
   CategoriesLikeCard.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     categories = json['categories'] != null
-        ? new Categories.fromJson(json['categories'])
+        ? new CategoriesLike.fromJson(json['categories'])
         : null;
     message = json['message'];
   }
@@ -24,13 +24,13 @@ class CategoriesLikeCard {
   }
 }
 
-class Categories {
+class CategoriesLike {
   int response;
   List<CategoriesData> data;
 
-  Categories({this.response, this.data});
+  CategoriesLike({this.response, this.data});
 
-  Categories.fromJson(Map<String, dynamic> json) {
+  CategoriesLike.fromJson(Map<String, dynamic> json) {
     response = json['response'];
     if (json['data'] != null) {
       data = <CategoriesData>[];
@@ -55,7 +55,7 @@ class CategoriesData {
   String categoryParentId;
   String categoryName;
   String amazonImage;
-  List<Childs> childs;
+  List<ChildsLike> childs;
 
   CategoriesData(
       {this.id,
@@ -70,9 +70,9 @@ class CategoriesData {
     categoryName = json['categoryName'];
     amazonImage = json['amazonImage'];
     if (json['childs'] != null) {
-      childs = new List<Childs>();
+      childs = <ChildsLike>[];
       json['childs'].forEach((v) {
-        childs.add(new Childs.fromJson(v));
+        childs.add(new ChildsLike.fromJson(v));
       });
     }
   }
@@ -90,29 +90,29 @@ class CategoriesData {
   }
 }
 
-class Childs {
+class ChildsLike {
   String id;
   String categoryParentId;
   String categoryName;
   String amazonImage;
-  List<Childs> childs;
+  List<ChildsLike> childs;
 
-  Childs(
+  ChildsLike(
       {this.id,
       this.categoryParentId,
       this.categoryName,
       this.amazonImage,
       this.childs});
 
-  Childs.fromJson(Map<String, dynamic> json) {
+  ChildsLike.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     categoryParentId = json['categoryParentId'];
     categoryName = json['categoryName'];
     amazonImage = json['amazonImage'];
     if (json['childs'] != null) {
-      childs = <Childs>[];
+      childs = <ChildsLike>[];
       json['childs'].forEach((v) {
-        childs.add(new Childs.fromJson(v));
+        childs.add(new ChildsLike.fromJson(v));
       });
     }
   }
