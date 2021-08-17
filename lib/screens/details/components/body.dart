@@ -7,11 +7,14 @@ import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/search_product.dart';
+import 'package:shop_app/models/user.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_cart.dart';
 import 'package:shop_app/utils/api_exception.dart';
+import 'package:shop_app/utils/api_products.dart';
 import 'package:shop_app/utils/vars.dart';
 
 import '../../../constants.dart';
@@ -31,6 +34,7 @@ class Body extends StatefulWidget {
 }
 
 class BodyState extends State<Body> {
+  UserModel user = new UserModel();
   int counter = 1;
   String price = '';
   List images;
@@ -48,6 +52,7 @@ class BodyState extends State<Body> {
 
   @override
   void initState() {
+   // user = ApiProvider.user;
     super.initState();
     id = widget.product.attributes[0].id;
     price = widget.product.attributes[0].price;
@@ -59,6 +64,71 @@ class BodyState extends State<Body> {
     } else {
       firstHalf = widget.product.productsDescription;
       secondHalf = "";
+    }
+  }
+  Future<void> _unLikeSubmit() async {
+    try {
+      print('0000000000000000000000000000');
+      //    LoadingScreen.show(context);
+      await ApiProducts.instance.unLikeProduct(widget.product.productsId);
+      //
+      // Navigator.of(context).popUntil((route) => route.isFirst);
+
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        // print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
+  }
+
+  Future<void> _likeSubmit() async {
+    try {
+      print('0000000000000000000000000000');
+      //    LoadingScreen.show(context);
+      await ApiProducts.instance.unLikeProduct(widget.product.productsId);
+      //
+      // Navigator.of(context).popUntil((route) => route.isFirst);
+
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        // print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
     }
   }
 
@@ -119,24 +189,36 @@ class BodyState extends State<Body> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Container(
-                    padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-                    width: getProportionateScreenWidth(64),
-                    decoration: BoxDecoration(
-                      color: widget.product.isLiked == "0"
-                          ? Color(0xFFFFE6E6)
-                          : Color(0xFFF5F6F9),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
+                  child: InkWell(
+                    onTap: () {
+                      if(user.token != null){
+                        if (widget.product.isLiked == "0")
+                          _likeSubmit();
+                        else
+                          _unLikeSubmit();
+                      }else
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => SignInScreen()));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+                      width: getProportionateScreenWidth(64),
+                      decoration: BoxDecoration(
+                        color: widget.product.isLiked == "0"
+                            ? Color(0xFFFFE6E6)
+                            : Color(0xFFF5F6F9),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
                       ),
-                    ),
-                    child: SvgPicture.asset(
-                      "assets/icons/Heart Icon_2.svg",
-                      color: widget.product.isLiked == "0"
-                          ? Color(0xFFFF4848)
-                          : Color(0xFFDBDEE4),
-                      height: getProportionateScreenWidth(16),
+                      child: SvgPicture.asset(
+                        "assets/icons/Heart Icon_2.svg",
+                        color: widget.product.isLiked == "0"
+                            ? Color(0xFFFF4848)
+                            : Color(0xFFDBDEE4),
+                        height: getProportionateScreenWidth(16),
+                      ),
                     ),
                   ),
                 ),
@@ -283,13 +365,17 @@ class BodyState extends State<Body> {
                                 )
                               : DefaultButton(
                                   text: (LocaleKeys.Add_To_Cart_translate.tr()),
-                                  press: () {
+                                  press: () async{
+
+                                   // String token = await user.getToken;
                                     if (widget.product.defaultStock == 0)
                                       _toastInfo(
                                           LocaleKeys.not_added_translate.tr());
-                                    else if(ServerConstants.getUserToken() == null)
+                                    else if(user.token == null)
                                       Navigator.of(context).push(
-                                          MaterialPageRoute(builder: (context) => SignInScreen()));
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignInScreen()));
                                     else
                                       _submit();
 

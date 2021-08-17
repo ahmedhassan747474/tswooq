@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/search_product.dart';
+import 'package:shop_app/models/user.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/api_products.dart';
 import 'package:shop_app/utils/vars.dart';
@@ -29,6 +32,7 @@ class ProductCard extends StatefulWidget {
 }
 
 class ProductCardState extends State<ProductCard> {
+  UserModel user = new UserModel();
   Future<void> _unLikeSubmit() async {
     try {
       print('0000000000000000000000000000');
@@ -96,6 +100,11 @@ class ProductCardState extends State<ProductCard> {
   }
 
   @override
+  void initState() {
+    user = ApiProvider.user;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: getProportionateScreenWidth(widget.width),
@@ -135,10 +144,14 @@ class ProductCardState extends State<ProductCard> {
                     InkWell(
                       borderRadius: BorderRadius.circular(50),
                       onTap: () {
+                        if(user.token != null){
                         if (widget.product.isLiked == "0")
-                          _likeSubmit();
+                        _likeSubmit();
                         else
-                          _unLikeSubmit();
+                        _unLikeSubmit();
+                        }else
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => SignInScreen()));
                       },
                       child: Container(
                         padding: EdgeInsets.all(getProportionateScreenWidth(8)),
