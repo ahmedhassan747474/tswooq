@@ -21,7 +21,6 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  Dio dio = new Dio();
   final _formKey = GlobalKey<FormState>();
   UserModel user = new UserModel();
   String firstName;

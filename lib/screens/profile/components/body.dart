@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 
 import '../edit_profile_screen.dart';
@@ -28,15 +29,17 @@ class Body extends StatelessWidget {
           //   icon: "assets/icons/Bell.svg",
           //   press: () {},
           // ),
-          ProfileMenu(
-            text: LocaleKeys.Settings.tr(),
-            icon: "assets/icons/Settings.svg",
-            press: () {},
-          ),
+          // ProfileMenu(
+          //   text: LocaleKeys.Settings.tr(),
+          //   icon: "assets/icons/Settings.svg",
+          //   press: () {},
+          // ),
           ProfileMenu(
             text: LocaleKeys.Help_Center.tr(),
             icon: "assets/icons/Question mark.svg",
-            press: () {},
+            press: () {
+              helpLauncher("https://wa.me/+201285620239");
+            },
           ),
           ProfileMenu(
             text: LocaleKeys.language_translate.tr(),

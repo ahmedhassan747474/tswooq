@@ -206,7 +206,7 @@ class BodyState extends State<Body> {
                                 width: item.id == id ? 3 : .5)),
                         child: Row(
                           children: [
-                            Text(item.color),
+                            Text(item.color ?? ""),
                             item.size != null ? Text(item.size) : Container(),
                           ],
                         )),
