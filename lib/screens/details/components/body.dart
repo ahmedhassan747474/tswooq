@@ -7,6 +7,7 @@ import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/search_product.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_cart.dart';
@@ -286,8 +287,12 @@ class BodyState extends State<Body> {
                                     if (widget.product.defaultStock == 0)
                                       _toastInfo(
                                           LocaleKeys.not_added_translate.tr());
+                                    else if(ServerConstants.getUserToken() == null)
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) => SignInScreen()));
                                     else
                                       _submit();
+
                                   },
                                 ),
                         ),
