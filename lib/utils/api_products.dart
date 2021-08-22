@@ -32,11 +32,11 @@ class ApiProducts {
     // "X-Requested-With": "XMLHttpRequest",
   };
 
-  Future<ProductsModel> getProducts() async {
+  Future<ProductsModel> getProducts(int page) async {
     // Json Data
     var _data = {
       "language_id": 1,
-      "page": 1,
+      "page": page,
       "limit": 20,
     };
     var _response = await dio.post(ServerConstants.Products,
