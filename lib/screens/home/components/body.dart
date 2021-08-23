@@ -20,8 +20,6 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(10)),
             ImageSlider(),
             Container(height: 170, child: Categories()),
-            // SpecialOffers(),/**/
-            // SizedBox(height: getProportionateScreenWidth(30)),
             Container(height: 320, child: Brands()),
             Container(height: 350, child: LikeCardScreen()),
             SizedBox(height: getProportionateScreenWidth(30)),

@@ -25,13 +25,6 @@ class ApiProducts {
       compact: false,
     ));
 
-  //
-  static const Map<String, String> apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json, text/plain, */*",
-    // "X-Requested-With": "XMLHttpRequest",
-  };
-
   Future<ProductsModel> getProducts(int page) async {
     // Json Data
     var _data = {
@@ -42,7 +35,7 @@ class ApiProducts {
     var _response = await dio.post(ServerConstants.Products,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -69,7 +62,7 @@ class ApiProducts {
     var _response = await dio.post(ServerConstants.Products_By_Category,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -96,7 +89,7 @@ class ApiProducts {
     var _response = await dio.post(ServerConstants.Products_By_Brand,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -136,7 +129,7 @@ class ApiProducts {
     var _response = await dio.post(ServerConstants.search,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -171,7 +164,7 @@ class ApiProducts {
     var _response = await dio.post(ServerConstants.search,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -202,7 +195,7 @@ class ApiProducts {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -237,7 +230,7 @@ class ApiProducts {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -274,7 +267,7 @@ class ApiProducts {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {

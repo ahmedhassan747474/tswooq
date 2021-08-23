@@ -4,14 +4,11 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/helper/loading_shimmer.dart';
 import 'package:shop_app/models/products.dart';
-import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
 import 'package:shop_app/screens/product_list/product_list.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
-
-
 
 import '../../../size_config.dart';
 
@@ -21,14 +18,16 @@ class PopularProduct extends StatefulWidget {
 }
 
 class _PopularProductState extends State<PopularProduct> {
-  int page =1;
+  int page = 1;
   RefreshController _controller = RefreshController(initialRefresh: false);
   ProductsModel products = new ProductsModel(productData: []);
   bool _isLoading = true;
 
-  Future<void> _onRefresh() async{
-    page ++;
-    products = await ApiProducts.instance.getProducts(page);
+  Future<void> _onRefresh() async {
+    page++;
+    ProductsModel products2 = await ApiProducts.instance.getProducts(page);
+    products.productData.addAll(products2.productData);
+    products2 = null;
     _isLoading = false;
     if (mounted) setState(() {});
     _controller.refreshCompleted();
@@ -49,19 +48,16 @@ class _PopularProductState extends State<PopularProduct> {
   Widget build(BuildContext context) {
     return SmartRefresher(
       controller: _controller,
-      onLoading: () async{
+      onLoading: () async {
         _onRefresh();
-        setState(() {
-
-        });
       },
       enablePullUp: true,
       enablePullDown: false,
       child: Column(
         children: [
           Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20)),
             child: SectionTitle(
               title: (LocaleKeys.Popular_Products_translate.tr()),
               press: () {
@@ -81,7 +77,8 @@ class _PopularProductState extends State<PopularProduct> {
                   ? Column(
                       children: [
                         Container(
-                            margin: EdgeInsets.only(bottom: 0, right: 5, left: 5),
+                            margin:
+                                EdgeInsets.only(bottom: 0, right: 5, left: 5),
                             child: loadingShimmerWidget(140, 160, 15)),
                         Container(
                             margin: EdgeInsets.only(top: 10, right: 5, left: 5),
@@ -97,8 +94,8 @@ class _PopularProductState extends State<PopularProduct> {
                                       product: products.productData[index],
                                     )));
                           },
-                          child:
-                              ProductCard(product: products.productData[index]))),
+                          child: ProductCard(
+                              product: products.productData[index]))),
             ),
           ),
         ],

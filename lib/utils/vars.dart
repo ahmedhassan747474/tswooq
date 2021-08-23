@@ -32,6 +32,11 @@ class ServerConstants {
     );
   }
 
+  //
+  static Map<String, String> apiHeaders = {
+    "Content-Type": "application/json",
+    "Accept": "application/json, text/plain, */*",
+  };
   static String getUserToken() {
     print('_getUserToken()');
     UserModel user = UserModel();
