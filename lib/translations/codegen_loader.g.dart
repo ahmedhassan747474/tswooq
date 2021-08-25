@@ -88,7 +88,8 @@ class CodegenLoader extends AssetLoader {
     "help_splash": "نحن نساعد الناس على التواصل مع المتجر",
     "help_splash2": "حول الولايات المتحدة الأمريكية",
     "text31_splash": "نعرض الطريقة السهلة للتسوق",
-    "text32_splash": "فقط ابق في الصفحة الرئيسية معنا"
+    "text32_splash": "فقط ابق في الصفحة الرئيسية معنا",
+    "you_must_signin_to_access_to_this_section" : "يجب عليك تسجيل الدخول للوصول إلى هذا القس",
   };
   static const Map<String, dynamic> en = {
     "no_order": "No order",
@@ -164,7 +165,8 @@ class CodegenLoader extends AssetLoader {
     "help_splash": "We help people conect with store",
     "help_splash2": "round United State of America",
     "text31_splash": "We show the easy way to shop.",
-    "text32_splash": "Just stay at home with us"
+    "text32_splash": "Just stay at home with us",
+    "you_must_signin_to_access_to_this_section": "you must signin to access to this section"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

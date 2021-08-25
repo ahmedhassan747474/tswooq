@@ -1,9 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/screens/sign_up/sign_up_screen.dart';
-import 'package:shop_app/utils/contents.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class PermissionDeniedWidget extends StatefulWidget {
   PermissionDeniedWidget({
@@ -85,8 +88,8 @@ class _PermissionDeniedWidgetState extends State<PermissionDeniedWidget> {
             opacity: 0.4,
             child: Text(
                 // S.of(context).you_must_signin_to_access_to_this_section,
-                //   LocaleKeys.you_must_signin_to_access_to_this_section.tr(),
-                "يجب عليك تسجيل الدخول للوصول إلى هذا القسم",
+                  LocaleKeys.you_must_signin_to_access_to_this_section.tr(),
+
                 textAlign: TextAlign.center,
                 style: TextStyle()),
           ),
@@ -99,11 +102,10 @@ class _PermissionDeniedWidgetState extends State<PermissionDeniedWidget> {
                   MaterialPageRoute(builder: (context) => SignInScreen()));
             },
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 70),
-            color: kColorPrimary,
+            color: kPrimaryColor,
             shape: StadiumBorder(),
             child: Text(
-              // LocaleKeys.login.tr(),
-              'login',
+              LocaleKeys.sign_in_translate.tr(),
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -122,8 +124,7 @@ class _PermissionDeniedWidgetState extends State<PermissionDeniedWidget> {
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 25),
             shape: StadiumBorder(),
             child: Text(
-              'register',
-              // LocaleKeys.register.tr(),
+               LocaleKeys.sign_up_translate.tr(),
               // S.of(context).i_dont_have_an_account,
               style: TextStyle(color: Colors.black),
             ),

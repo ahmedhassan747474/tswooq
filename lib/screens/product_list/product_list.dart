@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/components/twest_card.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:shop_app/utils/api_products.dart';
 
 import '../../size_config.dart';
 
@@ -25,9 +27,22 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class ProductListScreenState extends State<ProductListScreen> {
-  // ProductsModel product = new ProductsModel(productData: []);
+
   bool isGridView = true;
   bool _isLoading = true;
+  int page = 2;
+  RefreshController _controller = RefreshController(initialRefresh: false);
+  ProductsModel products = new ProductsModel(productData: []);
+
+  Future<void> _onRefresh() async {
+    page++;
+    ProductsModel products2 = await ApiProducts.instance.getProducts(page);
+    products.productData.addAll(products2.productData);
+    products2 = null;
+    _isLoading = false;
+    if (mounted) setState(() {});
+    _controller.refreshCompleted();
+  }
   @override
   // void initState() {
   //   super.initState();

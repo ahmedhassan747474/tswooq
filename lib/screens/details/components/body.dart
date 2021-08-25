@@ -191,7 +191,7 @@ class BodyState extends State<Body> {
                   alignment: Alignment.centerRight,
                   child: InkWell(
                     onTap: () {
-                      if(user.token != null){
+                      if( ApiProvider.user != null ){
                         if (widget.product.isLiked == "0")
                           _likeSubmit();
                         else
@@ -365,13 +365,13 @@ class BodyState extends State<Body> {
                                 )
                               : DefaultButton(
                                   text: (LocaleKeys.Add_To_Cart_translate.tr()),
-                                  press: () async{
+                                  press: () {
 
                                    // String token = await user.getToken;
                                     if (widget.product.defaultStock == 0)
                                       _toastInfo(
                                           LocaleKeys.not_added_translate.tr());
-                                    else if(user.token == null)
+                                    else if( ApiProvider.user == null )
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>

@@ -144,7 +144,7 @@ class ProductCardState extends State<ProductCard> {
                     InkWell(
                       borderRadius: BorderRadius.circular(50),
                       onTap: () {
-                        if(user.token != null){
+                        if( ApiProvider.user != null ){
                         if (widget.product.isLiked == "0")
                         _likeSubmit();
                         else

@@ -77,4 +77,5 @@ abstract class LocaleKeys {
   static const help_splash2 = 'help_splash2';
   static const text31_splash = 'text31_splash';
   static const text32_splash = 'text32_splash';
+  static const you_must_signin_to_access_to_this_section ="you_must_signin_to_access_to_this_section";
 }

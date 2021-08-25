@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/components/permission_denied_widget.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/search_product.dart';
 import 'package:shop_app/screens/order_list/order_info_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_cart.dart';
 import 'package:shop_app/utils/api_exception.dart';
 import 'package:shop_app/utils/vars.dart';
@@ -87,7 +89,7 @@ class _CartScreenState extends State<CartScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: buildAppBar(context),
-        body: _isLoading ? helpLoading() : body(cart.productData, context),
+        body:  (ApiProvider.user == null ? PermissionDeniedWidget():(_isLoading ? helpLoading() : body(cart.productData, context))),
         bottomNavigationBar: cart.productData.length == 0
             ? SizedBox()
             : Container(

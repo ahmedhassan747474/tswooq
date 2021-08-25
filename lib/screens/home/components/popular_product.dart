@@ -23,83 +23,75 @@ class _PopularProductState extends State<PopularProduct> {
   ProductsModel products = new ProductsModel(productData: []);
   bool _isLoading = true;
 
-  Future<void> _onRefresh() async {
-    page++;
-    ProductsModel products2 = await ApiProducts.instance.getProducts(page);
-    products.productData.addAll(products2.productData);
-    products2 = null;
-    _isLoading = false;
-    if (mounted) setState(() {});
-    _controller.refreshCompleted();
-  }
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initData();
-  // }
-  //
-  // _initData() async {
-  //   products = await ApiProducts.instance.getProducts();
+  // Future<void> _onRefresh() async {
+  //   page++;
+  //   ProductsModel products2 = await ApiProducts.instance.getProducts(page);
+  //   products.productData.addAll(products2.productData);
+  //   products2 = null;
   //   _isLoading = false;
   //   if (mounted) setState(() {});
+  //   _controller.refreshCompleted();
   // }
+  @override
+  void initState() {
+    super.initState();
+    _initData();
+  }
+
+  _initData() async {
+    products = await ApiProducts.instance.getProducts(1);
+    _isLoading = false;
+    if (mounted) setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: _controller,
-      onLoading: () async {
-        _onRefresh();
-      },
-      enablePullUp: true,
-      enablePullDown: false,
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(20)),
-            child: SectionTitle(
-              title: (LocaleKeys.Popular_Products_translate.tr()),
-              press: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ProductListScreen(
-                          product: products,
-                        )));
-              },
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(20)),
+          child: SectionTitle(
+            title: (LocaleKeys.Popular_Products_translate.tr()),
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                        product: products,
+                      )));
+            },
           ),
-          SizedBox(height: 20),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _isLoading ? 10 : products.productData.length ?? 0,
-              itemBuilder: (ctx, index) => _isLoading
-                  ? Column(
-                      children: [
-                        Container(
-                            margin:
-                                EdgeInsets.only(bottom: 0, right: 5, left: 5),
-                            child: loadingShimmerWidget(140, 160, 15)),
-                        Container(
-                            margin: EdgeInsets.only(top: 10, right: 5, left: 5),
-                            child: loadingShimmerWidget(140, 45, 10)),
-                      ],
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => DetailsScreen(
-                                      product: products.productData[index],
-                                    )));
-                          },
-                          child: ProductCard(
-                              product: products.productData[index]))),
-            ),
+        ),
+        SizedBox(height: 20),
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _isLoading ? 10 : products.productData.length ?? 0,
+            itemBuilder: (ctx, index) => _isLoading
+                ? Column(
+                    children: [
+                      Container(
+                          margin:
+                              EdgeInsets.only(bottom: 0, right: 5, left: 5),
+                          child: loadingShimmerWidget(140, 160, 15)),
+                      Container(
+                          margin: EdgeInsets.only(top: 10, right: 5, left: 5),
+                          child: loadingShimmerWidget(140, 45, 10)),
+                    ],
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DetailsScreen(
+                                    product: products.productData[index],
+                                  )));
+                        },
+                        child: ProductCard(
+                            product: products.productData[index]))),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
