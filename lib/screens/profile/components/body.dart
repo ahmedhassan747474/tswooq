@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/helper/help.dart';
+import 'package:shop_app/models/user.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:shop_app/utils/api.dart';
 
 import '../edit_profile_screen.dart';
 import 'profile_menu.dart';
@@ -64,7 +68,20 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: LocaleKeys.Log_Out.tr(),
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () {
+              UserModel().removeToken();
+              ApiProvider.user = UserModel();
+              selectedIndexHome = 0;
+              // Provider.of<AuthService>(context, listen: false).userModel = null;
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SignInScreen();
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),

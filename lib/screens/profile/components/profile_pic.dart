@@ -9,6 +9,7 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(ApiProvider.user.data.avatar);
     return SizedBox(
       height: 115,
       width: 115,
@@ -19,9 +20,7 @@ class ProfilePic extends StatelessWidget {
           CircleAvatar(
             // backgroundImage: AssetImage("assets/images/Profile Image.png"),
             child: helpImage(
-                "tswooq.com/public_html/public/images/users/" +
-                    ApiProvider.user.data.avatar,
-                50),
+                "https://tswooq.com" + ApiProvider.user.data.avatar, 50),
           ),
           // Positioned(
           //   right: -16,

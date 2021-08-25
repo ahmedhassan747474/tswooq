@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/user.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api.dart';
 import 'package:shop_app/utils/api_exception.dart';
@@ -77,8 +79,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             .editProfile(phone, tmpFile, userName, firstName, lastName, email);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
-        // Navigator.of(context).pushReplacement(
-        //     MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
+        // selectedIndexHome = 3;
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen()));
       }
     } on ApiException catch (_) {
       print('ApiException');
@@ -174,7 +177,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 children: [
                                   CircleAvatar(
                                     radius: 50,
-                                    child: helpImage("_userInfo.avatar", 50),
+                                    child: helpImage(
+                                        "https://tswooq.com" + user.data.avatar,
+                                        50),
                                   ),
                                   Align(
                                     alignment: Alignment.bottomRight,
@@ -238,6 +243,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   RaisedButton(
                     onPressed: () {
+                      DefaultCacheManager manager = new DefaultCacheManager();
+                      manager.emptyCache();
                       _submit();
                     },
                     color: Colors.green,

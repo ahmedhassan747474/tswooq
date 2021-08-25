@@ -37,6 +37,12 @@ class UserModel {
     return await getToken != null;
   }
 
+  Future<void> removeToken() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    _pref.clear();
+    // return _pref.setString('access_token', 'Bearer $token');
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['token'] = this.token;
@@ -111,7 +117,7 @@ class User {
     lastName = json['last_name'] ?? "";
     gender = json['gender'] ?? "";
     defaultAddressId = json['default_address_id'] ?? -1;
-    countryCode = json['country_code']?? "";
+    countryCode = json['country_code'] ?? "";
     phone = json['phone'] ?? "";
     email = json['email'] ?? "";
     emailActivate = json['email_activate'] ?? "";
