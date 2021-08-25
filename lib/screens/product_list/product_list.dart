@@ -4,12 +4,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/components/twest_card.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
-
-import '../../size_config.dart';
 
 class ProductListScreen extends StatefulWidget {
   final ProductsModel product;
@@ -27,7 +26,6 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class ProductListScreenState extends State<ProductListScreen> {
-
   bool isGridView = true;
   bool _isLoading = true;
   int page = 2;
@@ -43,6 +41,7 @@ class ProductListScreenState extends State<ProductListScreen> {
     if (mounted) setState(() {});
     _controller.refreshCompleted();
   }
+
   @override
   // void initState() {
   //   super.initState();
@@ -58,34 +57,44 @@ class ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.Products.tr(),
-          style: TextStyle(color: Colors.black),
+        appBar: AppBar(
+          title: Text(
+            LocaleKeys.Products.tr(),
+            style: TextStyle(color: Colors.black),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: isGridView ? Icon(Icons.list) : Icon(Icons.grid_view),
+              onPressed: () {
+                setState(() {
+                  if (isGridView)
+                    isGridView = false;
+                  else
+                    isGridView = true;
+                });
+              },
+              color: Colors.black,
+            )
+          ],
         ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: isGridView ? Icon(Icons.list) : Icon(Icons.grid_view),
-            onPressed: () {
-              setState(() {
-                if (isGridView)
-                  isGridView = false;
-                else
-                  isGridView = true;
-              });
-            },
-            color: Colors.black,
-          )
-        ],
-      ),
-      body: isGridView ? gridView(widget.product) : listView(widget.product),
-    );
+        body: SmartRefresher(
+          child:
+              isGridView ? gridView(widget.product) : listView(widget.product),
+          controller: _controller,
+          onLoading: () async {
+            _onRefresh();
+            setState(() {});
+          },
+          enablePullUp: true,
+          enablePullDown: false,
+        ));
   }
 
   Widget listView(ProductsModel product) {
     return Padding(
-        padding: EdgeInsets.all(getProportionateScreenWidth(40)),
+        padding: EdgeInsets.symmetric(
+            horizontal: helpWidth(context) * .01, vertical: 6),
         child: ListView.builder(
             itemCount: product.productData.length ?? 0,
             itemBuilder: (ctx, index) => Padding(
@@ -102,7 +111,7 @@ class ProductListScreenState extends State<ProductListScreen> {
 
   Widget gridView(ProductsModel product) {
     return Padding(
-      padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: StaggeredGridView.countBuilder(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
