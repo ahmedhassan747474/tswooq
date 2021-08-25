@@ -49,11 +49,17 @@ class LoadingScreen {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 LoadingWidget(
-//                  indicator: Indicator.squareSpin,
                   indicator: Indicator.orbit,
                   color: Color(0xFF0081B0),
-//                  indicator: Indicator.ballScale,
-                )
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 100,
+                  child: LoadingIndicator(
+                    indicatorType: Indicator.ballBeat,
+                    color: Colors.deepOrange,
+                  ),
+                ),
               ],
             ),
           ),

@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/no_account_text.dart';
+import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../../size_config.dart';
 import 'sign_form.dart';
@@ -19,14 +20,21 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
+
                 Text(
                   LocaleKeys.welcome_translate.tr(),
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
+                    fontSize: getProportionateScreenWidth(20),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                Image.asset(
+                  'assets/logo.png',
+                  width: helpWidth(context) * .5,
+                  height: 150,
+                ),
+
                 // Text(
                 //   "Sign in with your email and password  \nor continue with social media",
                 //   textAlign: TextAlign.center,
@@ -53,6 +61,7 @@ class Body extends StatelessWidget {
                 // ),
                 SizedBox(height: getProportionateScreenHeight(20)),
                 NoAccountText(),
+                SizedBox(height: SizeConfig.screenHeight * 0.18),
               ],
             ),
           ),

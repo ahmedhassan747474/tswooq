@@ -22,6 +22,8 @@ class LoadingWidget extends StatelessWidget {
         child: Image.asset(
           "assets/logo.png",
         ),
+
+//todo
 //         LoadingIndicator(sss
 // //          indicatorType: indicator,
 //           indicatorType: indicator,
@@ -47,10 +49,13 @@ class LoadingScreen {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Image.asset(
+                  "assets/logo.png",
+                ),
                 LoadingWidget(
 //                  indicator: Indicator.squareSpin,
                   indicator: Indicator.orbit,
-                  color: Color(0xFF0081B0),
+                  color: Colors.red,
 //                  indicator: Indicator.ballScale,
                 )
               ],

@@ -28,18 +28,17 @@ class ProductListScreen extends StatefulWidget {
 class ProductListScreenState extends State<ProductListScreen> {
   bool isGridView = true;
   bool _isLoading = true;
-  int page = 2;
-  RefreshController _controller = RefreshController(initialRefresh: false);
-  ProductsModel products = new ProductsModel(productData: []);
+  int page = 1;
+  RefreshController _controller = RefreshController();
 
   Future<void> _onRefresh() async {
+    print("-------------------------object--------------------------------");
     page++;
     ProductsModel products2 = await ApiProducts.instance.getProducts(page);
-    products.productData.addAll(products2.productData);
-    products2 = null;
-    _isLoading = false;
+    widget.product.productData.addAll(products2.productData);
+
     if (mounted) setState(() {});
-    _controller.refreshCompleted();
+    _controller.loadComplete();
   }
 
   @override
@@ -82,9 +81,10 @@ class ProductListScreenState extends State<ProductListScreen> {
           child:
               isGridView ? gridView(widget.product) : listView(widget.product),
           controller: _controller,
-          onLoading: () async {
+          onLoading: () {
+            print(
+                "-------------------------object--------------------------------");
             _onRefresh();
-            setState(() {});
           },
           enablePullUp: true,
           enablePullDown: false,
@@ -96,6 +96,8 @@ class ProductListScreenState extends State<ProductListScreen> {
         padding: EdgeInsets.symmetric(
             horizontal: helpWidth(context) * .01, vertical: 6),
         child: ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             itemCount: product.productData.length ?? 0,
             itemBuilder: (ctx, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -113,6 +115,8 @@ class ProductListScreenState extends State<ProductListScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: StaggeredGridView.countBuilder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           staggeredTileBuilder: (_) => StaggeredTile.extent(1, 290),

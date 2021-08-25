@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/components/product_card.dart';
@@ -5,8 +6,10 @@ import 'package:shop_app/components/twest_card.dart';
 import 'package:shop_app/helper/help.dart';
 import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
+import 'package:shop_app/translations/locale_keys.g.dart';
 import 'package:shop_app/utils/api_products.dart';
 
+import '../../constants.dart';
 import '../../size_config.dart';
 
 class ProductBrandScreen extends StatefulWidget {
@@ -69,9 +72,36 @@ class ProductBrandScreenState extends State<ProductBrandScreen> {
       ),
       body: _isLoading
           ? helpLoading()
-          : isGridView
-              ? gridView(product)
-              : listView(product),
+          : product.productData.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        "assets/logo.png",
+                        width: helpWidth(context) * .5,
+                      ),
+                      FlatButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        color: kPrimaryColor,
+                        onPressed: () {
+                          // Navigator.pop(context);
+                        },
+                        child: Text(
+                          LocaleKeys.no_Product.tr(),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : isGridView
+                  ? gridView(product)
+                  : listView(product),
     );
   }
 
