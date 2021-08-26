@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/custom_surfix_icon.dart';
-import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/components/loading_screen.dart';
-import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:shop_app/utils/api.dart';
-import 'package:shop_app/utils/api_exception.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/components/custom_surfix_icon.dart';
+import 'package:tswooq/components/form_error.dart';
+import 'package:tswooq/components/loading_screen.dart';
+import 'package:tswooq/screens/forgot_password/forgot_password_screen.dart';
+import 'package:tswooq/screens/home/home_screen.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api.dart';
+import 'package:tswooq/utils/api_exception.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';

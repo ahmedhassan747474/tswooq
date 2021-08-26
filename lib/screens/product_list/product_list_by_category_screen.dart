@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:shop_app/components/product_card.dart';
-import 'package:shop_app/components/twest_card.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/products.dart';
-import 'package:shop_app/screens/details/details_screen.dart';
-import 'package:shop_app/utils/api_products.dart';
+import 'package:tswooq/components/product_card.dart';
+import 'package:tswooq/components/twest_card.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/models/products.dart';
+import 'package:tswooq/screens/details/details_screen.dart';
+import 'package:tswooq/utils/api_products.dart';
 
 import '../../size_config.dart';
 

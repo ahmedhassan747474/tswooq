@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/error_dialog.dart';
-import 'package:shop_app/models/user.dart';
+import 'package:tswooq/components/error_dialog.dart';
+import 'package:tswooq/models/user.dart';
 
 class AppColors {
   static const Color PRIMARY_COLOR = Color(0xFF0081B0);

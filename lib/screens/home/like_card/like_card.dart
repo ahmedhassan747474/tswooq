@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:shop_app/components/home_card.dart';
-import 'package:shop_app/helper/loading_shimmer.dart';
-import 'package:shop_app/models/category_like_card.dart';
-import 'package:shop_app/screens/home/components/section_title.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:shop_app/utils/api_home.dart';
+import 'package:tswooq/components/home_card.dart';
+import 'package:tswooq/helper/loading_shimmer.dart';
+import 'package:tswooq/models/category_like_card.dart';
+import 'package:tswooq/screens/home/components/section_title.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api_home.dart';
 
 import 'like_card_screen.dart';
 import 'like_cart_sub_category.dart';

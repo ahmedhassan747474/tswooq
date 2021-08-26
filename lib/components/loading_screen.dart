@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/utils/vars.dart';
 
 class LoadingWidget extends StatelessWidget {
   final Indicator indicator;

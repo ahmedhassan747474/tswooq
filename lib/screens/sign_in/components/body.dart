@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/no_account_text.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:tswooq/components/no_account_text.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
 
 import '../../../size_config.dart';
 import 'sign_form.dart';

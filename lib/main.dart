@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/routes.dart';
-import 'package:shop_app/screens/splash/splash_screen.dart';
-import 'package:shop_app/theme.dart';
-import 'package:shop_app/translations/codegen_loader.g.dart';
+import 'package:tswooq/routes.dart';
+import 'package:tswooq/screens/splash/splash_screen.dart';
+import 'package:tswooq/theme.dart';
+import 'package:tswooq/translations/codegen_loader.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

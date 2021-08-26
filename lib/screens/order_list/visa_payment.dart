@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shop_app/components/loading_screen.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/screens/order_success/login_success_screen.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:tswooq/components/loading_screen.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/screens/order_success/login_success_screen.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:shop_app/utils/api_exception.dart';
-import 'package:shop_app/utils/api_order.dart';
-import 'package:shop_app/utils/contents.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/utils/api_exception.dart';
+import 'package:tswooq/utils/api_order.dart';
+import 'package:tswooq/utils/contents.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import '../../constants.dart';
 

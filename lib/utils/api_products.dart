@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:shop_app/models/fav_model.dart';
-import 'package:shop_app/models/products.dart';
-import 'package:shop_app/models/search_product.dart';
-import 'package:shop_app/models/user.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/models/fav_model.dart';
+import 'package:tswooq/models/products.dart';
+import 'package:tswooq/models/search_product.dart';
+import 'package:tswooq/models/user.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import 'api_exception.dart';
 

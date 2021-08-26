@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:shop_app/models/order.dart';
-import 'package:shop_app/models/payment_method.dart';
-import 'package:shop_app/models/user.dart';
-import 'package:shop_app/utils/api.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/models/order.dart';
+import 'package:tswooq/models/payment_method.dart';
+import 'package:tswooq/models/user.dart';
+import 'package:tswooq/utils/api.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import 'api_exception.dart';
 

@@ -1,4 +1,4 @@
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/utils/vars.dart';
 
 class ApiException implements Exception {
   // Variables

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/utils/api.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/utils/api.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({

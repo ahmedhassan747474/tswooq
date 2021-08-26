@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/user.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/models/Cart.dart';
+import 'package:tswooq/models/user.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import 'api_exception.dart';
 

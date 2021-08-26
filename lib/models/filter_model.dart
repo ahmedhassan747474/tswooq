@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:shop_app/models/search_product.dart';
+import 'package:tswooq/models/search_product.dart';
 
 FilterModel filterModelFromJson(String str) =>
     FilterModel.fromJson(json.decode(str));

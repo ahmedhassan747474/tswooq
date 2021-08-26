@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/helper/slider.dart';
-import 'package:shop_app/screens/home/components/brands.dart';
+import 'package:tswooq/helper/slider.dart';
+import 'package:tswooq/screens/home/components/brands.dart';
 
 import '../../../size_config.dart';
 import '../like_card/like_card.dart';

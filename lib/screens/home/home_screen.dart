@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shop_app/screens/favorite/favorite_screen.dart';
-import 'package:shop_app/screens/order_list/order_list_screen.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
+import 'package:tswooq/screens/favorite/favorite_screen.dart';
+import 'package:tswooq/screens/order_list/order_list_screen.dart';
+import 'package:tswooq/screens/profile/profile_screen.dart';
 
 import '../../constants.dart';
 import 'components/body.dart';

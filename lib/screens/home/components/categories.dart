@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/home_card.dart';
-import 'package:shop_app/helper/loading_shimmer.dart';
-import 'package:shop_app/models/all_categories.dart';
-import 'package:shop_app/screens/product_list/product_list_by_category_screen.dart';
-import 'package:shop_app/utils/api_categories.dart';
+import 'package:tswooq/components/home_card.dart';
+import 'package:tswooq/helper/loading_shimmer.dart';
+import 'package:tswooq/models/all_categories.dart';
+import 'package:tswooq/screens/product_list/product_list_by_category_screen.dart';
+import 'package:tswooq/utils/api_categories.dart';
 
 import '../../../size_config.dart';
 

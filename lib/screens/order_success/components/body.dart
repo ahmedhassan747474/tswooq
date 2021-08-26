@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/size_config.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
+import 'package:tswooq/components/default_button.dart';
+import 'package:tswooq/screens/home/home_screen.dart';
+import 'package:tswooq/size_config.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class Body extends StatelessWidget {

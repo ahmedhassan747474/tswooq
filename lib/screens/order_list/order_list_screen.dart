@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/order.dart';
-import 'package:shop_app/screens/order_list/order_products.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:shop_app/utils/api_order.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/models/order.dart';
+import 'package:tswooq/screens/order_list/order_products.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api_order.dart';
 
 import '../../constants.dart';
 import '../../size_config.dart';

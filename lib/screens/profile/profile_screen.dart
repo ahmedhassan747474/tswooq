@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/permission_denied_widget.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:shop_app/utils/api.dart';
+import 'package:tswooq/components/permission_denied_widget.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api.dart';
 
 import 'components/body.dart';
 

@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/custom_surfix_icon.dart';
-import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/components/loading_screen.dart';
-import 'package:shop_app/components/no_account_text.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
-import 'package:shop_app/size_config.dart';
-import 'package:shop_app/utils/api.dart';
-import 'package:shop_app/utils/api_exception.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/components/custom_surfix_icon.dart';
+import 'package:tswooq/components/default_button.dart';
+import 'package:tswooq/components/form_error.dart';
+import 'package:tswooq/components/loading_screen.dart';
+import 'package:tswooq/components/no_account_text.dart';
+import 'package:tswooq/screens/home/home_screen.dart';
+import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
+import 'package:tswooq/size_config.dart';
+import 'package:tswooq/utils/api.dart';
+import 'package:tswooq/utils/api_exception.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import '../../../constants.dart';
 

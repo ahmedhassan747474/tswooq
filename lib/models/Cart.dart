@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:shop_app/models/search_product.dart';
+import 'package:tswooq/models/search_product.dart';
 
 CartModel cartModelFromJson(String str) => CartModel.fromJson(json.decode(str));
 

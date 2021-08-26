@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/helper/help.dart';
+import 'package:tswooq/helper/help.dart';
 
 import '../../../size_config.dart';
 

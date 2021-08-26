@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/user.dart';
-import 'package:shop_app/screens/profile/components/profile_pic.dart';
+import 'package:tswooq/models/user.dart';
+import 'package:tswooq/screens/profile/components/profile_pic.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

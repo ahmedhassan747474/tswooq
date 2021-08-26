@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/search_product.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/models/search_product.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';

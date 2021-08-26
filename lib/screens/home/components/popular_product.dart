@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shop_app/components/product_card.dart';
-import 'package:shop_app/helper/loading_shimmer.dart';
-import 'package:shop_app/models/products.dart';
-import 'package:shop_app/screens/details/details_screen.dart';
-import 'package:shop_app/screens/home/components/section_title.dart';
-import 'package:shop_app/screens/product_list/product_list.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:shop_app/utils/api_products.dart';
+import 'package:tswooq/components/product_card.dart';
+import 'package:tswooq/helper/loading_shimmer.dart';
+import 'package:tswooq/models/products.dart';
+import 'package:tswooq/screens/details/details_screen.dart';
+import 'package:tswooq/screens/home/components/section_title.dart';
+import 'package:tswooq/screens/product_list/product_list.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api_products.dart';
 
 import '../../../size_config.dart';
 

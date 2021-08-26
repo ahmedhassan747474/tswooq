@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/search_product.dart';
-import 'package:shop_app/models/user.dart';
-import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
-import 'package:shop_app/utils/api.dart';
-import 'package:shop_app/utils/api_exception.dart';
-import 'package:shop_app/utils/api_products.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/models/search_product.dart';
+import 'package:tswooq/models/user.dart';
+import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
+import 'package:tswooq/utils/api.dart';
+import 'package:tswooq/utils/api_exception.dart';
+import 'package:tswooq/utils/api_products.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import '../constants.dart';
 import '../size_config.dart';

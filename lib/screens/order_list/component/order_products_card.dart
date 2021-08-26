@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/order.dart';
-import 'package:shop_app/utils/vars.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/models/order.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import '../../../size_config.dart';
 

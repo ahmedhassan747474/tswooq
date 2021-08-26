@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/helper/help.dart';
-import 'package:shop_app/models/user.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
-import 'package:shop_app/translations/locale_keys.g.dart';
-import 'package:shop_app/utils/api.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/models/user.dart';
+import 'package:tswooq/screens/home/home_screen.dart';
+import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api.dart';
 
 import '../edit_profile_screen.dart';
 import 'profile_menu.dart';
