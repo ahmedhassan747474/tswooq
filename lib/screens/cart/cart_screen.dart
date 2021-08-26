@@ -89,7 +89,9 @@ class _CartScreenState extends State<CartScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: buildAppBar(context),
-        body:  (ApiProvider.user == null ? PermissionDeniedWidget():(_isLoading ? helpLoading() : body(cart.productData, context))),
+        body: (ApiProvider.user == null
+            ? PermissionDeniedWidget()
+            : (_isLoading ? helpLoading() : body(cart.productData, context))),
         bottomNavigationBar: cart.productData.length == 0
             ? SizedBox()
             : Container(
