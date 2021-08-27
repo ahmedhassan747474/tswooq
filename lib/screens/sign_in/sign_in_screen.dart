@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/screens/home/home_screen.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
 
@@ -21,7 +22,7 @@ class SignInScreen extends StatelessWidget {
             },
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: Text("Skip", style: TextStyle(fontSize: 18, color: kPrimaryColor),),
+                child: Text("Skip", style: TextStyle(fontSize:helpMobile(context)? 18:20, color: kPrimaryColor),),
               )),
         ],
       ),
