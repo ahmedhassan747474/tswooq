@@ -21,7 +21,6 @@ class BrandListScreen extends StatelessWidget {
       body: Padding(
           padding: EdgeInsets.all(6),
           child: GridView.builder(
-            // shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 5.0,
@@ -42,8 +41,8 @@ class BrandListScreen extends StatelessWidget {
                           )));
                 },
                 cardWidth: helpWidth(context) * .4,
-                imgHeight: helpHeight(context) * .25,
-                imgWidth: helpWidth(context) * .4,
+                imgHeight: helpWidth(context) * .25,
+                imgWidth: helpWidth(context) * .25,
               ),
             ),
           )),

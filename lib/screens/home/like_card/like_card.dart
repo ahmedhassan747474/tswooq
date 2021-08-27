@@ -5,10 +5,10 @@ import 'package:tswooq/components/home_card.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/loading_shimmer.dart';
 import 'package:tswooq/models/category_like_card.dart';
-import 'package:tswooq/screens/home/components/section_title.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
 import 'package:tswooq/utils/api_home.dart';
 
+import '../../../size_config.dart';
 import 'like_card_screen.dart';
 import 'like_cart_sub_category.dart';
 
@@ -41,14 +41,18 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          child: SectionTitle(
-            title: LocaleKeys.Brands_translate.tr(),
-            press: () {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //     builder: (context) => BrandListScreen(
-              //           brands: brands,
-              //         )));
-            },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                LocaleKeys.Brands_translate.tr(),
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(18),
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox()
+            ],
           ),
         ),
         SizedBox(height: 20),
@@ -107,8 +111,8 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                                       )));
                         },
                         cardWidth: helpWidth(context) * .3,
-                        imgWidth: helpWidth(context) * .15,
-                        imgHeight: helpWidth(context) * .15,
+                        imgWidth: helpWidth(context) * .18,
+                        imgHeight: helpWidth(context) * .18,
                       ),
                     ),
             ),

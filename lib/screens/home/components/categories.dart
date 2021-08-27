@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tswooq/components/home_card.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/loading_shimmer.dart';
 import 'package:tswooq/models/all_categories.dart';
 import 'package:tswooq/screens/product_list/product_list_by_category_screen.dart';
@@ -54,9 +55,9 @@ class _CategoriesState extends State<Categories> {
                   child: CategoryCard(
                     icon: categories.data[index].icon,
                     text: categories.data[index].categoriesName,
-                    cardWidth: 70,
-                    imgHeight: 65,
-                    imgWidth: 65,
+                    cardWidth: helpWidth(context) * .2,
+                    imgHeight: helpWidth(context) * .19,
+                    imgWidth: helpWidth(context) * .19,
                     press: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ProductByCategoryScreen(

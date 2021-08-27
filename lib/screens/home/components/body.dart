@@ -18,15 +18,18 @@ class Body extends StatelessWidget {
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
             HomeHeader(),
-            SizedBox(height: getProportionateScreenWidth(10)),
+            SizedBox(height: getProportionateScreenHeight(10)),
             ImageSlider(),
-            Container(height: 250, child: Categories()),
-            Container(height: 420, child: Brands()),
+            SizedBox(height: helpWidth(context) * .05),
+            Container(height: helpWidth(context) * .5, child: Categories()),
+            Container(height: helpWidth(context) * .8, child: Brands()),
             Container(
                 height: helpHeight(context) * .40, child: LikeCardScreen()),
             SizedBox(height: getProportionateScreenWidth(30)),
-            Container(height: 480, child: PopularProduct()),
-            SizedBox(height: getProportionateScreenWidth(80)),
+            Container(height: helpWidth(context) * .8, child: PopularProduct()),
+            SizedBox(
+              height: helpWidth(context) * .1,
+            ),
           ],
         ),
       ),

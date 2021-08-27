@@ -107,7 +107,10 @@ class ProductListScreenState extends State<ProductListScreen> {
           physics: NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
           crossAxisSpacing: 10,
-          staggeredTileBuilder: (_) => StaggeredTile.extent(1, 490),
+          staggeredTileBuilder: (_) => StaggeredTile.extent(
+                1,
+                helpHeight(context) * .35,
+              ),
           // //  controller: popularProvider.scrollController,/
           itemCount: product.productData.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
