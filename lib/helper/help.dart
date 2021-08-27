@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:tswooq/utils/vars.dart';
- import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'loading_screen.dart';
 
@@ -24,6 +24,10 @@ void helpNavigateTo(context, widget) =>
 int i = 0;
 int helpHero() {
   return i++;
+}
+
+bool helpMobile(BuildContext context) {
+  return MediaQuery.of(context).size.shortestSide < 600;
 }
 
 double helpWidth(BuildContext context) {

@@ -19,7 +19,7 @@ class BrandListScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Padding(
-          padding: EdgeInsets.all(6),
+          padding: EdgeInsets.symmetric(horizontal: 6),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

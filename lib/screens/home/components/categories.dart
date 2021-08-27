@@ -6,8 +6,6 @@ import 'package:tswooq/models/all_categories.dart';
 import 'package:tswooq/screens/product_list/product_list_by_category_screen.dart';
 import 'package:tswooq/utils/api_categories.dart';
 
-import '../../../size_config.dart';
-
 class Categories extends StatefulWidget {
   @override
   _CategoriesState createState() => _CategoriesState();
@@ -31,11 +29,7 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-        //   child: Row(
-        //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        // children: [
+        padding: EdgeInsets.symmetric(vertical: 16),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: _isLoading ? 10 : categories.data.length ?? 0,
@@ -55,7 +49,9 @@ class _CategoriesState extends State<Categories> {
                   child: CategoryCard(
                     icon: categories.data[index].icon,
                     text: categories.data[index].categoriesName,
-                    cardWidth: helpWidth(context) * .2,
+                    cardWidth: helpMobile(context)
+                        ? helpWidth(context) * .2
+                        : helpWidth(context) * .1,
                     imgHeight: helpWidth(context) * .19,
                     imgWidth: helpWidth(context) * .19,
                     press: () {
@@ -67,51 +63,6 @@ class _CategoriesState extends State<Categories> {
                     },
                   ),
                 ),
-        )
-        //    ],
-
-        // ),
-        );
+        ));
   }
 }
-
-// class CategoryCard extends StatelessWidget {
-//   const CategoryCard({
-//     Key key,
-//     @required this.icon,
-//     @required this.text,
-//     @required this.press,
-//   }) : super(key: key);
-//
-//   final String icon, text;
-//   final GestureTapCallback press;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: press,
-//       child: SizedBox(
-//         width: getProportionateScreenWidth(70),
-//         child: Column(
-//           children: [
-//             Container(
-//               padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-//               height: getProportionateScreenWidth(65),
-//               width: getProportionateScreenWidth(65),
-//               decoration: BoxDecoration(
-//                 color: Color(0xFFFFECDF),
-//                 borderRadius: BorderRadius.circular(10),
-//               ),
-//               child: Image.network(
-//                 icon,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//             SizedBox(height: 5),
-//             Text(text, textAlign: TextAlign.center , style: TextStyle(fontSize: 12),)
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

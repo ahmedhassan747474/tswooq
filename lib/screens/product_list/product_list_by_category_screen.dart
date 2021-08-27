@@ -78,7 +78,8 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
 
   Widget listView(ProductsModel product) {
     return Padding(
-        padding: EdgeInsets.all(getProportionateScreenWidth(40)),
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(40)),
         child: ListView.builder(
             itemCount: product.productData.length ?? 0,
             itemBuilder: (ctx, index) => Padding(
@@ -95,7 +96,8 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
 
   Widget gridView(ProductsModel product) {
     return Padding(
-      padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+      padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: StaggeredGridView.countBuilder(
           crossAxisCount: 2,
           crossAxisSpacing: 10,

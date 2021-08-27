@@ -57,7 +57,9 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
         ),
         SizedBox(height: 20),
         SizedBox(
-          height: helpHeight(context) * .3,
+          height: helpMobile(context)
+              ? helpHeight(context) * .3
+              : helpHeight(context) * .3,
           child: Padding(
             padding: EdgeInsets.all(6),
             child: StaggeredGridView.countBuilder(
@@ -68,7 +70,9 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
               padding: EdgeInsets.all(0.0),
               staggeredTileBuilder: (_) => StaggeredTile.extent(
                 1,
-                helpWidth(context) * .22,
+                helpMobile(context)
+                    ? helpWidth(context) * .22
+                    : helpWidth(context) * .22,
               ),
               itemCount: _isLoading
                   ? 20
@@ -110,9 +114,15 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                                             categoriesLC.categories.data[index],
                                       )));
                         },
-                        cardWidth: helpWidth(context) * .3,
-                        imgWidth: helpWidth(context) * .18,
-                        imgHeight: helpWidth(context) * .18,
+                        cardWidth: helpMobile(context)
+                            ? helpWidth(context) * .3
+                            : helpWidth(context) * .3,
+                        imgWidth: helpMobile(context)
+                            ? helpWidth(context) * .18
+                            : helpWidth(context) * .15,
+                        imgHeight: helpMobile(context)
+                            ? helpWidth(context) * .18
+                            : helpWidth(context) * .15,
                       ),
                     ),
             ),

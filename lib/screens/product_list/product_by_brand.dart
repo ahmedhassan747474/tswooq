@@ -130,7 +130,6 @@ class ProductBrandScreenState extends State<ProductBrandScreen> {
           crossAxisSpacing: 10,
           staggeredTileBuilder: (_) =>
               StaggeredTile.extent(1, helpHeight(context) * .4),
-          // //  controller: popularProvider.scrollController,/
           itemCount: product.productData.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
             return Padding(

@@ -21,10 +21,21 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenHeight(10)),
             ImageSlider(),
             SizedBox(height: helpWidth(context) * .05),
-            Container(height: helpWidth(context) * .5, child: Categories()),
-            Container(height: helpWidth(context) * .8, child: Brands()),
             Container(
-                height: helpHeight(context) * .40, child: LikeCardScreen()),
+                height: helpMobile(context)
+                    ? helpWidth(context) * .5
+                    : helpWidth(context) * .35,
+                child: Categories()),
+            Container(
+                height: helpMobile(context)
+                    ? helpHeight(context) * .40
+                    : helpHeight(context) * .40,
+                child: Brands()),
+            Container(
+                height: helpMobile(context)
+                    ? helpHeight(context) * .40
+                    : helpHeight(context) * .40,
+                child: LikeCardScreen()),
             SizedBox(height: getProportionateScreenWidth(30)),
             Container(height: helpWidth(context) * .8, child: PopularProduct()),
             SizedBox(

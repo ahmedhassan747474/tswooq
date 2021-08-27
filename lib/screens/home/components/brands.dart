@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/components/home_card.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/loading_shimmer.dart';
 import 'package:tswooq/models/brands.dart';
 import 'package:tswooq/screens/brand_list/brand_list_screen.dart';
@@ -48,7 +49,9 @@ class _BrandsState extends State<Brands> {
         ),
         SizedBox(height: 20),
         SizedBox(
-          height: 250,
+          height: helpMobile(context)
+              ? helpHeight(context) * .3
+              : helpHeight(context) * .3,
           child: Padding(
             padding: EdgeInsets.all(6),
             child: StaggeredGridView.countBuilder(
@@ -56,8 +59,12 @@ class _BrandsState extends State<Brands> {
               crossAxisCount: 2,
               mainAxisSpacing: 2,
               crossAxisSpacing: 2,
-              padding: EdgeInsets.all(0.0),
-              staggeredTileBuilder: (_) => StaggeredTile.extent(1, 100),
+              staggeredTileBuilder: (_) => StaggeredTile.extent(
+                1,
+                helpMobile(context)
+                    ? helpWidth(context) * .22
+                    : helpWidth(context) * .22,
+              ),
               itemCount: _isLoading
                   ? 20
                   : brands.data == null
@@ -87,9 +94,15 @@ class _BrandsState extends State<Brands> {
                                     title: brands.data[index].categoriesName,
                                   )));
                         },
-                        cardWidth: 100,
-                        imgWidth: 80,
-                        imgHeight: 80,
+                        cardWidth: helpMobile(context)
+                            ? helpWidth(context) * .3
+                            : helpWidth(context) * .3,
+                        imgWidth: helpMobile(context)
+                            ? helpWidth(context) * .18
+                            : helpWidth(context) * .15,
+                        imgHeight: helpMobile(context)
+                            ? helpWidth(context) * .18
+                            : helpWidth(context) * .15,
                       ),
                     ),
             ),
