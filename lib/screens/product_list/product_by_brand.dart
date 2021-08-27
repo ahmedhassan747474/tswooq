@@ -124,11 +124,12 @@ class ProductBrandScreenState extends State<ProductBrandScreen> {
 
   Widget gridView(ProductsModel product) {
     return Padding(
-      padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+      padding: EdgeInsets.all(6),
       child: StaggeredGridView.countBuilder(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
-          staggeredTileBuilder: (_) => StaggeredTile.extent(1, 280),
+          staggeredTileBuilder: (_) =>
+              StaggeredTile.extent(1, helpHeight(context) * .4),
           // //  controller: popularProvider.scrollController,/
           itemCount: product.productData.length ?? 0,
           itemBuilder: (BuildContext context, int index) {

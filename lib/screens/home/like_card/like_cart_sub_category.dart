@@ -66,7 +66,8 @@ class _LikeCardCategoryScreenState extends State<LikeCardCategoryScreen> {
         mainAxisSpacing: 2,
         crossAxisSpacing: 0,
         padding: EdgeInsets.all(8.0),
-        staggeredTileBuilder: (_) => StaggeredTile.extent(1, 170),
+        staggeredTileBuilder: (_) =>
+            StaggeredTile.extent(1, helpHeight(context) * .2),
         itemCount: widget.categoriesLC.childs.length,
         itemBuilder: (ctx, index) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -87,9 +88,9 @@ class _LikeCardCategoryScreenState extends State<LikeCardCategoryScreen> {
                                 widget.categoriesLC.childs[index].childs,
                           )));
             },
-            cardWidth: 100,
-            imgWidth: 80,
-            imgHeight: 80,
+            cardWidth: helpWidth(context) * .3,
+            imgWidth: helpWidth(context) * .25,
+            imgHeight: helpWidth(context) * .25,
           ),
         ),
       ),

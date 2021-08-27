@@ -28,8 +28,8 @@ class CategoryCard extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(6),
-              height: getProportionateScreenWidth(imgHeight),
-              width: getProportionateScreenWidth(imgWidth),
+              height: imgHeight,
+              width: imgWidth,
               decoration: BoxDecoration(
                 // color: Color(0xFFFFECDF),
                 color: Colors.amber,
@@ -45,7 +45,7 @@ class CategoryCard extends StatelessWidget {
               text,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 14),
             )
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/slider.dart';
 import 'package:tswooq/screens/home/components/brands.dart';
 
@@ -19,11 +20,12 @@ class Body extends StatelessWidget {
             HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             ImageSlider(),
-            Container(height: 170, child: Categories()),
-            Container(height: 320, child: Brands()),
-            Container(height: 350, child: LikeCardScreen()),
+            Container(height: 250, child: Categories()),
+            Container(height: 420, child: Brands()),
+            Container(
+                height: helpHeight(context) * .40, child: LikeCardScreen()),
             SizedBox(height: getProportionateScreenWidth(30)),
-            Container(height: 330, child: PopularProduct()),
+            Container(height: 480, child: PopularProduct()),
             SizedBox(height: getProportionateScreenWidth(80)),
           ],
         ),

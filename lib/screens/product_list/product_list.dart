@@ -42,18 +42,6 @@ class ProductListScreenState extends State<ProductListScreen> {
   }
 
   @override
-  // void initState() {
-  //   super.initState();
-  //   _initData();
-  // }
-  //
-  // _initData() async {
-  //   product = await ApiProducts.instance.getProducts();
-  //   _isLoading = false;
-  //   if (mounted) setState(() {});
-  // }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -119,7 +107,7 @@ class ProductListScreenState extends State<ProductListScreen> {
           physics: NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
           crossAxisSpacing: 10,
-          staggeredTileBuilder: (_) => StaggeredTile.extent(1, 290),
+          staggeredTileBuilder: (_) => StaggeredTile.extent(1, 490),
           // //  controller: popularProvider.scrollController,/
           itemCount: product.productData.length ?? 0,
           itemBuilder: (BuildContext context, int index) {

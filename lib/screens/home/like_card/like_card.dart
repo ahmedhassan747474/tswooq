@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/components/home_card.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/loading_shimmer.dart';
 import 'package:tswooq/models/category_like_card.dart';
 import 'package:tswooq/screens/home/components/section_title.dart';
@@ -52,7 +53,7 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
         ),
         SizedBox(height: 20),
         SizedBox(
-          height: 270,
+          height: helpHeight(context) * .3,
           child: Padding(
             padding: EdgeInsets.all(6),
             child: StaggeredGridView.countBuilder(
@@ -61,7 +62,10 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
               mainAxisSpacing: 2,
               crossAxisSpacing: 20,
               padding: EdgeInsets.all(0.0),
-              staggeredTileBuilder: (_) => StaggeredTile.extent(1, 100),
+              staggeredTileBuilder: (_) => StaggeredTile.extent(
+                1,
+                helpWidth(context) * .22,
+              ),
               itemCount: _isLoading
                   ? 20
                   : categoriesLC.categories == null
@@ -102,9 +106,9 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                                             categoriesLC.categories.data[index],
                                       )));
                         },
-                        cardWidth: 100,
-                        imgWidth: 80,
-                        imgHeight: 80,
+                        cardWidth: helpWidth(context) * .3,
+                        imgWidth: helpWidth(context) * .15,
+                        imgHeight: helpWidth(context) * .15,
                       ),
                     ),
             ),
