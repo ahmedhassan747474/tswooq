@@ -18,7 +18,6 @@ import 'package:tswooq/utils/api_products.dart';
 import 'package:tswooq/utils/vars.dart';
 
 import '../../../constants.dart';
-import 'product_images.dart';
 import 'top_rounded_container.dart';
 
 class Body extends StatefulWidget {
@@ -39,6 +38,7 @@ class BodyState extends State<Body> {
   String price = '';
   List images;
   int id = 0;
+
   double borderWidth = 1.0;
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
@@ -169,12 +169,52 @@ class BodyState extends State<Body> {
     }
   }
 
+  int selectedImage = 0;
+  GestureDetector buildSmallProductPreview(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedImage = index;
+        });
+      },
+      child: AnimatedContainer(
+        duration: defaultDuration,
+        margin: EdgeInsets.only(right: 15),
+        padding: EdgeInsets.all(8),
+        height: getProportionateScreenWidth(48),
+        width: getProportionateScreenWidth(48),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+              color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
+        ),
+        child: helpImage(widget.product.productsImage, 0),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ProductImages(product: widget.product),
+          SizedBox(
+            width: getProportionateScreenWidth(238),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: helpImage(widget.product.productsImage, 0),
+            ),
+          ),
+          SizedBox(height: getProportionateScreenWidth(20)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ...List.generate(widget.product.attributes.length,
+                  (index) => buildSmallProductPreview(index)),
+            ],
+          ),
+          // ProductImages(product: widget.product),
           TopRoundedContainer(
             color: Colors.white,
             child: Column(
@@ -270,12 +310,14 @@ class BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(width: 10),
-                for (var item in widget.product.attributes)
-                  GestureDetector(
+                // for (var item in widget.product.attributes)
+                ...List.generate(
+                  widget.product.attributes.length,
+                  (index) => GestureDetector(
                     onTap: () {
-                      price = item.price;
-                      id = item.id;
-
+                      price = widget.product.attributes[index].price;
+                      id = widget.product.attributes[index].id;
+                      selectedImage = index;
                       setState(() {});
                     },
                     child: Container(
@@ -287,14 +329,20 @@ class BodyState extends State<Body> {
                         decoration: BoxDecoration(
                             border: Border.all(
                                 color: Colors.black,
-                                width: item.id == id ? 3 : .5)),
+                                width: widget.product.attributes[index].id == id
+                                    ? 3
+                                    : .5)),
                         child: Row(
                           children: [
-                            Text(item.color ?? ""),
-                            item.size != null ? Text(item.size) : Container(),
+                            Text(widget.product.attributes[index].color ?? ""),
+                            widget.product.attributes[index].size != null
+                                ? Text(widget.product.attributes[index].size)
+                                : Container(),
                           ],
                         )),
                   ),
+                ),
+
                 SizedBox(width: 5),
                 TopRoundedContainer(
                   color: Color(0xFFF6F7F9),

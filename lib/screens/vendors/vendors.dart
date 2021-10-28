@@ -63,7 +63,7 @@ class VendorsScreenState extends State<VendorsScreen> {
               ),
               child: Hero(
                 tag: "vendor" + vendor.id.toString(),
-                child: helpImage(vendor.avatar ?? "", 0),
+                child: helpImage(vendor.imagePath ?? "", 0),
               ),
             ),
           ),
@@ -74,7 +74,7 @@ class VendorsScreenState extends State<VendorsScreen> {
               children: [
                 Center(
                   child: Text(
-                    vendor.shopName ?? "shopName",
+                    vendor.name ?? "shopName",
                     style: TextStyle(color: Colors.black),
                     overflow: TextOverflow.visible,
                     // maxLines: 2,
@@ -106,7 +106,7 @@ class VendorsScreenState extends State<VendorsScreen> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => VendorGroupScreen(
-                                vendors.data[index].id,
+                                vendors.data[index],
                               )));
                     },
                     child: cardView(vendors.data[index], context)));

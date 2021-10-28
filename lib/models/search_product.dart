@@ -40,31 +40,16 @@ class SearchProduct {
 class Products {
   int productsId;
   int quantityOrdered;
-  int productsQuantity;
-  String productsModel;
   String productsImage;
-  int productsPrice;
-  String productsWeight;
-  String productsWeightUnit;
-  int productsStatus;
-  int isCurrent;
+  String productsPrice;
   int productsLiked;
-  int lowLimit;
-  int isFeature;
-  String productsSlug;
-  int productsType;
-  int productsMinOrder;
-  String productsMaxStock;
   String barcode;
   int id;
   String productsName;
   String productsDescription;
   String discountPrice;
-  String currency;
-  // List<Categories> categories;
   String rating;
   String path;
-  List<dynamic> reviewedCustomers;
   String isLiked;
   int defaultStock;
   List<Attributes> attributes;
@@ -73,30 +58,15 @@ class Products {
       {this.productsId,
       this.path,
       this.quantityOrdered,
-      this.productsQuantity,
-      this.productsModel,
       this.productsImage,
       this.productsPrice,
-      this.productsWeight,
-      this.productsWeightUnit,
-      this.productsStatus,
-      this.isCurrent,
       this.productsLiked,
-      this.lowLimit,
-      this.isFeature,
-      this.productsSlug,
-      this.productsType,
-      this.productsMinOrder,
-      this.productsMaxStock,
       this.barcode,
       this.id,
       this.productsName,
       this.productsDescription,
       this.discountPrice,
-      this.currency,
-      // this.categories,
       this.rating,
-      this.reviewedCustomers,
       this.isLiked,
       this.defaultStock,
       this.attributes});
@@ -105,27 +75,15 @@ class Products {
     productsId = json['products_id'];
     path = json['path'];
     quantityOrdered = json['quantity_ordered'];
-    productsQuantity = json['products_quantity'];
-    productsModel = json['products_model'];
+    // productsQuantity = json['products_quantity'];
     productsImage = json['products_image'];
-    productsPrice = json['products_price'] ?? 0;
-    productsWeight = json['products_weight'];
-    productsWeightUnit = json['products_weight_unit'];
-    productsStatus = json['products_status'];
-    isCurrent = json['is_current'];
+    productsPrice = json['products_price'] ?? "0";
     productsLiked = json['products_liked'];
-    lowLimit = json['low_limit'];
-    isFeature = json['is_feature'];
-    productsSlug = json['products_slug'];
-    productsType = json['products_type'];
-    productsMinOrder = json['products_min_order'];
-    productsMaxStock = json['products_max_stock'].toString() ?? "";
     barcode = json['barcode'];
     id = json['id'];
     productsName = json['products_name'] ?? "";
     productsDescription = json['products_description'];
     discountPrice = json['discount_price'];
-    currency = json['currency'];
     rating = json['rating'];
     isLiked = json['isLiked'];
     defaultStock = json['defaultStock'];
@@ -141,44 +99,15 @@ class Products {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     data['products_id'] = this.productsId;
-
-    data['products_quantity'] = this.productsQuantity;
-    data['products_model'] = this.productsModel;
     data['products_image'] = this.productsImage;
-
     data['products_price'] = this.productsPrice;
-
-    data['products_weight'] = this.productsWeight;
-    data['products_weight_unit'] = this.productsWeightUnit;
-    data['products_status'] = this.productsStatus;
-    data['is_current'] = this.isCurrent;
-
     data['products_liked'] = this.productsLiked;
-    data['low_limit'] = this.lowLimit;
-    data['is_feature'] = this.isFeature;
-    data['products_slug'] = this.productsSlug;
-    data['products_type'] = this.productsType;
-    data['products_min_order'] = this.productsMinOrder;
-    data['products_max_stock'] = this.productsMaxStock;
-
     data['barcode'] = this.barcode;
-
     data['id'] = this.id;
-
     data['products_name'] = this.productsName;
     data['products_description'] = this.productsDescription;
-
     data['discount_price'] = this.discountPrice;
-    data['currency'] = this.currency;
-    // if (this.categories != null) {
-    //   data['categories'] = this.categories.map((v) => v.toJson()).toList();
-    // }
     data['rating'] = this.rating;
-
-    if (this.reviewedCustomers != null) {
-      data['reviewed_customers'] =
-          this.reviewedCustomers.map((v) => v.toJson()).toList();
-    }
     data['isLiked'] = this.isLiked;
     data['defaultStock'] = this.defaultStock;
     if (this.attributes != null) {

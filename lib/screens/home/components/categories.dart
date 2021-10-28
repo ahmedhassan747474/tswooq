@@ -39,7 +39,7 @@ class _CategoriesState extends State<Categories> {
                   children: [
                     Container(
                         margin: EdgeInsets.only(bottom: 0, right: 5, left: 5),
-                        child: loadingShimmerWidget(75, 75, 10)),
+                        child: loadingShimmerWidget(75, 60, 10)),
                     Container(
                         margin: EdgeInsets.only(top: 5, right: 5, left: 5),
                         child: loadingShimmerWidget(75, 20, 10)),

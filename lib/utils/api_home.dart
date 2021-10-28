@@ -60,7 +60,7 @@ class ApiHome {
   Future<VendorsModel> getVendor() async {
     // Json Data
 
-    var _response = await dio.post(ServerConstants.getSliders,
+    var _response = await dio.get(ServerConstants.getVendors,
         // data: _data,
         options: Options(
           headers: {...apiHeaders},

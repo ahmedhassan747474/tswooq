@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/groub_model.dart';
+import 'package:tswooq/models/vendors_model.dart';
 import 'package:tswooq/screens/home/components/popular_product.dart';
 import 'package:tswooq/utils/api_home.dart';
 
 class VendorGroupScreen extends StatefulWidget {
-  int id;
-  VendorGroupScreen(this.id);
+  Vendor vendor;
+  VendorGroupScreen(this.vendor);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -26,7 +27,8 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
   }
 
   _initData() async {
-    groups = await ApiHome.instance.getGroups(id: "?vendor_id=${widget.id}");
+    groups =
+        await ApiHome.instance.getGroups(id: "?vendor_id=${widget.vendor.id}");
     _isLoading = false;
     if (mounted) setState(() {});
   }
@@ -36,7 +38,7 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          helpEn(context) ? "Vendor" : "متجر",
+          "${widget.vendor.name}",
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,

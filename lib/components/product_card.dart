@@ -120,8 +120,8 @@ class ProductCardState extends State<ProductCard> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Hero(
-                tag: widget.product.productsId.toString(),
-                child: helpImage(widget.product.productsImage, 0),
+                tag: "${helpHero()}" + widget.product.productsId.toString(),
+                child: helpImage(widget.product.productsImage ?? "", 0),
               ),
             ),
           ),
