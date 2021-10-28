@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tswooq/size_config.dart';
 
-const kPrimaryColor = Color(0xFFFF7643);
+const kPrimaryColor = Color(0xFF143444);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
@@ -35,8 +35,6 @@ const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
 const String kBankAccountNullError = "Please Enter your bank account number";
-
-
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

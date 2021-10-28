@@ -61,7 +61,7 @@ class Products {
   String productsDescription;
   String discountPrice;
   String currency;
-  List<Categories> categories;
+  // List<Categories> categories;
   String rating;
   String path;
   List<dynamic> reviewedCustomers;
@@ -94,7 +94,7 @@ class Products {
       this.productsDescription,
       this.discountPrice,
       this.currency,
-      this.categories,
+      // this.categories,
       this.rating,
       this.reviewedCustomers,
       this.isLiked,
@@ -108,7 +108,7 @@ class Products {
     productsQuantity = json['products_quantity'];
     productsModel = json['products_model'];
     productsImage = json['products_image'];
-    productsPrice = json['products_price'];
+    productsPrice = json['products_price'] ?? 0;
     productsWeight = json['products_weight'];
     productsWeightUnit = json['products_weight_unit'];
     productsStatus = json['products_status'];
@@ -122,7 +122,7 @@ class Products {
     productsMaxStock = json['products_max_stock'].toString() ?? "";
     barcode = json['barcode'];
     id = json['id'];
-    productsName = json['products_name'];
+    productsName = json['products_name'] ?? "";
     productsDescription = json['products_description'];
     discountPrice = json['discount_price'];
     currency = json['currency'];
@@ -170,9 +170,9 @@ class Products {
 
     data['discount_price'] = this.discountPrice;
     data['currency'] = this.currency;
-    if (this.categories != null) {
-      data['categories'] = this.categories.map((v) => v.toJson()).toList();
-    }
+    // if (this.categories != null) {
+    //   data['categories'] = this.categories.map((v) => v.toJson()).toList();
+    // }
     data['rating'] = this.rating;
 
     if (this.reviewedCustomers != null) {

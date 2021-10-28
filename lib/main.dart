@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/routes.dart';
-import 'package:tswooq/screens/splash/splash_screen.dart';
+import 'package:tswooq/screens/home/home_screen.dart';
 import 'package:tswooq/theme.dart';
 import 'package:tswooq/translations/codegen_loader.g.dart';
 
@@ -14,7 +14,7 @@ void main() async {
         Locale("ar"),
         Locale("en"),
       ],
-      fallbackLocale: Locale("en"),
+      fallbackLocale: Locale("ar"),
       assetLoader: CodegenLoader(),
       saveLocale: true,
       child: MyApp()));
@@ -29,11 +29,12 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Tswooq',
       theme: theme(),
-      // home: SplashScreen(),
+      home: HomeScreen(),
       // We use routeName so that we dont need to remember the name
-      initialRoute: SplashScreen.routeName,
+      // initialRoute: HomeScreen(),
+      // initialRoute: SplashScreen.routeName,
       routes: routes,
     );
   }

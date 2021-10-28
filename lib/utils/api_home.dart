@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/models/category_like_card.dart';
+import 'package:tswooq/models/groub_model.dart';
 import 'package:tswooq/models/producr_like_card.dart';
 import 'package:tswooq/models/slider_model.dart';
 import 'package:tswooq/models/user.dart';
+import 'package:tswooq/models/vendors_model.dart';
 import 'package:tswooq/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -43,6 +45,61 @@ class ApiHome {
       // OK
       slider = SlidersModel.fromJson(_response.data);
       return slider;
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<VendorsModel> getVendor() async {
+    // Json Data
+
+    var _response = await dio.post(ServerConstants.getSliders,
+        // data: _data,
+        options: Options(
+          headers: {...apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      return VendorsModel.fromJson(_response.data);
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<GroupModel> getGroups({String id}) async {
+    // Json Data
+//?vendor_id=3
+    String s = id;
+    if (s == null) s = "";
+    var _response = await dio.get(ServerConstants.getGroup + s,
+        // data: _data,
+        options: Options(
+          headers: {...apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+
+      return GroupModel.fromJson(_response.data);
     } else {
       // DioErrorType type;
       // No Success

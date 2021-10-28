@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tswooq/components/default_button.dart';
 import 'package:tswooq/components/permission_denied_widget.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/Cart.dart';
@@ -55,11 +54,36 @@ class _CartScreenState extends State<CartScreen> {
     try {
       print('0000000000000000000000000000');
       await ApiCart.instance.removeCart(id);
+    } on ApiException catch (_) {
+      print('ApiException');
 
-      // Navigator.of(context).popUntil((route) => route.isFirst);
-      // Navigator.of(context).pushReplacement(
-      //     MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        //  print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      // print(e);
 
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
+  }
+
+  Future<void> _submitPos() async {
+    try {
+      print('0000000000000000000000000000');
+      await ApiCart.instance.addToPos();
+      cart = new CartModel(productData: []);
+      setState(() {});
     } on ApiException catch (_) {
       print('ApiException');
 
@@ -95,10 +119,13 @@ class _CartScreenState extends State<CartScreen> {
         bottomNavigationBar: cart.productData.length == 0
             ? SizedBox()
             : Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: getProportionateScreenWidth(15),
-                  horizontal: getProportionateScreenWidth(30),
-                ),
+                padding: EdgeInsets.only(
+                    // vertical: getProportionateScreenWidth(15),
+                    // horizontal: getProportionateScreenWidth(30),
+                    bottom: 8,
+                    right: getProportionateScreenWidth(20),
+                    left: getProportionateScreenWidth(20),
+                    top: 5),
                 // height: 174,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -118,52 +145,62 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Row(
-                    //   children: [
-                    //     Container(
-                    //       padding: EdgeInsets.all(10),
-                    //       height: getProportionateScreenWidth(40),
-                    //       width: getProportionateScreenWidth(40),
-                    //       decoration: BoxDecoration(
-                    //         color: Color(0xFFF5F6F9),
-                    //         borderRadius: BorderRadius.circular(10),
-                    //       ),
-                    //       child: SvgPicture.asset("assets/icons/receipt.svg"),
-                    //     ),
-                    //     Spacer(),
-                    //     Text(
-                    //       LocaleKeys.Add_Voucher_translate.tr(),
-                    //     ),
-                    //     const SizedBox(width: 10),
-                    //     Icon(
-                    //       Icons.arrow_forward_ios,
-                    //       size: 12,
-                    //       color: kTextColor,
-                    //     )
-                    //   ],
-                    // ),
-                    SizedBox(height: getProportionateScreenHeight(20)),
+                    // SizedBox(height: getProportionateScreenHeight(20)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          LocaleKeys.Total_translate.tr(),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        helpCurrency("$sum", AppColors.PRIMARY_COLOR, context),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              LocaleKeys.Total_translate.tr(),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          color: kPrimaryColor,
+                          onPressed: () {
+                            _submitPos();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              helpEn(context) ? "From store" : "من المتجر",
+                              style: TextStyle(
+                                fontSize: getProportionateScreenWidth(18),
+                                color: Colors.white,
+                              ),
                             ),
-                            helpCurrency("$sum", Colors.deepOrange, context),
-                          ],
+                          ),
                         ),
-                        SizedBox(
-                          width: getProportionateScreenWidth(190),
-                          child: DefaultButton(
-                            text: LocaleKeys.Check_Out_translate.tr(),
-                            press: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => OrderInfoScreen(
-                                        totalPrice: sum,
-                                      )));
-                            },
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          color: kPrimaryColor,
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => OrderInfoScreen(
+                                      totalPrice: sum,
+                                    )));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              LocaleKeys.Check_Out_translate.tr(),
+                              style: TextStyle(
+                                fontSize: getProportionateScreenWidth(18),
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -199,7 +236,7 @@ class _CartScreenState extends State<CartScreen> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      "Go To Home",
+                      helpEn(context) ? "Go To Home" : "اذهب الى الرئيسية",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -290,7 +327,7 @@ class _CartScreenState extends State<CartScreen> {
                                   children: [
                                     helpCurrency(
                                         "${product[index].attributes[0].price}",
-                                        Colors.deepOrange,
+                                        AppColors.PRIMARY_COLOR,
                                         context),
                                     SizedBox(
                                       width: 5,

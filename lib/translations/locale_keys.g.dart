@@ -5,6 +5,7 @@ abstract class LocaleKeys {
   static const comments = 'comments';
   static const no_Product = 'no_Product';
   static const no_order = 'no_order';
+  static const my_order = 'my_order';
   static const continue_translate = 'continue_translate';
   static const sign_in_translate = 'sign_in_translate';
   static const welcome_translate = 'welcome_translate';
@@ -77,5 +78,6 @@ abstract class LocaleKeys {
   static const help_splash2 = 'help_splash2';
   static const text31_splash = 'text31_splash';
   static const text32_splash = 'text32_splash';
-  static const you_must_signin_to_access_to_this_section ="you_must_signin_to_access_to_this_section";
+  static const you_must_signin_to_access_to_this_section =
+      "you_must_signin_to_access_to_this_section";
 }

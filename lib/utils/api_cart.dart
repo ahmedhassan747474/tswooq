@@ -126,6 +126,35 @@ class ApiCart {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+
+  Future<void> addToPos() async {
+    // Json Data
+
+    String token = await _getUserToken();
+    var _response = await dio.post(ServerConstants.addtopos,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....removeCart***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
 }
 
 Future<String> _getUserToken() async {

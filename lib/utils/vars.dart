@@ -5,7 +5,7 @@ import 'package:tswooq/components/error_dialog.dart';
 import 'package:tswooq/models/user.dart';
 
 class AppColors {
-  static const Color PRIMARY_COLOR = Color(0xFF0081B0);
+  static const Color PRIMARY_COLOR = Color(0xFF143444);
   static const Color Hinit_Text_color = Color(0x7F0081B0);
   static const Color SECONDARY_COLOR = Color(0xFF1090B0);
   static const Color Background = Color(0xFFF8F8F8);
@@ -49,7 +49,7 @@ class ServerConstants {
   }
 
   static const bool IS_DEBUG = true; // TODO: Close Debugging in Release.
-  static const String DOMAIN = "https://tswooq.com/";
+  static const String DOMAIN = "https://tswooq.sharee3.net/test/public/";
   static const String API = "${DOMAIN}api/v1/";
   static const String Login = "${API}sign_in";
   static const String LoginFB = "${API}sign_with_social";
@@ -75,6 +75,7 @@ class ServerConstants {
   //Home
   static const String Home = "${API}main";
   static const String getSliders = "${API}getsliders";
+  static const String getGroup = "${API}get_all_groups";
   static const String productLikeCard = "${API}search";
   static const String get_like_card_categories =
       "${API}get_like_card_categories";
@@ -86,10 +87,12 @@ class ServerConstants {
   static const String Like_Product = "${API}likeproduct";
   static const String UnLike_Product = "${API}unlikeproduct";
   static const String Get_Fav = "${API}getfavourites";
+  static const String getproductbyid = "${API}getproductbyid";
 
   static const String search = "${API}getfilterproducts";
 
   //Get_Cart
+  static const String addtopos = "${API}addtopos";
   static const String Get_Cart = "${API}get_cart";
   static const String Add_Cart = "${API}add_to_cart";
   static const String remove_Cart = "${API}delete_cart";

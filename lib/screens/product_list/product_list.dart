@@ -5,13 +5,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tswooq/components/product_card.dart';
 import 'package:tswooq/components/twest_card.dart';
 import 'package:tswooq/helper/help.dart';
-import 'package:tswooq/models/products.dart';
+import 'package:tswooq/models/search_product.dart';
 import 'package:tswooq/screens/details/details_screen.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
-import 'package:tswooq/utils/api_products.dart';
 
 class ProductListScreen extends StatefulWidget {
-  final ProductsModel product;
+  final List<Products> product;
 
   const ProductListScreen({
     Key key,
@@ -34,8 +33,8 @@ class ProductListScreenState extends State<ProductListScreen> {
   Future<void> _onRefresh() async {
     print("-------------------------object--------------------------------");
     page++;
-    ProductsModel products2 = await ApiProducts.instance.getProducts(page);
-    widget.product.productData.addAll(products2.productData);
+    // ProductsModel products2 = await ApiProducts.instance.getProducts(page);
+    // widget.product.productData.addAll(products2.productData);
 
     if (mounted) setState(() {});
     _controller.loadComplete();
@@ -79,27 +78,27 @@ class ProductListScreenState extends State<ProductListScreen> {
         ));
   }
 
-  Widget listView(ProductsModel product) {
+  Widget listView(List<Products> product) {
     return Padding(
         padding: EdgeInsets.symmetric(
             horizontal: helpWidth(context) * .01, vertical: 6),
         child: ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: product.productData.length ?? 0,
+            itemCount: product.length ?? 0,
             itemBuilder: (ctx, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailsScreen(
-                                product: product.productData[index],
+                                product: product[index],
                               )));
                     },
-                    child: TwistCard(product: product.productData[index])))));
+                    child: TwistCard(product: product[index])))));
   }
 
-  Widget gridView(ProductsModel product) {
+  Widget gridView(List<Products> product) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: StaggeredGridView.countBuilder(
@@ -109,7 +108,7 @@ class ProductListScreenState extends State<ProductListScreen> {
           crossAxisSpacing: 10,
           staggeredTileBuilder: (_) =>
               StaggeredTile.extent(1, helpHeight(context) * .4),
-          itemCount: product.productData.length ?? 0,
+          itemCount: product.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -117,10 +116,10 @@ class ProductListScreenState extends State<ProductListScreen> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailsScreen(
-                                product: product.productData[index],
+                                product: product[index],
                               )));
                     },
-                    child: ProductCard(product: product.productData[index])));
+                    child: ProductCard(product: product[index])));
           }),
     );
   }

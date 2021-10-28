@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/slider.dart';
-import 'package:tswooq/screens/home/components/brands.dart';
+import 'package:tswooq/models/groub_model.dart';
+import 'package:tswooq/utils/api_home.dart';
 
 import '../../../size_config.dart';
-import '../like_card/like_card.dart';
 import 'categories.dart';
 import 'home_header.dart';
 import 'popular_product.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  bool _isLoading = true;
+  GroupModel groups = new GroupModel(data: []);
+  @override
+  void initState() {
+    super.initState();
+    _initData();
+  }
+
+  _initData() async {
+    groups = await ApiHome.instance.getGroups();
+    _isLoading = false;
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,26 +37,24 @@ class Body extends StatelessWidget {
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
             HomeHeader(),
-            SizedBox(height: getProportionateScreenHeight(10)),
+            Container(height: 70, child: Categories()),
+            // SizedBox(height: getProportionateScreenHeight(10)),
             ImageSlider(),
-            SizedBox(height: helpWidth(context) * .05),
-            Container(
-                height: helpMobile(context)
-                    ? helpWidth(context) * .5
-                    : helpWidth(context) * .35,
-                child: Categories()),
-            Container(
-                height: helpMobile(context)
-                    ? helpHeight(context) * .40
-                    : helpHeight(context) * .40,
-                child: Brands()),
-            Container(
-                height: helpMobile(context)
-                    ? helpHeight(context) * .40
-                    : helpHeight(context) * .40,
-                child: LikeCardScreen()),
+            // SizedBox(height: helpWidth(context) * .05),
+            //
+            // Container(
+            //     height: helpMobile(context)
+            //         ? helpHeight(context) * .40
+            //         : helpHeight(context) * .40,
+            //     child: LikeCardScreen()),
             SizedBox(height: getProportionateScreenWidth(30)),
-            Container(height: helpWidth(context) * .8, child: PopularProduct()),
+            ...List.generate(
+              groups.data.length,
+              (index) => groups.data[index].products?.length == 0
+                  ? SizedBox()
+                  : PopularProduct(groups.data[index]),
+            ),
+
             SizedBox(
               height: helpWidth(context) * .1,
             ),

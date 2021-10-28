@@ -23,12 +23,6 @@ class LoadingWidget extends StatelessWidget {
         child: Image.asset(
           "assets/logo.png",
         ),
-//         LoadingIndicator(sss
-// //          indicatorType: indicator,
-//           indicatorType: indicator,
-//           color: Color(0xFF0081B0),
-// //          color: Colors.red,
-//         ),
       ),
     );
   }
@@ -57,7 +51,7 @@ class LoadingScreen {
                   width: 100,
                   child: LoadingIndicator(
                     indicatorType: Indicator.ballBeat,
-                    color: Colors.deepOrange,
+                    color: AppColors.PRIMARY_COLOR,
                   ),
                 ),
               ],

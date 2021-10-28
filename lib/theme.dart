@@ -4,7 +4,7 @@ import 'constants.dart';
 
 ThemeData theme() {
   return ThemeData(
-    primarySwatch: Colors.deepOrange,
+    // primarySwatch: kPrimaryColor,
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: Colors.white,
     fontFamily: "Muli",

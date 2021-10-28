@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/models/all_categories.dart';
-import 'package:tswooq/models/user.dart';
 import 'package:tswooq/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -31,12 +30,14 @@ class ApiCategories {
   Future<AllCategoriesModel> allCategories() async {
     // Json Data
     var _data = {
-      "language_id": 1,
+      "language_id": 2,
     };
     var _response = await dio.post(ServerConstants.AllCategories,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {
+            ...apiHeaders,
+          },
           validateStatus: (status) {
             return status < 500;
           },

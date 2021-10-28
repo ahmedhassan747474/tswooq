@@ -31,8 +31,8 @@ class CategoryCard extends StatelessWidget {
               height: imgHeight,
               width: imgWidth,
               decoration: BoxDecoration(
-                // color: Color(0xFFFFECDF),
-                color: Colors.amber,
+                color: Color(0xFF143444),
+                // color: Colors.amber,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: helpImage(

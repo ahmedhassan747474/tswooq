@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tswooq/screens/cart/cart_screen.dart';
+import 'package:tswooq/screens/home/components/search_field.dart';
+import 'package:tswooq/screens/home/qr.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import '../../../size_config.dart';
-import 'icon_btn_with_counter.dart';
-import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
@@ -19,10 +19,42 @@ class HomeHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SearchField(),
-          IconBtnWithCounter(
-              svgSrc: "assets/icons/Cart Icon.svg",
-              press: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => CartScreen()))),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return QRViewExample();
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: AppColors.PRIMARY_COLOR,
+                ),
+                child: Image.asset('assets/qr-code.png'),
+              ),
+            ),
+          ),
+          Container(
+            width: 50,
+            height: 50,
+            child: Image.asset(
+              "assets/logo.png",
+            ),
+          ),
+          // IconBtnWithCounter(
+          //     svgSrc: "assets/icons/Cart Icon.svg",
+          //     press: () => Navigator.of(context)
+          //         .push(MaterialPageRoute(builder: (context) => CartScreen()))),
           // IconBtnWithCounter(
           //   svgSrc: "assets/icons/Bell.svg",
           //   numOfitem: 3,

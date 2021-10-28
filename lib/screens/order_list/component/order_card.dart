@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/order.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/vars.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({
@@ -56,7 +57,7 @@ class OrderCard extends StatelessWidget {
                   // Text(" x ${product.productsQuantity}",
                   //     style: Theme.of(context).textTheme.bodyText1),
                   helpCurrency(
-                      "${order.orderPrice}", Colors.deepOrange, context),
+                      "${order.orderPrice}", AppColors.PRIMARY_COLOR, context),
                 ],
               ),
               // Text.rich(

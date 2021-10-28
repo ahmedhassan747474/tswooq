@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/models/fav_model.dart';
+import 'package:tswooq/models/get_product.dart';
 import 'package:tswooq/models/products.dart';
 import 'package:tswooq/models/search_product.dart';
 import 'package:tswooq/models/user.dart';
@@ -83,10 +84,36 @@ class ApiProducts {
     }
   }
 
+  Future<GetProduct> getProductsById(int id) async {
+    // Json Data
+    var _data = {"language_id": 1, "limit": 100, "page": 1, "id": id};
+    var _response = await dio.post(ServerConstants.getproductbyid,
+        data: _data,
+        options: Options(
+          headers: {...ServerConstants.apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      return GetProduct.fromJson(_response.data);
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
   Future<ProductsModel> getProductsByBrand(int id) async {
     // Json Data
     var _data = {"language_id": 1, "limit": 100, "page": 1, "brand_id": id};
-    var _response = await dio.post(ServerConstants.Products_By_Brand,
+    var _response = await dio.post(ServerConstants.getproductbyid,
         data: _data,
         options: Options(
           headers: {...ServerConstants.apiHeaders},

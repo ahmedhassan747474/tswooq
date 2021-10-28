@@ -84,11 +84,11 @@ helpCurrency(String s, Color c, BuildContext context) {
       children: <TextSpan>[
         TextSpan(
           text: '${double.parse(s).toStringAsFixed(2) ?? ''}',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: c),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: c),
         ),
         TextSpan(
           text: '$currency',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: c),
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: c),
         ),
       ],
     ),
@@ -115,7 +115,7 @@ Widget helpLoading() {
           width: 100,
           child: LoadingIndicator(
             indicatorType: Indicator.ballBeat,
-            color: Colors.deepOrange,
+            color: AppColors.PRIMARY_COLOR,
           ),
         ),
       ],

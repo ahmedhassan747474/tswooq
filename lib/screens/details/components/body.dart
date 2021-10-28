@@ -52,7 +52,7 @@ class BodyState extends State<Body> {
 
   @override
   void initState() {
-   // user = ApiProvider.user;
+    // user = ApiProvider.user;
     super.initState();
     id = widget.product.attributes[0].id;
     price = widget.product.attributes[0].price;
@@ -66,6 +66,7 @@ class BodyState extends State<Body> {
       secondHalf = "";
     }
   }
+
   Future<void> _unLikeSubmit() async {
     try {
       print('0000000000000000000000000000');
@@ -191,14 +192,14 @@ class BodyState extends State<Body> {
                   alignment: Alignment.centerRight,
                   child: InkWell(
                     onTap: () {
-                      if( ApiProvider.user != null ){
+                      if (ApiProvider.user != null) {
                         if (widget.product.isLiked == "0")
                           _likeSubmit();
                         else
                           _unLikeSubmit();
-                      }else
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => SignInScreen()));
+                      } else
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SignInScreen()));
                     },
                     child: Container(
                       padding: EdgeInsets.all(getProportionateScreenWidth(15)),
@@ -304,7 +305,8 @@ class BodyState extends State<Body> {
                             horizontal: getProportionateScreenWidth(20)),
                         child: Row(
                           children: [
-                            helpCurrency("$price", Colors.deepOrange, context),
+                            helpCurrency(
+                                "$price", AppColors.PRIMARY_COLOR, context),
                             Spacer(),
                             RoundedIconBtn(
                               icon: Icons.remove,
@@ -366,19 +368,17 @@ class BodyState extends State<Body> {
                               : DefaultButton(
                                   text: (LocaleKeys.Add_To_Cart_translate.tr()),
                                   press: () {
-
-                                   // String token = await user.getToken;
+                                    // String token = await user.getToken;
                                     if (widget.product.defaultStock == 0)
                                       _toastInfo(
                                           LocaleKeys.not_added_translate.tr());
-                                    else if( ApiProvider.user == null )
+                                    else if (ApiProvider.user == null)
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   SignInScreen()));
                                     else
                                       _submit();
-
                                   },
                                 ),
                         ),

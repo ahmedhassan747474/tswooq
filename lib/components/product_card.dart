@@ -107,7 +107,7 @@ class ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: getProportionateScreenWidth(widget.width),
+      width: helpWidth(context) * .3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -132,7 +132,8 @@ class ProductCardState extends State<ProductCard> {
               children: [
                 Text(
                   widget.product.productsName,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(
+                      color: Colors.black, fontSize: helpWidth(context) * .03),
                   overflow: TextOverflow.visible,
                   // maxLines: 2,
                 ),
@@ -140,18 +141,18 @@ class ProductCardState extends State<ProductCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     helpCurrency("${widget.product.productsPrice}",
-                        Colors.deepOrange, context),
+                        AppColors.PRIMARY_COLOR, context),
                     InkWell(
                       borderRadius: BorderRadius.circular(50),
                       onTap: () {
-                        if( ApiProvider.user != null ){
-                        if (widget.product.isLiked == "0")
-                        _likeSubmit();
-                        else
-                        _unLikeSubmit();
-                        }else
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => SignInScreen()));
+                        if (ApiProvider.user != null) {
+                          if (widget.product.isLiked == "0")
+                            _likeSubmit();
+                          else
+                            _unLikeSubmit();
+                        } else
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SignInScreen()));
                       },
                       child: Container(
                         padding: EdgeInsets.all(getProportionateScreenWidth(8)),
@@ -167,7 +168,7 @@ class ProductCardState extends State<ProductCard> {
                           "assets/icons/Heart Icon_2.svg",
                           color: widget.product.isLiked != "0"
                               ? Color(0xFFFF4848)
-                              : Color(0xFFDBDEE4),
+                              : Colors.black26,
                         ),
                       ),
                     ),

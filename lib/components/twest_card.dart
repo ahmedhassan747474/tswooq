@@ -130,7 +130,7 @@ class TwistCardState extends State<TwistCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       helpCurrency("${widget.product.productsPrice}",
-                          Colors.deepOrange, context),
+                          AppColors.PRIMARY_COLOR, context),
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {

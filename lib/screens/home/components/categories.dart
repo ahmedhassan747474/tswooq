@@ -1,5 +1,6 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:tswooq/components/home_card.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/loading_shimmer.dart';
 import 'package:tswooq/models/all_categories.dart';
@@ -46,21 +47,37 @@ class _CategoriesState extends State<Categories> {
                 )
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: CategoryCard(
-                    icon: categories.data[index].icon,
-                    text: categories.data[index].categoriesName,
-                    cardWidth: helpMobile(context)
-                        ? helpWidth(context) * .2
-                        : helpWidth(context) * .1,
-                    imgHeight: helpWidth(context) * .19,
-                    imgWidth: helpWidth(context) * .19,
-                    press: () {
+                  child: InkWell(
+                    onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ProductByCategoryScreen(
                                 id: categories.data[index].categoriesId,
                                 title: categories.data[index].categoriesName,
                               )));
                     },
+                    child: helpClip(
+                        10,
+                        Container(
+                          color: Color(0xFF143444),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              categories.data[index].categoriesName,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900),
+                            ),
+                          ),
+                        )
+                        // icon: categories.data[index].icon,
+                        // text: categories.data[index].categoriesName,
+                        // cardWidth: helpMobile(context)
+                        //     ? helpWidth(context) * .2
+                        //     : helpWidth(context) * .1,
+                        // imgHeight: helpWidth(context) * .19,
+                        // imgWidth: helpWidth(context) * .19,
+                        // press:
+                        ),
                   ),
                 ),
         ));
