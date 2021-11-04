@@ -48,8 +48,6 @@ class ApiProvider {
       user = UserModel.fromJson(_response.data);
       return user;
     } else {
-      // DioErrorType type;
-      // No Success
       print(
           'ApiException....register***********************************************************');
 
