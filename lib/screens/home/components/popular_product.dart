@@ -65,7 +65,8 @@ class _PopularProductState extends State<PopularProduct> {
         ),
         SizedBox(height: 20),
         Container(
-          height: 270,
+          // height: 270,
+          height: helpMobile(context) ? 270 : helpHeight(context) * .32,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: widget.group.products.length ?? 0,

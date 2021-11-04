@@ -32,9 +32,6 @@ class MyApp extends StatelessWidget {
       title: 'Tswooq',
       theme: theme(),
       home: HomeScreen(),
-      // We use routeName so that we dont need to remember the name
-      // initialRoute: HomeScreen(),
-      // initialRoute: SplashScreen.routeName,
       routes: routes,
     );
   }

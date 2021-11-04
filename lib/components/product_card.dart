@@ -114,7 +114,7 @@ class ProductCardState extends State<ProductCard> {
           AspectRatio(
             aspectRatio: 1.02,
             child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+              padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: kSecondaryColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(15),
@@ -127,7 +127,7 @@ class ProductCardState extends State<ProductCard> {
           ),
           const SizedBox(height: 5),
           SizedBox(
-            height: 100,
+            // height: 100,
             child: Column(
               children: [
                 Text(

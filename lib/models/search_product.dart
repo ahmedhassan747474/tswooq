@@ -77,7 +77,7 @@ class Products {
     quantityOrdered = json['quantity_ordered'];
     // productsQuantity = json['products_quantity'];
     productsImage = json['products_image'];
-    productsPrice = json['products_price'] ?? "0";
+    productsPrice = "${json['products_price']}" ?? "0";
     productsLiked = json['products_liked'];
     barcode = json['barcode'];
     id = json['id'];
