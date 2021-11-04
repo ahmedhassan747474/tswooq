@@ -22,6 +22,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs camera access to scan QR codes</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>By allowing access to  update your profile image</string>
 	<key>UIBackgroundModes</key>
@@ -49,8 +51,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
-            <true/>
-            <key>NSCameraUsageDescription</key>
-            <string>This app needs camera access to scan QR codes</string>
+	<true/>
 </dict>
 </plist>
