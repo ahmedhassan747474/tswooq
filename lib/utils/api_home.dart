@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/category_like_card.dart';
 import 'package:tswooq/models/groub_model.dart';
 import 'package:tswooq/models/producr_like_card.dart';
@@ -148,7 +149,7 @@ class ApiHome {
     var _response = await dio.post(ServerConstants.productLikeCard,
         data: _data,
         options: Options(
-          headers: {...apiHeaders, "language_id": 1},
+          headers: {...apiHeaders, "language_id": helpLanguage == 'ar' ? 2 : 1},
           validateStatus: (status) {
             return status < 500;
           },

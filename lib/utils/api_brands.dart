@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:tswooq/models/all_categories.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/brands.dart';
 import 'package:tswooq/utils/vars.dart';
 
@@ -30,9 +30,7 @@ class ApiBrands {
 
   Future<BrandsModel> brands() async {
     // Json Data
-    var _data = {
-      "language_id": 1,
-    };
+    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
     var _response = await dio.post(ServerConstants.Brands,
         data: _data,
         options: Options(

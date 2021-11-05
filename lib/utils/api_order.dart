@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/order.dart';
 import 'package:tswooq/models/payment_method.dart';
 import 'package:tswooq/models/user.dart';
@@ -59,7 +60,7 @@ class ApiOrder {
         "totalPrice": totalPrice,
         "currency_code": "SAR",
         "total_tax": 0.0,
-        "language_id": 1,
+        "language_id": helpLanguage == 'ar' ? 2 : 1,
         "comments": "$comments",
       });
     } else {
@@ -75,7 +76,7 @@ class ApiOrder {
         "totalPrice": totalPrice,
         "currency_code": "SAR",
         "total_tax": 0.0,
-        "language_id": 1,
+        "language_id": helpLanguage == 'ar' ? 2 : 1,
         "comments": "$comments",
         "bank_account_image": await MultipartFile.fromFile('${image.path}'),
         "bank_account_iban": "$bankNumber",
@@ -137,7 +138,7 @@ class ApiOrder {
         "currency_code": "SAR",
         "total_tax": 0.0,
         "bank_account_iban": bankAccountIban,
-        "language_id": 1,
+        "language_id": helpLanguage == 'ar' ? 2 : 1
       });
     else {
       _formData = FormData.fromMap({
@@ -152,7 +153,7 @@ class ApiOrder {
         "total_tax": 0.0,
         "bank_account_image": bankAccountImage,
         "bank_account_iban": bankAccountIban,
-        "language_id": 1,
+        "language_id": helpLanguage == 'ar' ? 2 : 1
       });
     }
     ;
@@ -189,9 +190,7 @@ class ApiOrder {
   Future<PaymentMethodModel> getMethod() async {
     // String token = await _getUserToken();
     // Json Data
-    var _data = {
-      "language_id": 1,
-    };
+    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
     var _response = await dio.post(ServerConstants.PaymentMethodModel,
         // data: _data,
         options: Options(
@@ -218,9 +217,7 @@ class ApiOrder {
   Future<OrderModel> getOrder() async {
     String token = await _getUserToken();
     // Json Data
-    var _data = {
-      "language_id": 1,
-    };
+    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
     var _response = await dio.post(ServerConstants.Order_List,
         data: _data,
         options: Options(

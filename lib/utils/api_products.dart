@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/fav_model.dart';
 import 'package:tswooq/models/get_product.dart';
 import 'package:tswooq/models/products.dart';
@@ -29,7 +30,7 @@ class ApiProducts {
   Future<ProductsModel> getProducts(int page) async {
     // Json Data
     var _data = {
-      "language_id": 1,
+      "language_id": helpLanguage == 'ar' ? 2 : 1,
       "page": page,
       "limit": 20,
     };
@@ -147,7 +148,7 @@ class ApiProducts {
       "page_number": pageNumber,
       "minPrice": minPrice,
       "maxPrice": maxPrice,
-      "language_id": 1,
+      "language_id": helpLanguage == 'ar' ? 2 : 1,
       "current_currency": "SAR",
       "currency_code": "SAR",
       "filters[0][name]": "Memory",
@@ -183,7 +184,7 @@ class ApiProducts {
       "page_number": 1,
       "minPrice": 0,
       "maxPrice": 10000000,
-      "language_id": 1,
+      "language_id": helpLanguage == 'ar' ? 2 : 1,
       "current_currency": "SAR",
       "currency_code": "SAR",
       "search": search
@@ -285,7 +286,7 @@ class ApiProducts {
   Future<SearchProduct> getFav() async {
     // Json Data
     var _data = {
-      "language_id": 1,
+      "language_id": helpLanguage == 'ar' ? 2 : 1,
       "page": 1,
       "limit": 30,
     };

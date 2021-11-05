@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/Cart.dart';
 import 'package:tswooq/models/user.dart';
 import 'package:tswooq/utils/vars.dart';
@@ -64,9 +65,7 @@ class ApiCart {
   Future<CartModel> getCart() async {
     String token = await _getUserToken();
     // Json Data
-    var _data = {
-      "language_id": 1,
-    };
+    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
     var _response = await dio.post(ServerConstants.Get_Cart,
         data: _data,
         options: Options(
