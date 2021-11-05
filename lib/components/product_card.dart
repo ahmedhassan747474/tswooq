@@ -133,7 +133,7 @@ class ProductCardState extends State<ProductCard> {
                 Text(
                   widget.product.productsName,
                   style: TextStyle(
-                      color: Colors.black, fontSize: helpWidth(context) * .03),
+                      color: Colors.black, fontSize: helpWidth(context) * .025),
                   overflow: TextOverflow.visible,
                   // maxLines: 2,
                 ),
@@ -155,9 +155,9 @@ class ProductCardState extends State<ProductCard> {
                               builder: (context) => SignInScreen()));
                       },
                       child: Container(
-                        padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                        height: getProportionateScreenWidth(28),
-                        width: getProportionateScreenWidth(28),
+                        padding: EdgeInsets.all(6),
+                        height: 35,
+                        width: 35,
                         decoration: BoxDecoration(
                           color: widget.product.isLiked == "0"
                               ? kPrimaryColor.withOpacity(0.15)
