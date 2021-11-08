@@ -30,7 +30,7 @@ class _CategoriesState extends State<Categories> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return _isLoading ?SizedBox():Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
         child: ListView(
           scrollDirection: Axis.horizontal,

@@ -29,8 +29,9 @@ class ApiCategories {
   };
 
   Future<AllCategoriesModel> allCategories() async {
+    // int x= helpLanguage == 'ar' ? 2 : 1;
     // Json Data
-    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
+    var _data = {"language_id":2};
     var _response = await dio.post(ServerConstants.AllCategories,
         data: _data,
         options: Options(
