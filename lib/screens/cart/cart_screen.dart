@@ -174,7 +174,7 @@ class _CartScreenState extends State<CartScreen> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
-                              helpEn(context) ? "From store" : "من المتجر",
+                              helpEn(context) ? "From store" : "من الكاشير",
                               style: TextStyle(
                                 fontSize: getProportionateScreenWidth(18),
                                 color: Colors.white,

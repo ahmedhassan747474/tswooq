@@ -72,7 +72,7 @@ Widget imageSlider(List<Sliders> sliders, bool loading, double width) {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: imageProvider,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                           ),
                           borderRadius: BorderRadius.circular(16),
                         ),
