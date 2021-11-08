@@ -20,7 +20,6 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
-
                 Text(
                   LocaleKeys.welcome_translate.tr(),
                   style: TextStyle(
@@ -34,33 +33,38 @@ class Body extends StatelessWidget {
                   width: helpWidth(context) * .5,
                   height: 150,
                 ),
-
-                // Text(
-                //   "Sign in with your email and password  \nor continue with social media",
-                //   textAlign: TextAlign.center,
-                // ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     SocalCard(
-                //       icon: "assets/icons/google-icon.svg",
-                //       press: () {},
-                //     ),
-                //     SocalCard(
-                //       icon: "assets/icons/facebook-2.svg",
-                //       press: () {},
-                //     ),
-                //     SocalCard(
-                //       icon: "assets/icons/twitter.svg",
-                //       press: () {},
-                //     ),
-                //   ],
-                // ),
                 SizedBox(height: getProportionateScreenHeight(20)),
                 NoAccountText(),
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: LocaleKeys.version.tr(),
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                      TextSpan(
+                        text: " ",
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                      TextSpan(
+                        text: "1",
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(height: SizeConfig.screenHeight * 0.18),
               ],
             ),

@@ -1,10 +1,10 @@
 import 'dart:ui';
 
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/loading_shimmer.dart';
 import 'package:tswooq/models/all_categories.dart';
-import 'package:tswooq/screens/home/like_card/like_card.dart';
 import 'package:tswooq/screens/product_list/product_list_by_category_screen.dart';
 import 'package:tswooq/utils/api_categories.dart';
 
@@ -40,20 +40,31 @@ class _CategoriesState extends State<Categories> {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => LikeCardScreen()));
+                print(context.locale.toString() == 'en');
+                //
+                // Navigator.of(context).push(
+                //     MaterialPageRoute(builder: (context) => LikeCardScreen()));
               },
               child: helpClip(
                   10,
                   Container(
                     color: Color(0xFF143444),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        helpEn(context) ? "shipping cards" : "كروت شحن",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w900),
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          helpEn(context) ? "shipping cards" : "كروت شحن",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w800),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
                     ),
                   )),
             ),
@@ -86,14 +97,23 @@ class _CategoriesState extends State<Categories> {
                             10,
                             Container(
                               color: Color(0xFF143444),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  categories.data[index].categoriesName,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w900),
-                                ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    categories.data[index].categoriesName,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
                               ),
                             )),
                       ),

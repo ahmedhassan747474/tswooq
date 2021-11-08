@@ -41,7 +41,7 @@ class ApiException implements Exception {
   @override
   String toString() {
     String _text = "";
-    _text += "خطأ ";
+
     if (!ServerConstants.IS_DEBUG) _text += "($code) ";
     _text += "${message ?? unknownErr}";
     return _text;

@@ -58,9 +58,14 @@ class ApiProducts {
     }
   }
 
-  Future<ProductsModel> getProductsByCategory(int id) async {
+  Future<ProductsModel> getProductsByCategory(int id, int page) async {
     // Json Data
-    var _data = {"language_id": 1, "limit": 100, "page": 1, "category_id": id};
+    var _data = {
+      "language_id": helpLanguage == 'en' ? 1 : 2,
+      // "limit": 100,
+      "page": page,
+      "categories_id": id
+    };
     var _response = await dio.post(ServerConstants.Products_By_Category,
         data: _data,
         options: Options(
@@ -184,7 +189,8 @@ class ApiProducts {
       "page_number": 1,
       "minPrice": 0,
       "maxPrice": 10000000,
-      "language_id": helpLanguage == 'ar' ? 2 : 1,
+      // "language_id": helpLanguage == 'ar' ? 2 : 1,
+      "language_id": 2,
       "current_currency": "SAR",
       "currency_code": "SAR",
       "search": search

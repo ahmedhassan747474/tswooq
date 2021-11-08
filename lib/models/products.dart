@@ -26,8 +26,8 @@ class ProductsModel {
 
   factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
         success: json["success"],
-        productData: List<Products>.from(
-            json["product_data"].map((x) => Products.fromJson(x))),
+        productData:
+            List<Products>.from(json["data"].map((x) => Products.fromJson(x))),
         message: json["message"],
         totalRecord: json["total_record"],
       );

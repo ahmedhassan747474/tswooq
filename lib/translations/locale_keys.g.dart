@@ -16,6 +16,7 @@ abstract class LocaleKeys {
   static const sign_up_translate = 'sign_up_translate';
   static const Dont_have_an_account_translate =
       'Dont_have_an_account_translate';
+  static const version = 'version';
   static const Brands_translate = 'Brands_translate';
   static const Popular_Products_translate = 'Popular_Products_translate';
   static const See_More_translate = 'See_More_translate';

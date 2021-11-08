@@ -39,12 +39,12 @@ double helpHeight(BuildContext context) {
 }
 
 String helpLanguage = 'ar';
-Locale helpLocale = Locale('en');
+// Locale helpLocale = Locale('en');
 helpEn(BuildContext context) {
   if (context.locale.toString() == 'ar') {
-    helpLanguage = 'en';
-  } else {
     helpLanguage = 'ar';
+  } else {
+    helpLanguage = 'en';
   }
   return context.locale.toString() == 'en';
 }

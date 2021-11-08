@@ -5,7 +5,6 @@ import 'package:tswooq/components/default_button.dart';
 import 'package:tswooq/components/form_error.dart';
 import 'package:tswooq/components/loading_screen.dart';
 import 'package:tswooq/components/no_account_text.dart';
-import 'package:tswooq/screens/home/home_screen.dart';
 import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
 import 'package:tswooq/size_config.dart';
 import 'package:tswooq/utils/api.dart';
@@ -66,7 +65,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
         print('111111111111111111111');
         _formKey.currentState.save();
         LoadingScreen.show(context);
-        await ApiProvider.instance.forgetPassword();
+        await ApiProvider.instance.forgetPassword(email);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.of(context).pushReplacement(
@@ -144,10 +143,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
-          DefaultButton(
-            text: "Continue",
-            press: _submit
-          ),
+          DefaultButton(text: "Continue", press: _submit),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
           NoAccountText(),
         ],

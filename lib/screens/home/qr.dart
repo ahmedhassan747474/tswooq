@@ -119,7 +119,7 @@ class _QRViewExampleState extends State<QRViewExample> {
         if (isNumeric(result.code) && i != -1) {
           print("===============================================");
           print(result.code);
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => DetailsQrScreen(
                     i,
                   )));

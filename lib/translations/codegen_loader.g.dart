@@ -15,6 +15,7 @@ class CodegenLoader extends AssetLoader {
   }
 
   static const Map<String, dynamic> ar = {
+    "version": "نسخة رقم",
     "no_order": "لا يوجد طلبات",
     "my_order": "طلباتى",
     "favorite": "المفضلة",
@@ -94,6 +95,7 @@ class CodegenLoader extends AssetLoader {
         "يجب عليك تسجيل الدخول للوصول إلى هذا القس",
   };
   static const Map<String, dynamic> en = {
+    "version": "version",
     "my_order": "My Order",
     "no_order": "No order",
     "favorite": "Wish list",

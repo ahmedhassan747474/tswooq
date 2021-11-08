@@ -206,13 +206,17 @@ class ApiProvider {
     }
   }
 
-  Future<UserModel> forgetPassword() async {
-    String token = await _getUserToken();
+  Future<UserModel> forgetPassword(String email) async {
+    // String token = await _getUserToken();
+    var _data = {
+      "email": "$email",
+    };
     var _response = await dio.post(ServerConstants.Forget_Password,
+        data: _data,
         options: Options(
           headers: {
             ...apiHeaders,
-            'Authorization': token,
+            // 'Authorization': token,
           },
           validateStatus: (status) {
             return status < 500;
@@ -220,8 +224,8 @@ class ApiProvider {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      user = UserModel.fromJson(_response.data);
-      return user;
+      // user = UserModel.fromJson(_response.data);
+      throw ApiException.fromApi(_response.statusCode, _response.data);
     } else {
       // DioErrorType type;
       // No Success
