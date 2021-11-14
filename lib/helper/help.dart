@@ -124,11 +124,12 @@ Widget helpLoading() {
 }
 
 Future<void> helpLauncher(String url) async {
+  print(url);
   if (await canLaunch(url)) {
     await launch(
       url,
-      forceSafariVC: false,
-      forceWebView: false,
+      // forceSafariVC: false,
+      // forceWebView: false,
       headers: <String, String>{'my_header_key': 'my_header_value'},
     );
   } else {

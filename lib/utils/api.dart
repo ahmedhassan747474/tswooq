@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tswooq/models/updata_model.dart';
 import 'package:tswooq/models/user.dart';
 import 'package:tswooq/utils/vars.dart';
 
@@ -24,7 +25,6 @@ class ApiProvider {
   static const Map<String, String> apiHeaders = {
     "Content-Type": "application/json",
     "Accept": "application/json, text/plain, */*",
-    // "X-Requested-With": "XMLHttpRequest",
   };
 
   Future<UserModel> register(
@@ -38,7 +38,9 @@ class ApiProvider {
     var _response = await dio.post(ServerConstants.Register,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {
+            ...apiHeaders,
+          },
           validateStatus: (status) {
             return status < 500;
           },
@@ -48,11 +50,6 @@ class ApiProvider {
       user = UserModel.fromJson(_response.data);
       return user;
     } else {
-      print(
-          'ApiException....register***********************************************************');
-
-      print('...................................................');
-
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
@@ -106,13 +103,30 @@ class ApiProvider {
       user = UserModel.fromJson(_response.data);
       return user;
     } else {
-      // DioErrorType type;
       // No Success
-      print(
-          'ApiException....getProfile***********************************************************');
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
 
-      print('...................................................');
+  Future<Update> checkUpdate() async {
+    // User Token
+    String token = await _getUserToken();
+    var _response = await dio.get(ServerConstants.getUpdates,
+        options: Options(
+          headers: {
+            ...apiHeaders,
+            'Authorization': token,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
 
+      return Update.fromJson(_response.data);
+    } else {
+      // No Success
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
@@ -159,7 +173,6 @@ class ApiProvider {
       user = UserModel.fromJson(_response.data);
       return user;
     } else {
-      // DioErrorType type;
       // No Success
       print(
           'ApiException....edit profile***********************************************************');
@@ -195,7 +208,6 @@ class ApiProvider {
       user = UserModel.fromJson(_response.data);
       return user;
     } else {
-      // DioErrorType type;
       // No Success
       print(
           'ApiException....change pass***********************************************************');
@@ -241,11 +253,6 @@ class ApiProvider {
 
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// Helpers Functions /////////////////////////////
-
-//Future<Map<String, String>> _getFirebaseToken() async {
-// // String token = await FirebaseMessaging().getToken();
-//  return <String, String>{"DeviceToken": token};
-//}
 
 Future<String> _getUserToken() async {
   print('_getUserToken()');

@@ -1,20 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/components/custom_surfix_icon.dart';
 import 'package:tswooq/components/default_button.dart';
 import 'package:tswooq/components/form_error.dart';
 import 'package:tswooq/components/loading_screen.dart';
-import 'package:tswooq/screens/complete_profile/complete_profile_screen.dart';
 import 'package:tswooq/screens/home/home_screen.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
 import 'package:tswooq/utils/api.dart';
 import 'package:tswooq/utils/api_exception.dart';
 import 'package:tswooq/utils/vars.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
-
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -51,7 +49,7 @@ class _SignUpFormState extends State<SignUpForm> {
         print('111111111111111111111');
         _formKey.currentState.save();
         LoadingScreen.show(context);
-        await ApiProvider.instance.register(email, password,conformPassword);
+        await ApiProvider.instance.register(email, password, conformPassword);
 
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.of(context).pushReplacement(
@@ -67,10 +65,7 @@ class _SignUpFormState extends State<SignUpForm> {
           "e.response.statusCode    ////////////////////////////         DioError");
       if (e.response.statusCode == 400) {
         print(e.response.statusCode);
-      } else {
-        print(e.message);
-       //  print(e.request);
-      }
+      } else {}
     } catch (e) {
       print('catch');
       print(e);
@@ -96,7 +91,7 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text:LocaleKeys.continue_translate.tr(),
+            text: LocaleKeys.continue_translate.tr(),
             press: _submit,
           ),
         ],
@@ -129,8 +124,6 @@ class _SignUpFormState extends State<SignUpForm> {
       decoration: InputDecoration(
         labelText: LocaleKeys.Confirm_Password_translate.tr(),
         hintText: LocaleKeys.Reenter_pass_translate.tr(),
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
@@ -194,9 +187,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: LocaleKeys.email_translate.tr(),
-        hintText:LocaleKeys.email_hint_translate.tr(),
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        hintText: LocaleKeys.email_hint_translate.tr(),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),

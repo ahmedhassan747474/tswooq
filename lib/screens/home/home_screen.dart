@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/models/updata_model.dart';
 import 'package:tswooq/screens/cart/cart_screen.dart';
 import 'package:tswooq/screens/favorite/favorite_screen.dart';
 import 'package:tswooq/screens/profile/profile_screen.dart';
 import 'package:tswooq/screens/vendors/vendors.dart';
+import 'package:tswooq/utils/api.dart';
 
 import '../../constants.dart';
 import '../../size_config.dart';
@@ -20,12 +26,54 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isLoading = true;
+  Update update = new Update(num: 1);
+  @override
+  void initState() {
+    super.initState();
+    _initData();
+  }
+
+  _initData() async {
+    update = await ApiProvider.instance.checkUpdate();
+    if (update.num > 1)
+      await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => WillPopScope(
+          onWillPop: _onWillPop,
+          child: new CupertinoAlertDialog(
+            title: new Text(
+              'please update',
+              // CodegenLoader.exit.tr(),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () {
+                  // print(Platform.isAndroid);
+                  // print(update.android);
+                  // print(update.ios);
+                  helpLauncher(
+                      Platform.isAndroid ? update.android : update.ios);
+                },
+                child: new Text(
+                  'update',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+    _isLoading = false;
+    if (mounted) setState(() {});
+  }
+
   var _pages = [
     Body(),
     CartScreen(),
     VendorsScreen(),
     FavoriteScreen(),
-    // OrderListScreen(),
     ProfileScreen(),
   ];
   Future<bool> _onWillPop() async {
@@ -44,7 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () {
+                  if (Platform.isAndroid) {
+                    SystemNavigator.pop();
+                  } else if (Platform.isIOS) {
+                    exit(0);
+                  }
+                },
                 child: new Text(
                   'yes',
                 ),
@@ -59,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final Color inActiveIconColor = Color(0xFFB6B6B6);
+
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(

@@ -67,6 +67,7 @@ class ServerConstants {
   static const String Change_Password = "${API}change_password";
 
 //    User
+  static const String getUpdates = "${DOMAIN}api/getupdates";
   static const String get_profile = "${API}get_profile";
   static const String Forget_Password = "${API}forget_password";
   static const String Update_profile = "${API}update_profile";
