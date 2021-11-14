@@ -60,7 +60,7 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
               ? 20
               : categoriesLC.categories == null
                   ? 0
-                  : categoriesLC.categories.data.length,
+                  : categoriesLC.categories.data?.length ?? 0,
           itemBuilder: (ctx, index) => _isLoading
               ? Column(
                   children: [
