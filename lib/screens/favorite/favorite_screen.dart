@@ -59,37 +59,40 @@ class FavoriteScreenState extends State<FavoriteScreen> {
           )
         ],
       ),
-      body: ApiProvider.user == null ? PermissionDeniedWidget(): product.productData.length == 0
-          ? Center(
-              child: Column(
-              children: [
-                SizedBox(
-                  height: 80,
-                ),
-                Image.asset(
-                  "assets/logo.png",
-                ),
-                FlatButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  color: kPrimaryColor,
-                  onPressed: () {
-                    // Navigator.pop(context);
-                  },
-                  child: Text(
-                    LocaleKeys.no_Product.tr(),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+      body: ApiProvider.user == null
+          ? PermissionDeniedWidget()
+          : product.productData.length == 0
+              ? Center(
+                  child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(),
+                    SizedBox(
+                      width: 100,
+                      child: Image.asset(
+                        "assets/logo.png",
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ))
-          : 
-      isGridView
-              ? gridView(product.productData)
-              : listView(product.productData),
+                    FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      color: kPrimaryColor,
+                      onPressed: () {
+                        // Navigator.pop(context);
+                      },
+                      child: Text(
+                        LocaleKeys.no_Product.tr(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
+                ))
+              : isGridView
+                  ? gridView(product.productData)
+                  : listView(product.productData),
     );
   }
 

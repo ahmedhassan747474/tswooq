@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/screens/details/details_qr_screen.dart';
 
 class QRViewExample extends StatefulWidget {
@@ -33,11 +34,12 @@ class _QRViewExampleState extends State<QRViewExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
-            flex: 1,
+          _buildQrView(context),
+          Positioned(
+            bottom: 0,
+            // left: 20,
             child: FittedBox(
               fit: BoxFit.contain,
               child: Column(
@@ -62,7 +64,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                             child: FutureBuilder(
                               future: controller?.getFlashStatus(),
                               builder: (context, snapshot) {
-                                return Text('Flash: ${snapshot.data}');
+                                String s = 'off';
+                                if (snapshot.data) s = "no";
+                                return Text('Flash: ${s}');
                               },
                             )),
                       ),
@@ -71,7 +75,31 @@ class _QRViewExampleState extends State<QRViewExample> {
                 ],
               ),
             ),
-          )
+          ),
+          Positioned(
+              top: 50,
+              left: 20,
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    color: Colors.white.withOpacity(.3),
+                  ),
+                  alignment: Alignment(0.2, 0.0),
+                  child: Icon(
+                    helpEn(context)
+                        ? Icons.arrow_back_ios
+                        : Icons.arrow_forward_ios,
+                    size: 16,
+                    color: Colors.black.withOpacity(.87),
+                  ),
+                ),
+              )),
         ],
       ),
     );
