@@ -232,6 +232,7 @@ class BodyState extends State<Body> {
                   alignment: Alignment.centerRight,
                   child: InkWell(
                     onTap: () {
+                      // print(widget.product.isLiked);
                       if (ApiProvider.user != null) {
                         if (widget.product.isLiked == "0")
                           _likeSubmit();
@@ -246,7 +247,7 @@ class BodyState extends State<Body> {
                       width: getProportionateScreenWidth(64),
                       decoration: BoxDecoration(
                         color: widget.product.isLiked == "0"
-                            ? Color(0xFFFFE6E6)
+                            ? Color(0xFFF6F7F9)
                             : Color(0xFFF5F6F9),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -256,8 +257,8 @@ class BodyState extends State<Body> {
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon_2.svg",
                         color: widget.product.isLiked == "0"
-                            ? Color(0xFFFF4848)
-                            : Color(0xFFDBDEE4),
+                            ? Color(0xFFDBDEE4)
+                            : Color(0xFFFF4848),
                         height: getProportionateScreenWidth(16),
                       ),
                     ),
