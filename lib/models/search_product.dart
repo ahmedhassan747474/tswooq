@@ -85,7 +85,7 @@ class Products {
     productsDescription = json['products_description'];
     discountPrice = json['discount_price'];
     rating = json['rating'];
-    isLiked = json['isLiked'];
+    isLiked = json['isLiked'] ?? "0";
     defaultStock = json['defaultStock'];
     if (json['attributes'] != null) {
       attributes = new List<Attributes>();

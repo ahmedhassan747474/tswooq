@@ -4,14 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/search_product.dart';
 import 'package:tswooq/models/user.dart';
-import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
 import 'package:tswooq/utils/api.dart';
 import 'package:tswooq/utils/api_exception.dart';
 import 'package:tswooq/utils/api_products.dart';
 import 'package:tswooq/utils/vars.dart';
 
 import '../constants.dart';
-import '../size_config.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
@@ -111,70 +109,82 @@ class ProductCardState extends State<ProductCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AspectRatio(
-            aspectRatio: 1.02,
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: kSecondaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Hero(
-                tag: "${helpHero()}" + widget.product.productsId.toString(),
-                child: helpImage(widget.product.productsImage ?? "", 0),
+          Expanded(
+            flex: 3,
+            child: AspectRatio(
+              aspectRatio: 1.02,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: kSecondaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Hero(
+                  tag: "${helpHero()}" + widget.product.productsId.toString(),
+                  child: helpImage(widget.product.productsImage ?? "", 0),
+                ),
               ),
             ),
           ),
           const SizedBox(height: 5),
-          SizedBox(
-            // height: 100,
-            child: Column(
-              children: [
-                Text(
-                  widget.product.productsName,
-                  style: TextStyle(
-                      color: Colors.black, fontSize: helpWidth(context) * .025),
-                  overflow: TextOverflow.visible,
-                  // maxLines: 2,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    helpCurrency("${widget.product.productsPrice}",
-                        AppColors.PRIMARY_COLOR, context),
-                    InkWell(
-                      borderRadius: BorderRadius.circular(50),
-                      onTap: () {
-                        if (ApiProvider.user != null) {
-                          if (widget.product.isLiked == "0")
-                            _likeSubmit();
-                          else
-                            _unLikeSubmit();
-                        } else
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignInScreen()));
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(6),
-                        height: 35,
-                        width: 35,
-                        decoration: BoxDecoration(
-                          color: widget.product.isLiked == "0"
-                              ? kPrimaryColor.withOpacity(0.15)
-                              : kSecondaryColor.withOpacity(0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: SvgPicture.asset(
-                          "assets/icons/Heart Icon_2.svg",
-                          color: widget.product.isLiked != "0"
-                              ? Color(0xFFFF4848)
-                              : Colors.black26,
+          Expanded(
+            flex: 2,
+            child: SizedBox(
+              // height: 100,
+              child: Column(
+                children: [
+                  Text(
+                    widget.product.productsName,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: helpWidth(context) * .025),
+                    overflow: TextOverflow.visible,
+                    // maxLines: 2,
+                  ),
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      helpCurrency("${widget.product.productsPrice}",
+                          AppColors.PRIMARY_COLOR, context),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          print(widget.product.isLiked);
+                          // if (ApiProvider.user != null) {
+                          //   if (widget.product.isLiked == "0")
+                          //     _likeSubmit();
+                          //   else
+                          //     _unLikeSubmit();
+                          // } else
+                          //   Navigator.of(context).push(MaterialPageRoute(
+                          //       builder: (context) => SignInScreen()));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(6),
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                            color: widget.product.isLiked == "0"
+                                ? kPrimaryColor.withOpacity(0.15)
+                                : kSecondaryColor.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: SvgPicture.asset(
+                            "assets/icons/Heart Icon_2.svg",
+                            color: widget.product.isLiked != "0"
+                                ? Color(0xFFFF4848)
+                                : Colors.black26,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
