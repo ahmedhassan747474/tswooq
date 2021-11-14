@@ -26,7 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isLoading = true;
   Update update = new Update(num: 1);
   @override
   void initState() {
@@ -65,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-    _isLoading = false;
     if (mounted) setState(() {});
   }
 
