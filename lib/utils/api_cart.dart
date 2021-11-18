@@ -22,12 +22,7 @@ class ApiCart {
       compact: false,
     ));
 
-  //
-  static const Map<String, String> apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json, text/plain, */*",
-    // "X-Requested-With": "XMLHttpRequest",
-  };
+
 
   Future<void> addToCart(int productId, int quantity) async {
     // Json Data
@@ -40,7 +35,7 @@ class ApiCart {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -70,7 +65,7 @@ class ApiCart {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -103,7 +98,7 @@ class ApiCart {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -133,7 +128,7 @@ class ApiCart {
     var _response = await dio.post(ServerConstants.addtopos,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {

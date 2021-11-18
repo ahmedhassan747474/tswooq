@@ -21,11 +21,12 @@ class ApiCategories {
     ));
 
   //
-  static const Map<String, String> apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json, text/plain, */*",
-    // "X-Requested-With": "XMLHttpRequest",
-  };
+  // static const Map<String, String> apiHeaders = {
+  //   "Content-Type": "application/json",
+  //   "Accept": "application/json, text/plain, */*",
+  //   // "X-Requested-With": "XMLHttpRequest",
+  //   "Access-Control_Allow_Origin": "*"
+  // };
 
   Future<AllCategoriesModel> allCategories() async {
     // int x= helpLanguage == 'ar' ? 2 : 1;
@@ -35,7 +36,7 @@ class ApiCategories {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
           },
           validateStatus: (status) {
             return status < 500;

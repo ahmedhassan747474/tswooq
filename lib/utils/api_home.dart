@@ -25,11 +25,12 @@ class ApiHome {
       compact: false,
     ));
   //
-  static const Map<String, String> apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json, text/plain, */*",
-    // "X-Requested-With": "XMLHttpRequest",
-  };
+  // static const Map<String, String> apiHeaders = {
+  //   "Content-Type": "application/json",
+  //   "Accept": "application/json, text/plain, */*",
+  //   // "X-Requested-With": "XMLHttpRequest",
+  //   "Access-Control_Allow_Origin": "*"
+  // };
 
   Future<SlidersModel> getSlider() async {
     // Json Data
@@ -37,7 +38,7 @@ class ApiHome {
     var _response = await dio.post(ServerConstants.getSliders,
         // data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -64,7 +65,7 @@ class ApiHome {
     var _response = await dio.get(ServerConstants.getVendors,
         // data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -92,7 +93,7 @@ class ApiHome {
     var _response = await dio.get(ServerConstants.getGroup + s,
         // data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -119,7 +120,7 @@ class ApiHome {
     var _response = await dio.post(ServerConstants.get_like_card_categories,
         // data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -149,7 +150,7 @@ class ApiHome {
     var _response = await dio.post(ServerConstants.productLikeCard,
         data: _data,
         options: Options(
-          headers: {...apiHeaders, "language_id": helpLanguage == 'ar' ? 2 : 1},
+          headers: {...ServerConstants.apiHeaders, "language_id": helpLanguage == 'ar' ? 2 : 1},
           validateStatus: (status) {
             return status < 500;
           },

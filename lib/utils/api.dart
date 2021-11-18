@@ -22,10 +22,11 @@ class ApiProvider {
       compact: false,
     ));
   //
-  static const Map<String, String> apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json, text/plain, */*",
-  };
+  // static const Map<String, String> apiHeaders = {
+  //   "Content-Type": "application/json",
+  //   "Accept": "application/json, text/plain, */*",
+  //   "Access-Control_Allow_Origin": "*"
+  // };
 
   Future<UserModel> register(
       String email, String password, String confirmPassword) async {
@@ -39,7 +40,7 @@ class ApiProvider {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders
           },
           validateStatus: (status) {
             return status < 500;
@@ -64,7 +65,7 @@ class ApiProvider {
     var _response = await dio.post(ServerConstants.Login,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
@@ -91,7 +92,7 @@ class ApiProvider {
     var _response = await dio.get(ServerConstants.get_profile,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -114,7 +115,7 @@ class ApiProvider {
     var _response = await dio.get(ServerConstants.getUpdates,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -161,7 +162,7 @@ class ApiProvider {
         options: Options(
           responseType: ResponseType.json,
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -196,7 +197,7 @@ class ApiProvider {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -227,7 +228,7 @@ class ApiProvider {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             // 'Authorization': token,
           },
           validateStatus: (status) {

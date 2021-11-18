@@ -22,11 +22,11 @@ class ApiBrands {
     ));
 
   //
-  static const Map<String, String> apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json, text/plain, */*",
-    // "X-Requested-With": "XMLHttpRequest",
-  };
+  // static const Map<String, String> apiHeaders = {
+  //   "Content-Type": "application/json",
+  //   "Accept": "application/json, text/plain, */*",
+  //   "Access-Control_Allow_Origin": "*"
+  // };
 
   Future<BrandsModel> brands() async {
     // Json Data
@@ -34,7 +34,7 @@ class ApiBrands {
     var _response = await dio.post(ServerConstants.Brands,
         data: _data,
         options: Options(
-          headers: {...apiHeaders},
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },

@@ -27,11 +27,12 @@ class ApiOrder {
     ));
 
   //
-  static const Map<String, String> apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json, text/plain, */*",
-    // "X-Requested-With": "XMLHttpRequest",
-  };
+  // static const Map<String, String> apiHeaders = {
+  //   "Content-Type": "application/json",
+  //   "Accept": "application/json, text/plain, */*",
+  //   // "X-Requested-With": "XMLHttpRequest",
+  //   "Access-Control_Allow_Origin": "*"
+  // };
 
   Future<OrderModel> makeOrder(
       {String phone,
@@ -87,7 +88,7 @@ class ApiOrder {
         data: _formData,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -162,7 +163,7 @@ class ApiOrder {
         data: _formData,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -195,7 +196,7 @@ class ApiOrder {
         // data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             // 'Authorization': token,
           },
           validateStatus: (status) {
@@ -222,7 +223,7 @@ class ApiOrder {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
@@ -256,7 +257,7 @@ class ApiOrder {
         data: _data,
         options: Options(
           headers: {
-            ...apiHeaders,
+            ...ServerConstants.apiHeaders,
             'Authorization': token,
           },
           validateStatus: (status) {
