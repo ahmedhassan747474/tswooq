@@ -19,7 +19,6 @@ class _PopularProductState extends State<PopularProduct> {
   int page = 1;
 
   // ProductsModel products = new ProductsModel(productData: []);
-  bool _isLoading = true;
 
   // Future<void> _onRefresh() async {
   //   page++;

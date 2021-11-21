@@ -15,7 +15,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool _isLoading = true;
   GroupModel groups = new GroupModel(data: []);
   @override
   void initState() {
@@ -25,7 +24,6 @@ class _BodyState extends State<Body> {
 
   _initData() async {
     groups = await ApiHome.instance.getGroups();
-    _isLoading = false;
     if (mounted) setState(() {});
   }
 

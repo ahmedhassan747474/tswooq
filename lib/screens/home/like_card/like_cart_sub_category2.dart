@@ -25,7 +25,6 @@ class _LikeCardCategoryScreen2State extends State<LikeCardCategoryScreen2> {
   bool isGridView = true;
 
   ProductLikeCard productLikeCard = new ProductLikeCard(data: []);
-  bool _isLoading = true;
   // @override
   // void initState() {
   //   super.initState();

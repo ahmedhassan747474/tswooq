@@ -54,7 +54,7 @@ class BodyState extends State<Body> {
   void initState() {
     // user = ApiProvider.user;
     super.initState();
-    id = widget.product.attributes[0].id;
+    id = widget.product.attributes[0].stockId;
     price = widget.product.attributes[0].price;
 
     if (widget.product.productsDescription.length > 50) {
@@ -317,7 +317,7 @@ class BodyState extends State<Body> {
                   (index) => GestureDetector(
                     onTap: () {
                       price = widget.product.attributes[index].price;
-                      id = widget.product.attributes[index].id;
+                      id = widget.product.attributes[index].stockId;
                       selectedImage = index;
                       setState(() {});
                     },
@@ -330,9 +330,11 @@ class BodyState extends State<Body> {
                         decoration: BoxDecoration(
                             border: Border.all(
                                 color: Colors.black,
-                                width: widget.product.attributes[index].id == id
-                                    ? 3
-                                    : .5)),
+                                width:
+                                    widget.product.attributes[index].stockId ==
+                                            id
+                                        ? 3
+                                        : .5)),
                         child: Row(
                           children: [
                             Text(widget.product.attributes[index].color ?? ""),
@@ -392,7 +394,7 @@ class BodyState extends State<Body> {
                             bottom: getProportionateScreenWidth(40),
                             top: getProportionateScreenWidth(15),
                           ),
-                          child: widget.product.defaultStock == 0
+                          child: widget.product.defaultStock == '0'
                               ? Container(
                                   height: 50,
                                   color: Colors.red,
@@ -418,7 +420,7 @@ class BodyState extends State<Body> {
                                   text: (LocaleKeys.Add_To_Cart_translate.tr()),
                                   press: () {
                                     // String token = await user.getToken;
-                                    if (widget.product.defaultStock == 0)
+                                    if (widget.product.defaultStock == "0")
                                       _toastInfo(
                                           LocaleKeys.not_added_translate.tr());
                                     else if (ApiProvider.user == null)

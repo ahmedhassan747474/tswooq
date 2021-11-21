@@ -6,18 +6,17 @@ import 'package:tswooq/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../size_config.dart';
-import 'component/order_card.dart';
 
 class OrderProductsScreen extends StatefulWidget {
-  final List <OrderProducts> product;
+  final List<OrderProducts> product;
 
-  const OrderProductsScreen({Key key, @required this.product}) : super(key: key);
+  const OrderProductsScreen({Key key, @required this.product})
+      : super(key: key);
   @override
   _OrderProductsScreenState createState() => _OrderProductsScreenState();
 }
 
 class _OrderProductsScreenState extends State<OrderProductsScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,14 +24,14 @@ class _OrderProductsScreenState extends State<OrderProductsScreen> {
         body: body(
           widget.product,
         )
-      //   bottomNavigationBar: CheckoutCard(cart: cart),
-    );
+        //   bottomNavigationBar: CheckoutCard(cart: cart),
+        );
   }
 
   Widget body(List<OrderProducts> product) {
     return Padding(
       padding:
-      EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: ListView.builder(
         itemCount: product.length,
         itemBuilder: (context, index) => Padding(
@@ -53,9 +52,6 @@ class _OrderProductsScreenState extends State<OrderProductsScreen> {
               ),
               child: Row(
                 children: [
-
-
-
                   Spacer(),
                   SvgPicture.asset("assets/icons/Trash.svg"),
                 ],
@@ -73,7 +69,7 @@ class _OrderProductsScreenState extends State<OrderProductsScreen> {
       title: Column(
         children: [
           Text(
-          LocaleKeys.Your_Order_translate.tr(),
+            LocaleKeys.Your_Order_translate.tr(),
             style: TextStyle(color: Colors.black),
           ),
           Text(

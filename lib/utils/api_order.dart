@@ -123,7 +123,7 @@ class ApiOrder {
     String bankAccountIban,
     File bankAccountImage,
   ) async {
-    String fileName = bankAccountImage.path.split('/').last;
+    // String fileName = bankAccountImage.path.split('/').last;
     // Json Data
     FormData _formData;
 
@@ -157,7 +157,7 @@ class ApiOrder {
         "language_id": helpLanguage == 'ar' ? 2 : 1
       });
     }
-    ;
+
     String token = await _getUserToken();
     var _response = await dio.post(ServerConstants.OrderMake,
         data: _formData,
@@ -191,7 +191,7 @@ class ApiOrder {
   Future<PaymentMethodModel> getMethod() async {
     // String token = await _getUserToken();
     // Json Data
-    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
+    // var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
     var _response = await dio.post(ServerConstants.PaymentMethodModel,
         // data: _data,
         options: Options(

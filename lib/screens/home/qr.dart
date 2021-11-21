@@ -63,7 +63,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                               builder: (context, snapshot) {
                                 String s = 'off';
                                 if (snapshot.data) s = "no";
-                                return Text('Flash: ${s}');
+                                return Text('Flash: $s');
                               },
                             )),
                       ),

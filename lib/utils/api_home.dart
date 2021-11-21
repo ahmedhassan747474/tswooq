@@ -5,7 +5,6 @@ import 'package:tswooq/models/category_like_card.dart';
 import 'package:tswooq/models/groub_model.dart';
 import 'package:tswooq/models/producr_like_card.dart';
 import 'package:tswooq/models/slider_model.dart';
-import 'package:tswooq/models/user.dart';
 import 'package:tswooq/models/vendors_model.dart';
 import 'package:tswooq/utils/vars.dart';
 
@@ -165,23 +164,4 @@ class ApiHome {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////// Helpers Functions /////////////////////////////
-
-//Future<Map<String, String>> _getFirebaseToken() async {
-// // String token = await FirebaseMessaging().getToken();
-//  return <String, String>{"DeviceToken": token};
-//}
-
-Future<String> _getUserToken() async {
-  print('_getUserToken()');
-  UserModel user = UserModel();
-  print('UserModel');
-
-  String userToken = await user.getToken;
-  print(userToken);
-  if (userToken == null) throw "User Not Logged In";
-  return userToken;
 }

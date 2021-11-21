@@ -284,7 +284,8 @@ class _CartScreenState extends State<CartScreen> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: helpImage(
-                                  ServerConstants.DOMAIN + product[index].path,
+                                  ServerConstants.DOMAIN +
+                                      product[index].productsImage,
                                   15),
                             ),
                           ),

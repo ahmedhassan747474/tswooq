@@ -62,7 +62,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
     price = "0";
 
     Attributes attributes = product.attributes
-        .singleWhere((element) => element.id == widget.id, orElse: () {
+        .singleWhere((element) => element.stockId == widget.id, orElse: () {
       return null;
     });
     if (attributes != null) price = attributes.price;
@@ -228,8 +228,8 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            print(product.attributes
-                                .where((element) => element.id == widget.id));
+                            print(product.attributes.where(
+                                (element) => element.stockId == widget.id));
                             print(product.toJson());
                             print(widget.id);
                           },
@@ -326,7 +326,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                           (index) => GestureDetector(
                             onTap: () {
                               price = product.attributes[index].price;
-                              id = product.attributes[index].id;
+                              id = product.attributes[index].stockId;
                               selectedImage = index;
                               setState(() {});
                             },
@@ -341,7 +341,8 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                     border: Border.all(
                                         color: Colors.black,
                                         width:
-                                            product.attributes[index].id == id
+                                            product.attributes[index].stockId ==
+                                                    id
                                                 ? 3
                                                 : .5)),
                                 child: Row(
@@ -405,7 +406,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                     bottom: getProportionateScreenWidth(40),
                                     top: getProportionateScreenWidth(15),
                                   ),
-                                  child: product.defaultStock == 0
+                                  child: product.defaultStock == "0"
                                       ? Container(
                                           height: 50,
                                           color: Colors.red,

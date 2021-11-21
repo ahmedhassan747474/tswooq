@@ -1,12 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/search_product.dart';
 import 'package:tswooq/models/user.dart';
 import 'package:tswooq/utils/api.dart';
-import 'package:tswooq/utils/api_exception.dart';
-import 'package:tswooq/utils/api_products.dart';
 import 'package:tswooq/utils/vars.dart';
 
 import '../constants.dart';
@@ -31,71 +28,6 @@ class ProductCard extends StatefulWidget {
 
 class ProductCardState extends State<ProductCard> {
   UserModel user = new UserModel();
-  Future<void> _unLikeSubmit() async {
-    try {
-      print('0000000000000000000000000000');
-      //    LoadingScreen.show(context);
-      await ApiProducts.instance.unLikeProduct(widget.product.productsId);
-      //
-      // Navigator.of(context).popUntil((route) => route.isFirst);
-
-    } on ApiException catch (_) {
-      print('ApiException');
-      Navigator.of(context).pop();
-      ServerConstants.showDialog1(context, _.toString());
-    } on DioError catch (e) {
-      //<<<<< IN THIS LINE
-      print(
-          "e.response.statusCode    ////////////////////////////         DioError");
-      if (e.response.statusCode == 400) {
-        print(e.response.statusCode);
-      } else {
-        print(e.message);
-        // print(e.request);
-      }
-    } catch (e) {
-      print('catch');
-      print(e);
-
-      Navigator.of(context).pop();
-      ServerConstants.showDialog1(context, e.toString());
-    } finally {
-      if (mounted) setState(() {});
-    }
-  }
-
-  Future<void> _likeSubmit() async {
-    try {
-      print('0000000000000000000000000000');
-      //    LoadingScreen.show(context);
-      await ApiProducts.instance.unLikeProduct(widget.product.productsId);
-      //
-      // Navigator.of(context).popUntil((route) => route.isFirst);
-
-    } on ApiException catch (_) {
-      print('ApiException');
-      Navigator.of(context).pop();
-      ServerConstants.showDialog1(context, _.toString());
-    } on DioError catch (e) {
-      //<<<<< IN THIS LINE
-      print(
-          "e.response.statusCode    ////////////////////////////         DioError");
-      if (e.response.statusCode == 400) {
-        print(e.response.statusCode);
-      } else {
-        print(e.message);
-        // print(e.request);
-      }
-    } catch (e) {
-      print('catch');
-      print(e);
-
-      Navigator.of(context).pop();
-      ServerConstants.showDialog1(context, e.toString());
-    } finally {
-      if (mounted) setState(() {});
-    }
-  }
 
   @override
   void initState() {
@@ -145,7 +77,7 @@ class ProductCardState extends State<ProductCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      helpCurrency("${widget.product.productsPrice}",
+                      helpCurrency("${widget.product.attributes[0].price}",
                           AppColors.PRIMARY_COLOR, context),
                       InkWell(
                         borderRadius: BorderRadius.circular(50),

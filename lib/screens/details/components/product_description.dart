@@ -155,7 +155,7 @@ class ProductDescriptionState extends State<ProductDescription> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: widget.product.defaultStock == 0
+          child: widget.product.defaultStock == "0"
               ? Center(
                   child: Text(
                   LocaleKeys.Not_Available.tr(),

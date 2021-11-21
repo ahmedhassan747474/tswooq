@@ -26,7 +26,6 @@ class ProductListScreen extends StatefulWidget {
 
 class ProductListScreenState extends State<ProductListScreen> {
   bool isGridView = true;
-  bool _isLoading = true;
   int page = 1;
   RefreshController _controller = RefreshController();
 
