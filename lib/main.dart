@@ -21,7 +21,7 @@ void main() async {
       fallbackLocale: Locale("ar"),
       assetLoader: CodegenLoader(),
       saveLocale: true,
-      child: MyApp()));
+      child: MyApp(),),);
 }
 
 class MyApp extends StatefulWidget {

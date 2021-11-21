@@ -22,7 +22,7 @@ class SignInScreen extends StatelessWidget {
             },
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: Text("Skip", style: TextStyle(fontSize:helpMobile(context)? 18:20, color: kPrimaryColor),),
+                child: Text(helpEn(context)?"Skip":"تخطى", style: TextStyle(fontSize:helpMobile(context)? 18:20, color: kPrimaryColor),),
               )),
         ],
       ),

@@ -37,7 +37,6 @@ class ServerConstants {
     "Content-Type": "application/json",
     "Accept": "application/json, text/plain, */*", "X-Requested-With": "XMLHttpRequest",
     "Access-Control_Allow_Origin": "*"
-
   };
   static String getUserToken() {
     print('_getUserToken()');

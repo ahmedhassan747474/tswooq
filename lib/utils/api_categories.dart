@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/all_categories.dart';
 import 'package:tswooq/utils/vars.dart';
 
@@ -20,18 +21,10 @@ class ApiCategories {
       compact: false,
     ));
 
-  //
-  // static const Map<String, String> apiHeaders = {
-  //   "Content-Type": "application/json",
-  //   "Accept": "application/json, text/plain, */*",
-  //   // "X-Requested-With": "XMLHttpRequest",
-  //   "Access-Control_Allow_Origin": "*"
-  // };
-
   Future<AllCategoriesModel> allCategories() async {
     // int x= helpLanguage == 'ar' ? 2 : 1;
     // Json Data
-    var _data = {"language_id": 2};
+    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
     var _response = await dio.post(ServerConstants.AllCategories,
         data: _data,
         options: Options(
