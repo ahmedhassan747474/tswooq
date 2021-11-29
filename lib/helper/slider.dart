@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/models/slider_model.dart';
 import 'package:tswooq/utils/api_home.dart';
@@ -37,19 +38,19 @@ class _ImageSliderState extends State<ImageSlider> {
 
 Widget imageSlider(List<Sliders> sliders, bool loading, double width) {
   return Container(
-    height: 200,
+    height: kIsWeb ? 450 : 200,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         loading
             ? Container(
                 margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: loadingShimmerWidget(width, 166, 16))
+                child: loadingShimmerWidget(width, kIsWeb ? 400 : 166, 16))
             : CarouselSlider(
                 options: CarouselOptions(
                   autoPlay: true,
                   autoPlayInterval: Duration(seconds: 5),
-                  height: 200,
+                  height: kIsWeb ? 400 : 200,
                   viewportFraction: 1.0,
                   onPageChanged: (index, reason) {
                     // setState(() {
@@ -79,10 +80,10 @@ Widget imageSlider(List<Sliders> sliders, bool loading, double width) {
                       ),
                       placeholder: (context, url) => Container(
                           width: 80,
-                          height: 80,
+                          height: kIsWeb ? 400 : 80,
                           child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Container(
-                          height: 80,
+                          height: kIsWeb ? 400 : 80,
                           width: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),

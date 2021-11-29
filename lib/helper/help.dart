@@ -207,23 +207,6 @@ Widget helpRowAttributes(
   );
 }
 
-// Widget buildStaggeredGridView(
-//     BuildContext context, List<Attributes> attributes, double width) {
-//   return new StaggeredGridView.countBuilder(
-//     shrinkWrap: true,
-//     primary: false,
-//     crossAxisCount: 2,
-//     itemCount: attributes.length,
-//     itemBuilder: (BuildContext context, int index) => Card(
-//         child: rowAttributes(
-//             width, attributes[index].image, attributes[index].name)),
-//     mainAxisSpacing: 1,
-//     crossAxisSpacing: 1,
-//     padding: EdgeInsets.all(0.0),
-//     staggeredTileBuilder: (_) => StaggeredTile.count(1, .250),
-//   );
-// }
-
 Widget backgroundImage(double width) {
   return Container(
     height: 300.0,

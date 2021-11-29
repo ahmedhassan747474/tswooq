@@ -39,16 +39,14 @@ class ApiProvider {
     var _response = await dio.post(ServerConstants.Register,
         data: _data,
         options: Options(
-          headers: {
-            ...ServerConstants.apiHeaders
-          },
+          headers: {...ServerConstants.apiHeaders},
           validateStatus: (status) {
             return status < 500;
           },
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      user = UserModel.fromJson(_response.data);
+      user = UserModel.fromJsonWithToken(_response.data);
       return user;
     } else {
       throw ApiException.fromApi(_response.statusCode, _response.data);
@@ -72,7 +70,7 @@ class ApiProvider {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      user = UserModel.fromJson(_response.data);
+      user = UserModel.fromJsonWithToken(_response.data);
       return user;
     } else {
       // DioErrorType type;

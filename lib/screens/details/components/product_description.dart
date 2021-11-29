@@ -70,7 +70,7 @@ class ProductDescriptionState extends State<ProductDescription> {
             padding: EdgeInsets.all(getProportionateScreenWidth(15)),
             width: getProportionateScreenWidth(64),
             decoration: BoxDecoration(
-              color: widget.product.isLiked == "0"
+              color: widget.product.productsLiked == "0"
                   ? Color(0xFFFFE6E6)
                   : Color(0xFFF5F6F9),
               borderRadius: BorderRadius.only(
@@ -80,7 +80,7 @@ class ProductDescriptionState extends State<ProductDescription> {
             ),
             child: SvgPicture.asset(
               "assets/icons/Heart Icon_2.svg",
-              color: widget.product.isLiked == "0"
+              color: widget.product.productsLiked == "0"
                   ? Color(0xFFFF4848)
                   : Color(0xFFDBDEE4),
               height: getProportionateScreenWidth(16),
@@ -155,7 +155,7 @@ class ProductDescriptionState extends State<ProductDescription> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: widget.product.defaultStock == "0"
+          child: widget.product.productsQuantity == "0"
               ? Center(
                   child: Text(
                   LocaleKeys.Not_Available.tr(),

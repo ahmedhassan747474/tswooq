@@ -37,54 +37,15 @@ class SearchProduct {
   }
 }
 
-// class Products {
-//   List<Data> data;
-//   Links links;
-//   Meta meta;
-//   bool success;
-//   int status;
-//
-//   Products({this.data, this.links, this.meta, this.success, this.status});
-//
-//   Products.fromJson(Map<String, dynamic> json) {
-//     if (json['data'] != null) {
-//       data = new List<Data>();
-//       json['data'].forEach((v) {
-//         data.add(new Data.fromJson(v));
-//       });
-//     }
-//     links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-//     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
-//     success = json['success'];
-//     status = json['status'];
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     if (this.data != null) {
-//       data['data'] = this.data.map((v) => v.toJson()).toList();
-//     }
-//     if (this.links != null) {
-//       data['links'] = this.links.toJson();
-//     }
-//     if (this.meta != null) {
-//       data['meta'] = this.meta.toJson();
-//     }
-//     data['success'] = this.success;
-//     data['status'] = this.status;
-//     return data;
-//   }
-// }
-
 class Products {
   int productsId;
-  int productsQuantity;
+  String productsQuantity;
   int quantityOrdered;
   String productsImage;
-  String isLiked;
-  String rating;
-  String defaultStock;
   String barcode;
+  String discountPrice;
+  String rating;
+  int productsLiked;
   String shopName;
   String productsName;
   String productsDescription;
@@ -95,9 +56,10 @@ class Products {
       {this.productsId,
       this.productsQuantity,
       this.productsImage,
-      this.isLiked,
-      this.rating,
       this.barcode,
+      this.discountPrice,
+      this.rating,
+      this.productsLiked,
       this.shopName,
       this.productsName,
       this.productsDescription,
@@ -106,9 +68,12 @@ class Products {
 
   Products.fromJson(Map<String, dynamic> json) {
     productsId = json['products_id'];
-    productsQuantity = json['products_quantity'];
+    productsQuantity = json['products_quantity'].toString();
     productsImage = json['products_image'];
     barcode = json['barcode'];
+    discountPrice = json['discount_price'];
+    rating = json['rating'];
+    productsLiked = json['products_liked'];
     shopName = json['shop_name'];
     productsName = json['products_name'];
     productsDescription = json['products_description'];
@@ -118,8 +83,9 @@ class Products {
         images.add(new Images.fromJson(v));
       });
     }
+    attributes = []; //todo
     if (json['attributes'] != null) {
-      attributes = new List<Attributes>();
+      // attributes = [];
       json['attributes'].forEach((v) {
         attributes.add(new Attributes.fromJson(v));
       });
@@ -128,16 +94,16 @@ class Products {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['products_id'] = this.productsId;
-    data['products_quantity'] = this.productsQuantity;
-    data['products_image'] = this.productsImage;
-    data['barcode'] = this.barcode;
-    data['shop_name'] = this.shopName;
-    data['products_name'] = this.productsName;
-    data['products_description'] = this.productsDescription;
-    if (this.images != null) {
-      data['images'] = this.images.map((v) => v.toJson()).toList();
-    }
+    // data['products_id'] = this.productsId;
+    // data['products_quantity'] = this.productsQuantity;
+    // data['products_image'] = this.productsImage;
+    // data['barcode'] = this.barcode;
+    // data['shop_name'] = this.shopName;
+    // data['products_name'] = this.productsName;
+    // data['products_description'] = this.productsDescription;
+    // if (this.images != null) {
+    //   data['images'] = this.images.map((v) => v.toJson()).toList();
+    // }
     if (this.attributes != null) {
       data['attributes'] = this.attributes.map((v) => v.toJson()).toList();
     }
@@ -146,7 +112,7 @@ class Products {
 }
 
 class Attributes {
-  int stockId;
+  int id;
   String color;
   String memory;
   String price;
@@ -156,7 +122,7 @@ class Attributes {
   String sKU;
 
   Attributes(
-      {this.stockId,
+      {this.id,
       this.color,
       this.memory,
       this.price,
@@ -165,10 +131,10 @@ class Attributes {
       this.sKU});
 
   Attributes.fromJson(Map<String, dynamic> json) {
-    stockId = json['stock_id'];
+    id = json['stock_id'];
     color = json['color'];
     memory = json['Memory'];
-    price = json['price'] ?? "0";
+    price = json['price'].toString() ?? "0";
     quantity = json['quantity'];
     image = json['image'];
     sKU = json['SKU'];
@@ -176,7 +142,7 @@ class Attributes {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['stock_id'] = this.stockId;
+    data['stock_id'] = this.id;
     data['color'] = this.color;
     data['Memory'] = this.memory;
     data['price'] = this.price;
@@ -194,8 +160,7 @@ class Images {
   int height;
   int width;
   String path;
-  Null createdAt;
-  Null updatedAt;
+
   Pivot pivot;
 
   Images(
@@ -205,8 +170,6 @@ class Images {
       this.height,
       this.width,
       this.path,
-      this.createdAt,
-      this.updatedAt,
       this.pivot});
 
   Images.fromJson(Map<String, dynamic> json) {
@@ -216,8 +179,7 @@ class Images {
     height = json['height'];
     width = json['width'];
     path = json['path'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+
     pivot = json['pivot'] != null ? new Pivot.fromJson(json['pivot']) : null;
   }
 
@@ -229,8 +191,7 @@ class Images {
     data['height'] = this.height;
     data['width'] = this.width;
     data['path'] = this.path;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+
     if (this.pivot != null) {
       data['pivot'] = this.pivot.toJson();
     }

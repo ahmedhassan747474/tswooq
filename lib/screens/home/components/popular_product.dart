@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/components/product_card.dart';
 import 'package:tswooq/helper/help.dart';
@@ -18,29 +19,6 @@ class PopularProduct extends StatefulWidget {
 class _PopularProductState extends State<PopularProduct> {
   int page = 1;
 
-  // ProductsModel products = new ProductsModel(productData: []);
-
-  // Future<void> _onRefresh() async {
-  //   page++;
-  //   ProductsModel products2 = await ApiProducts.instance.getProducts(page);
-  //   products.productData.addAll(products2.productData);
-  //   products2 = null;
-  //   _isLoading = false;
-  //   if (mounted) setState(() {});
-  //   _controller.refreshCompleted();
-  // }
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initData();
-  // }
-  //
-  // _initData() async {
-  //   // products = await ApiProducts.instance.getProducts(1);
-  //   _isLoading = false;
-  //   if (mounted) setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     return
@@ -48,8 +26,8 @@ class _PopularProductState extends State<PopularProduct> {
         Column(
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(
+              horizontal: kIsWeb ? 0 : getProportionateScreenWidth(20)),
           child: SectionTitle(
             title:
                 (helpEn(context) ? widget.group.nameEn : widget.group.nameAr),
@@ -70,17 +48,8 @@ class _PopularProductState extends State<PopularProduct> {
             scrollDirection: Axis.horizontal,
             itemCount: widget.group.products.length ?? 0,
             itemBuilder: (ctx, index) =>
-                // _isLoading
-                //     ? Column(
-                //         children: [
-                //           Container(
-                //               margin: EdgeInsets.only(bottom: 0, right: 5, left: 5),
-                //               child: loadingShimmerWidget(140, 160, 15)),
-                //           Container(
-                //               margin: EdgeInsets.only(top: 10, right: 5, left: 5),
-                //               child: loadingShimmerWidget(140, 45, 10)),
-                //         ],
-                //       )
+                // widget.group.products[index].attributes.isEmpty
+                //     ? SizedBox()
                 //     :
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),

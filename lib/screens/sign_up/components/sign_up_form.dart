@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/components/custom_surfix_icon.dart';
 import 'package:tswooq/components/default_button.dart';
@@ -81,26 +82,30 @@ class _SignUpFormState extends State<SignUpForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildConformPassFormField(),
-          FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
-          DefaultButton(
-            text: LocaleKeys.continue_translate.tr(),
-            press: _submit,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(kIsWeb ? 100 : 0),
+        child: Column(
+          children: [
+            buildEmailFormField(),
+            SizedBox(height: getProportionateScreenHeight(30)),
+            buildPasswordFormField(),
+            SizedBox(height: getProportionateScreenHeight(30)),
+            buildConformPassFormField(),
+            FormError(errors: errors),
+            SizedBox(height: getProportionateScreenHeight(40)),
+            DefaultButton(
+              text: LocaleKeys.continue_translate.tr(),
+              press: _submit,
+            ),
+          ],
+        ),
       ),
     );
   }
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+      style: TextStyle(fontSize: kIsWeb ? 30 : 14),
       obscureText: true,
       onSaved: (newValue) => conformPassword = newValue,
       onChanged: (value) {
@@ -132,6 +137,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      style: TextStyle(fontSize: kIsWeb ? 30 : 14),
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -165,6 +171,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      style: TextStyle(fontSize: kIsWeb ? 30 : 14),
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/helper/help.dart';
@@ -36,10 +37,18 @@ class ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: helpWidth(context) * .3,
+    return Container(
+      // padding: EdgeInsets.all(6),
+      // decoration: BoxDecoration(
+      //   color: widget.product.productsLiked == "0"
+      //       ? kPrimaryColor.withOpacity(0.15)
+      //       : kSecondaryColor.withOpacity(0.1),
+      //   shape: BoxShape.rectangle,
+      // ),
+      width: kIsWeb ? 400 : helpWidth(context) * .3,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             flex: 3,
@@ -62,29 +71,36 @@ class ProductCardState extends State<ProductCard> {
           Expanded(
             flex: 2,
             child: SizedBox(
-              // height: 100,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    widget.product.productsName,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: helpWidth(context) * .025),
-                    overflow: TextOverflow.visible,
-                    // maxLines: 2,
+                  Center(
+                    child: Text(
+                      widget.product.productsName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: kIsWeb ? 25 : helpWidth(context) * .025),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      helpCurrency("${widget.product.attributes[0].price}",
-                          AppColors.PRIMARY_COLOR, context),
+                      widget.product?.attributes.isEmpty
+                          ? SizedBox()
+                          : helpCurrency(
+                              "${widget.product?.attributes[0]?.price ?? 0}",
+                              AppColors.PRIMARY_COLOR,
+                              context),
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          print(widget.product.isLiked);
+                          print(widget.product.productsLiked);
                           // if (ApiProvider.user != null) {
-                          //   if (widget.product.isLiked == "0")
+                          //   if (widget.product.productsLiked == "0")
                           //     _likeSubmit();
                           //   else
                           //     _unLikeSubmit();
@@ -97,14 +113,14 @@ class ProductCardState extends State<ProductCard> {
                           height: 35,
                           width: 35,
                           decoration: BoxDecoration(
-                            color: widget.product.isLiked == "0"
+                            color: widget.product.productsLiked == "0"
                                 ? kPrimaryColor.withOpacity(0.15)
                                 : kSecondaryColor.withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: SvgPicture.asset(
                             "assets/icons/Heart Icon_2.svg",
-                            color: widget.product.isLiked != "0"
+                            color: widget.product.productsLiked != "0"
                                 ? Color(0xFFFF4848)
                                 : Colors.black26,
                           ),

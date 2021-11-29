@@ -81,7 +81,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => OrderProductsScreen(
-                                product: order[index].data,
+                                product: order[index].products,
                               )));
                     },
                     child: OrderCard(order: order[index])),

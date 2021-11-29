@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/components/no_account_text.dart';
 import 'package:tswooq/helper/help.dart';
@@ -14,8 +15,7 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: kIsWeb ? 150 : 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
                   LocaleKeys.welcome_translate.tr(),
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: getProportionateScreenWidth(20),
+                    fontSize: helpWidth(context) * .05,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -36,7 +36,6 @@ class Body extends StatelessWidget {
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SizedBox(height: getProportionateScreenHeight(20)),
                 NoAccountText(),
                 RichText(
                   text: TextSpan(

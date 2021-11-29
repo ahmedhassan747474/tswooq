@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/components/loading_screen.dart';
 import 'package:tswooq/models/search_product.dart';
@@ -73,7 +74,7 @@ class SearchFieldState extends State<SearchField> {
     return Form(
       key: _formKey,
       child: Container(
-        width: SizeConfig.screenWidth * 0.6,
+        width: kIsWeb ? 400 : SizeConfig.screenWidth * 0.6,
         decoration: BoxDecoration(
           color: kSecondaryColor.withOpacity(0.1),
           borderRadius: BorderRadius.circular(15),
@@ -89,8 +90,8 @@ class SearchFieldState extends State<SearchField> {
           },
           decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20),
-                  vertical: getProportionateScreenWidth(9)),
+                  horizontal: kIsWeb ? 8 : getProportionateScreenWidth(20),
+                  vertical: kIsWeb ? 8 : getProportionateScreenWidth(9)),
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,

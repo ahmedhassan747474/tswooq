@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +16,7 @@ import 'package:tswooq/utils/api.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
 import 'components/body.dart';
+import 'components/search_field.dart';
 
 int selectedIndexHome = 0;
 
@@ -107,95 +109,223 @@ class _HomeScreenState extends State<HomeScreen> {
         false;
   }
 
+  Widget titleMain(String string, Widget w, Function f) {
+    return InkWell(
+      onTap: f,
+      child: helpClip(
+          10,
+          Container(
+            height: 40,
+            color: Color(0xFF143444),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                w,
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  string,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w800),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+              ],
+            ),
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final Color inActiveIconColor = Color(0xFFB6B6B6);
-
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
+        appBar: kIsWeb
+            ? AppBar(
+                automaticallyImplyLeading: false,
+                title: Container(
+                  padding: EdgeInsets.symmetric(vertical: 14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, -15),
+                        blurRadius: 20,
+                        color: Color(0xFFDADADA).withOpacity(0.15),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                  ),
+                  child: SafeArea(
+                      top: false,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          titleMain(
+                            helpEn(context) ? "Home" : "الرئيسية",
+                            SvgPicture.asset(
+                              "assets/icons/Shop Icon.svg",
+                              color: selectedIndexHome == 0
+                                  ? Colors.white
+                                  : inActiveIconColor,
+                            ),
+                            () => setState(() {
+                              selectedIndexHome = 0;
+                            }),
+                          ),
+                          titleMain(
+                            helpEn(context) ? "Home" : "الرئيسية",
+                            Icon(
+                              Icons.shopping_cart_outlined,
+                              color: selectedIndexHome == 1
+                                  ? Colors.white
+                                  : inActiveIconColor,
+                            ),
+                            () => setState(() {
+                              selectedIndexHome = 1;
+                            }),
+                          ),
+                          titleMain(
+                            helpEn(context) ? "Home" : "الرئيسية",
+                            SvgPicture.asset(
+                              "assets/icons/vendor.svg",
+                              color: selectedIndexHome == 2
+                                  ? Colors.white
+                                  : inActiveIconColor,
+                            ),
+                            () => setState(() {
+                              selectedIndexHome = 2;
+                            }),
+                          ),
+                          IconButton(
+                            icon: SvgPicture.asset(
+                              "assets/icons/Heart Icon.svg",
+                              color: selectedIndexHome == 3
+                                  ? kPrimaryColor
+                                  : inActiveIconColor,
+                            ),
+                            onPressed: () => setState(() {
+                              selectedIndexHome = 3;
+                            }),
+                          ),
+                          IconButton(
+                            icon: SvgPicture.asset(
+                              "assets/icons/User Icon.svg",
+                              color: selectedIndexHome == 4
+                                  ? kPrimaryColor
+                                  : inActiveIconColor,
+                            ),
+                            onPressed: () => setState(() {
+                              selectedIndexHome = 4;
+                            }),
+                          ),
+                          SearchField(),
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Image.asset(
+                              "assets/logo.png",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              )
+            : SizedBox(),
         body: _pages[selectedIndexHome],
-        bottomNavigationBar: Container(
-          padding: EdgeInsets.symmetric(vertical: 14),
-          decoration: BoxDecoration(
-            // color: AppColors.PRIMARY_COLOR,
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, -15),
-                blurRadius: 20,
-                color: Color(0xFFDADADA).withOpacity(0.15),
+        bottomNavigationBar: kIsWeb
+            ? SizedBox()
+            : Container(
+                padding: EdgeInsets.symmetric(vertical: 14),
+                decoration: BoxDecoration(
+                  // color: AppColors.PRIMARY_COLOR,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, -15),
+                      blurRadius: 20,
+                      color: Color(0xFFDADADA).withOpacity(0.15),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                ),
+                child: SafeArea(
+                    top: false,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          icon: SvgPicture.asset(
+                            "assets/icons/Shop Icon.svg",
+                            color: selectedIndexHome == 0
+                                ? kPrimaryColor
+                                : inActiveIconColor,
+                          ),
+                          onPressed: () => setState(() {
+                            selectedIndexHome = 0;
+                          }),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.shopping_cart_outlined,
+                            color: selectedIndexHome == 1
+                                ? kPrimaryColor
+                                : inActiveIconColor,
+                          ),
+                          onPressed: () => setState(() {
+                            selectedIndexHome = 1;
+                          }),
+                        ),
+                        IconButton(
+                          icon: SvgPicture.asset(
+                            "assets/icons/vendor.svg",
+                            color: selectedIndexHome == 2
+                                ? kPrimaryColor
+                                : inActiveIconColor,
+                          ),
+                          onPressed: () => setState(() {
+                            selectedIndexHome = 2;
+                          }),
+                        ),
+                        IconButton(
+                          icon: SvgPicture.asset(
+                            "assets/icons/Heart Icon.svg",
+                            color: selectedIndexHome == 3
+                                ? kPrimaryColor
+                                : inActiveIconColor,
+                          ),
+                          onPressed: () => setState(() {
+                            selectedIndexHome = 3;
+                          }),
+                        ),
+                        IconButton(
+                          icon: SvgPicture.asset(
+                            "assets/icons/User Icon.svg",
+                            color: selectedIndexHome == 4
+                                ? kPrimaryColor
+                                : inActiveIconColor,
+                          ),
+                          onPressed: () => setState(() {
+                            selectedIndexHome = 4;
+                          }),
+                        ),
+                      ],
+                    )),
               ),
-            ],
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-            ),
-          ),
-          child: SafeArea(
-              top: false,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      "assets/icons/Shop Icon.svg",
-                      color: selectedIndexHome == 0
-                          ? kPrimaryColor
-                          : inActiveIconColor,
-                    ),
-                    onPressed: () => setState(() {
-                      selectedIndexHome = 0;
-                    }),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.shopping_cart_outlined,
-                      color: selectedIndexHome == 1
-                          ? kPrimaryColor
-                          : inActiveIconColor,
-                    ),
-                    onPressed: () => setState(() {
-                      selectedIndexHome = 1;
-                    }),
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      "assets/icons/vendor.svg",
-                      color: selectedIndexHome == 2
-                          ? kPrimaryColor
-                          : inActiveIconColor,
-                    ),
-                    onPressed: () => setState(() {
-                      selectedIndexHome = 2;
-                    }),
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      "assets/icons/Heart Icon.svg",
-                      color: selectedIndexHome == 3
-                          ? kPrimaryColor
-                          : inActiveIconColor,
-                    ),
-                    onPressed: () => setState(() {
-                      selectedIndexHome = 3;
-                    }),
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      "assets/icons/User Icon.svg",
-                      color: selectedIndexHome == 4
-                          ? kPrimaryColor
-                          : inActiveIconColor,
-                    ),
-                    onPressed: () => setState(() {
-                      selectedIndexHome = 4;
-                    }),
-                  ),
-                ],
-              )),
-        ),
       ),
     );
   }

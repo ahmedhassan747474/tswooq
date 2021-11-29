@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tswooq/components/fotter_widget.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/slider.dart';
 import 'package:tswooq/models/groub_model.dart';
@@ -33,29 +35,37 @@ class _BodyState extends State<Body> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: getProportionateScreenHeight(20)),
-            HomeHeader(),
-            Container(height: 70, child: Categories()),
-            // SizedBox(height: getProportionateScreenHeight(10)),
-            ImageSlider(),
-            // SizedBox(height: helpWidth(context) * .05),
-            //
-            // Container(
-            //     height: helpMobile(context)
-            //         ? helpHeight(context) * .40
-            //         : helpHeight(context) * .40,
-            //     child: LikeCardScreen()),
-            SizedBox(height: getProportionateScreenWidth(30)),
-            ...List.generate(
-              groups.data.length,
-              (index) => groups.data[index].products?.length == 0
-                  ? SizedBox()
-                  : PopularProduct(groups.data[index]),
-            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kIsWeb ? 100 : 0),
+              child: Column(
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(20)),
+                  HomeHeader(),
+                  Container(height: 70, child: Categories()),
+                  // SizedBox(height: getProportionateScreenHeight(10)),
+                  ImageSlider(),
+                  // SizedBox(height: helpWidth(context) * .05),
+                  //
+                  // Container(
+                  //     height: helpMobile(context)
+                  //         ? helpHeight(context) * .40
+                  //         : helpHeight(context) * .40,
+                  //     child: LikeCardScreen()),
+                  SizedBox(height: getProportionateScreenWidth(30)),
+                  ...List.generate(
+                    groups.data.length,
+                    (index) => groups.data[index].products?.length == 0
+                        ? SizedBox()
+                        : PopularProduct(groups.data[index]),
+                  ),
 
-            SizedBox(
-              height: helpWidth(context) * .1,
+                  SizedBox(
+                    height: helpWidth(context) * .1,
+                  ),
+                ],
+              ),
             ),
+            if (kIsWeb) FooterWidget()
           ],
         ),
       ),

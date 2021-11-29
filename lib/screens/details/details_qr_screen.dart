@@ -62,7 +62,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
     price = "0";
 
     Attributes attributes = product.attributes
-        .singleWhere((element) => element.stockId == widget.id, orElse: () {
+        .singleWhere((element) => element.id == widget.id, orElse: () {
       return null;
     });
     if (attributes != null) price = attributes.price;
@@ -141,7 +141,8 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
     try {
       print('0000000000000000000000000000');
       //    LoadingScreen.show(context);
-      await ApiCart.instance.addToCart(product.productsId, counter);
+      await ApiCart.instance
+          .addToCart(product.productsId, counter, product.productsId);
       //
       // Navigator.of(context).popUntil((route) => route.isFirst);
       helpShowLongToast(
@@ -228,8 +229,8 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            print(product.attributes.where(
-                                (element) => element.stockId == widget.id));
+                            print(product.attributes
+                                .where((element) => element.id == widget.id));
                             print(product.toJson());
                             print(widget.id);
                           },
@@ -248,7 +249,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                           child: InkWell(
                             onTap: () {
                               if (ApiProvider.user != null) {
-                                if (product.isLiked == "0")
+                                if (product.productsLiked == "0")
                                   _likeSubmit();
                                 else
                                   _unLikeSubmit();
@@ -261,7 +262,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                   getProportionateScreenWidth(15)),
                               width: getProportionateScreenWidth(64),
                               decoration: BoxDecoration(
-                                color: product.isLiked == "0"
+                                color: product.productsLiked == "0"
                                     ? Color(0xFFFFE6E6)
                                     : Color(0xFFF5F6F9),
                                 borderRadius: BorderRadius.only(
@@ -271,7 +272,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                               ),
                               child: SvgPicture.asset(
                                 "assets/icons/Heart Icon_2.svg",
-                                color: product.isLiked == "0"
+                                color: product.productsLiked == "0"
                                     ? Color(0xFFFF4848)
                                     : Color(0xFFDBDEE4),
                                 height: getProportionateScreenWidth(16),
@@ -326,7 +327,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                           (index) => GestureDetector(
                             onTap: () {
                               price = product.attributes[index].price;
-                              id = product.attributes[index].stockId;
+                              id = product.attributes[index].id;
                               selectedImage = index;
                               setState(() {});
                             },
@@ -341,8 +342,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                     border: Border.all(
                                         color: Colors.black,
                                         width:
-                                            product.attributes[index].stockId ==
-                                                    id
+                                            product.attributes[index].id == id
                                                 ? 3
                                                 : .5)),
                                 child: Row(
@@ -406,7 +406,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                     bottom: getProportionateScreenWidth(40),
                                     top: getProportionateScreenWidth(15),
                                   ),
-                                  child: product.defaultStock == "0"
+                                  child: product.productsQuantity == "0"
                                       ? Container(
                                           height: 50,
                                           color: Colors.red,
@@ -434,7 +434,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                               .Add_To_Cart_translate.tr()),
                                           press: () {
                                             // String token = await user.getToken;
-                                            if (product.defaultStock == 0)
+                                            if (product.productsQuantity == 0)
                                               _toastInfo(LocaleKeys
                                                   .not_added_translate
                                                   .tr());

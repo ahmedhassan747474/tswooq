@@ -7,9 +7,15 @@ class UserModel {
 
   UserModel({this.token, this.data, this.statusCode});
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJsonWithToken(Map<String, dynamic> json) {
     token = json['token'];
     saveToken(json['token']);
+    data = json['data'] != null ? new User.fromJson(json['data']) : null;
+    statusCode = json['status_code'];
+  }
+  UserModel.fromJson(Map<String, dynamic> json) {
+    // token = json['token'];
+    // saveToken(json['token']);
     data = json['data'] != null ? new User.fromJson(json['data']) : null;
     statusCode = json['status_code'];
   }

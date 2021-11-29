@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/components/custom_surfix_icon.dart';
 import 'package:tswooq/components/form_error.dart';
@@ -60,7 +61,6 @@ class _SignFormState extends State<SignForm> {
       Navigator.of(context).pop();
       ServerConstants.showDialog1(context, _.toString());
     } on DioError catch (e) {
-      //<<<<< IN THIS LINE
       print(
           "e.response.statusCode    ////////////////////////////         DioError");
       if (e.response.statusCode == 400) {
@@ -72,7 +72,6 @@ class _SignFormState extends State<SignForm> {
     } catch (e) {
       print('catch');
       print(e);
-
       Navigator.of(context).pop();
       ServerConstants.showDialog1(context, e.toString());
     } finally {
@@ -117,7 +116,8 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      // initialValue: "123456789",
+      initialValue: "123456789",
+      style: TextStyle(fontSize: kIsWeb ? 30 : 14),
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -150,7 +150,8 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
-      // initialValue: "test@gmail.com",
+      initialValue: "test@gmail.com",
+      style: TextStyle(fontSize: kIsWeb ? 30 : 14),
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

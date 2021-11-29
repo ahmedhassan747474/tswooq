@@ -22,12 +22,11 @@ class ApiCart {
       compact: false,
     ));
 
-
-
-  Future<void> addToCart(int productId, int quantity) async {
+  Future<void> addToCart(int productId, int quantity, int stockId) async {
     // Json Data
     var _data = {
       "product_id": productId,
+      "stock_id": productId,
       "quantity": quantity,
     };
     String token = await _getUserToken();

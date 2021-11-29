@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
@@ -23,7 +24,7 @@ class SectionTitle extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: getScreenWidth(4),
+            fontSize: kIsWeb ? 40 : getScreenWidth(4),
             fontWeight: FontWeight.w800,
             color: Colors.red,
           ),

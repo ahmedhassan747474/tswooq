@@ -108,16 +108,20 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   Widget listView(ProductsModel product) {
     return ListView.builder(
         itemCount: product.productData.length ?? 0,
-        itemBuilder: (ctx, index) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailsScreen(
-                            product: product.productData[index],
-                          )));
-                },
-                child: TwistCard(product: product.productData[index]))));
+        itemBuilder: (ctx, index) => product
+                .productData[index].attributes.isNotEmpty
+            ? Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DetailsScreen(
+                                product: product.productData[index],
+                              )));
+                    },
+                    child: TwistCard(product: product.productData[index])))
+            : SizedBox());
   }
 
   Widget gridView(ProductsModel product) {
@@ -129,16 +133,18 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
         // //  controller: popularProvider.scrollController,/
         itemCount: product.productData.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DetailsScreen(
-                              product: product.productData[index],
-                            )));
-                  },
-                  child: ProductCard(product: product.productData[index])));
+          return product.productData[index].attributes.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => DetailsScreen(
+                                  product: product.productData[index],
+                                )));
+                      },
+                      child: ProductCard(product: product.productData[index])))
+              : SizedBox();
         });
   }
 }

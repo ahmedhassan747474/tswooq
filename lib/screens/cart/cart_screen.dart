@@ -44,8 +44,9 @@ class _CartScreenState extends State<CartScreen> {
     sum = 0;
     if (cart.productData?.length != 0) {
       cart.productData.forEach((element) {
-        sum += double.parse(element.attributes[0].price.toString()) *
-            element.quantityOrdered;
+        if (element.attributes?.length != 0)
+          sum += double.parse(element.attributes[0].price.toString()) *
+              int.parse(element.productsQuantity);
       });
     }
   }
@@ -337,7 +338,7 @@ class _CartScreenState extends State<CartScreen> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1),
-                                    Text("${product[index].quantityOrdered}",
+                                    Text("${product[index].productsQuantity}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1),

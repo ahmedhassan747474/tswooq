@@ -134,7 +134,7 @@ class TwistCardState extends State<TwistCard> {
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          if (widget.product.isLiked == "0")
+                          if (widget.product.productsLiked == "0")
                             _likeSubmit();
                           else
                             _unLikeSubmit();
@@ -145,14 +145,14 @@ class TwistCardState extends State<TwistCard> {
                           height: getProportionateScreenWidth(28),
                           width: getProportionateScreenWidth(28),
                           decoration: BoxDecoration(
-                            color: widget.product.isLiked == "0"
+                            color: widget.product.productsLiked == "0"
                                 ? kPrimaryColor.withOpacity(0.15)
                                 : kSecondaryColor.withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: SvgPicture.asset(
                             "assets/icons/Heart Icon_2.svg",
-                            color: widget.product.isLiked != "0"
+                            color: widget.product.productsLiked != "0"
                                 ? Color(0xFFFF4848)
                                 : Color(0xFFDBDEE4),
                           ),

@@ -36,8 +36,10 @@ class ServerConstants {
   static Map<String, String> apiHeaders = {
     "Content-Type": "application/json",
     "Accept": "application/json, text/plain, */*",
-    "X-Requested-With": "XMLHttpRequest",
-    "Access-Control_Allow_Origin": "*"
+    "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+
+    // "X-Requested-With": "XMLHttpRequest",
+    // "Access-Control_Allow_Origin": "*"
   };
   static String getUserToken() {
     print('_getUserToken()');
@@ -51,7 +53,7 @@ class ServerConstants {
   }
 
   static const bool IS_DEBUG = true; // TODO: Close Debugging in Release.
-  static const String DOMAIN = "https://test.tswooq.com/";
+  static const String DOMAIN = "https://tswooq.booking.sharee3.net/";
   static const String API = "${DOMAIN}api/v1/";
   static const String Login = "${API}sign_in";
   static const String LoginFB = "${API}sign_with_social";
