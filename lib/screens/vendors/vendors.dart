@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/vendors_model.dart';
 import 'package:tswooq/screens/vendors/vendors_group.dart';
-import 'package:tswooq/utils/api_home.dart';
+import 'package:tswooq/utils/api_vendor.dart';
 
 import '../../constants.dart';
 import '../../size_config.dart';
@@ -29,7 +29,7 @@ class VendorsScreenState extends State<VendorsScreen> {
   _initData() async {
     // product = await ApiProducts.instance.getProductsByBrand(widget.id);
     // //
-    vendors = await ApiHome.instance.getVendor();
+    vendors = await ApiVendor.instance.getVendor();
     _isLoading = false;
     if (mounted) setState(() {});
   }

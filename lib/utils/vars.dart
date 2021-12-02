@@ -82,6 +82,7 @@ class ServerConstants {
   static const String getSliders = "${API}getsliders";
   static const String getVendors = "${API}get_vendors";
   static const String becomeMerchant = "${API}become_merchant_with_us";
+  static const String checkout = "${API}checkout";
   static const String getGroup = "${API}get_all_groups";
   static const String productLikeCard = "${API}search";
   static const String get_like_card_categories =
