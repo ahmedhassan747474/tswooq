@@ -72,7 +72,7 @@ class OrderDetails {
     currency = json['currency'];
     orderPrice = json['order_price'];
     shippingCost = json['shipping_cost'];
-    ordersStatus = json['orders_status'];
+    ordersStatus = json['orders_status'].toString();
     customerComments = json['customer_comments'];
     adminComments = json['admin_comments'];
     if (json['products'] != null) {

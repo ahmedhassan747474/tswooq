@@ -9,6 +9,8 @@ import 'package:tswooq/screens/home/like_card/like_card.dart';
 import 'package:tswooq/screens/product_list/product_list_by_category_screen.dart';
 import 'package:tswooq/utils/api_categories.dart';
 
+import '../../become_merchant_with_us.dart';
+
 class Categories extends StatefulWidget {
   @override
   _CategoriesState createState() => _CategoriesState();
@@ -60,6 +62,40 @@ class _CategoriesState extends State<Categories> {
                             ),
                             Text(
                               helpEn(context) ? "shipping cards" : "كروت شحن",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
+                Container(
+                  width: 10,
+                ),
+                InkWell(
+                  onTap: () {
+                    //
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BecomeMerchant()));
+                  },
+                  child: helpClip(
+                      10,
+                      Container(
+                        color: Color(0xFF143444),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              helpEn(context)
+                                  ? "Become a merchant with us"
+                                  : "اصبح تاجر معنا",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w800),

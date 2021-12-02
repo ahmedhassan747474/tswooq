@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
+                SizedBox(height: 50), // 4%
                 Text(LocaleKeys.sign_up_translate.tr(), style: headingStyle),
                 // Text(
                 //   "Complete your details or continue \nwith social media",

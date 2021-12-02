@@ -127,7 +127,12 @@ class BodyState extends State<Body> {
     try {
       print('0000000000000000000000000000');
       //    LoadingScreen.show(context);
-      await ApiCart.instance.addToCart(widget.product.productsId, counter, id);
+      await ApiCart.instance.addToCart({
+        "product_id": widget.product.productsId,
+        "stock_id": id,
+        "quantity": counter,
+        'type': '1'
+      });
       //
       // Navigator.of(context).popUntil((route) => route.isFirst);
       helpShowLongToast(

@@ -26,28 +26,28 @@ class HomeHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                helpClip(
-                    10,
-                    Container(
-                      color: Color(0xFF143444),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            helpEn(context) ? "shipping cards" : "كروت شحن",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w800),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                        ],
-                      ),
-                    )),
+                // helpClip(
+                //     10,
+                //     Container(
+                //       color: Color(0xFF143444),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           SizedBox(
+                //             width: 8,
+                //           ),
+                //           Text(
+                //             helpEn(context) ? "shipping cards" : "كروت شحن",
+                //             style: TextStyle(
+                //                 color: Colors.white,
+                //                 fontWeight: FontWeight.w800),
+                //           ),
+                //           SizedBox(
+                //             width: 8,
+                //           ),
+                //         ],
+                //       ),
+                //     )),
                 // IconButton(
                 //   icon: SvgPicture.asset(
                 //     "assets/icons/Shop Icon.svg",

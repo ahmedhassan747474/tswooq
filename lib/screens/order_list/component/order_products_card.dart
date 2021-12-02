@@ -47,8 +47,10 @@ class OrderProductsCard extends StatelessWidget {
               children: [
                 Text(" x ${product.productsQuantity}",
                     style: Theme.of(context).textTheme.bodyText1),
-                helpCurrency("${product.attributes[0].price}",
-                    AppColors.PRIMARY_COLOR, context),
+                helpCurrency(
+                    "${product.attributes.length == 0 ? product.price : product.attributes[0].price}",
+                    AppColors.PRIMARY_COLOR,
+                    context),
               ],
             ),
           ],

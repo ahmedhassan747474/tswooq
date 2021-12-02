@@ -97,8 +97,8 @@ class ApiOrder {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      order = OrderModel.fromJson(_response.data);
-      return order;
+      // order = OrderModel.fromJson(_response.data);
+      // return order;
       // categories = AllCategoriesModel.fromJson(_response.data);
       //return categories;
     } else {

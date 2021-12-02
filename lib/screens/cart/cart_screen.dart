@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -24,6 +25,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   CartModel cart = new CartModel(productData: []);
+  CartModel cartLike = new CartModel(productData: []);
   double sum = 0;
   bool _isLoading = true;
 
@@ -35,6 +37,7 @@ class _CartScreenState extends State<CartScreen> {
 
   _initData() async {
     cart = await ApiCart.instance.getCart();
+    cartLike = await ApiCart.instance.getCartLike();
     calculateTotal();
     _isLoading = false;
     if (mounted) setState(() {});
@@ -47,6 +50,12 @@ class _CartScreenState extends State<CartScreen> {
         if (element.attributes?.length != 0)
           sum += double.parse(element.attributes[0].price.toString()) *
               int.parse(element.productsQuantity);
+      });
+    }
+    if (cartLike.productData?.length != 0) {
+      cartLike.productData.forEach((element) {
+        sum += double.parse(element.price.toString()) *
+            int.parse(element.productsQuantity);
       });
     }
   }
@@ -116,8 +125,11 @@ class _CartScreenState extends State<CartScreen> {
         appBar: buildAppBar(context),
         body: (ApiProvider.user == null
             ? PermissionDeniedWidget()
-            : (_isLoading ? helpLoading() : body(cart.productData, context))),
-        bottomNavigationBar: cart.productData.length == 0
+            : (_isLoading
+                ? helpLoading()
+                : body(cart.productData, cartLike.productData, context))),
+        bottomNavigationBar: cart.productData.length == 0 &&
+                cartLike.productData.length == 0
             ? SizedBox()
             : Container(
                 padding: EdgeInsets.only(
@@ -163,7 +175,7 @@ class _CartScreenState extends State<CartScreen> {
                       height: 8,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         FlatButton(
                           shape: RoundedRectangleBorder(
@@ -177,7 +189,7 @@ class _CartScreenState extends State<CartScreen> {
                             child: Text(
                               helpEn(context) ? "From store" : "من الكاشير",
                               style: TextStyle(
-                                fontSize: getProportionateScreenWidth(18),
+                                fontSize: kIsWeb ? 16 : 16,
                                 color: Colors.white,
                               ),
                             ),
@@ -198,7 +210,7 @@ class _CartScreenState extends State<CartScreen> {
                             child: Text(
                               LocaleKeys.Check_Out_translate.tr(),
                               style: TextStyle(
-                                fontSize: getProportionateScreenWidth(18),
+                                fontSize: kIsWeb ? 16 : 14,
                                 color: Colors.white,
                               ),
                             ),
@@ -213,13 +225,14 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget body(List<Products> product, BuildContext context) {
+  Widget body(List<Products> product, List<Products> productLike,
+      BuildContext context) {
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Container(
         width: double.infinity,
-        child: product.length == 0
+        child: product.length == 0 && cartLike.productData.length == 0
             ? Center(
                 child: Column(
                 children: [
@@ -246,31 +259,12 @@ class _CartScreenState extends State<CartScreen> {
                   )
                 ],
               ))
-            : ListView.builder(
-                itemCount: product.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Dismissible(
-                      key: Key(product[index].productsId.toString()),
-                      direction: DismissDirection.endToStart,
-                      onDismissed: (direction) {
-                        setState(() {
-                          _submit(product[index].productsId);
-                        });
-                      },
-                      background: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFFE6E6),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          children: [
-                            Spacer(),
-                            SvgPicture.asset("assets/icons/Trash.svg"),
-                          ],
-                        ),
-                      ),
+            : ListView(
+                children: [
+                  ...List.generate(
+                    productLike.length,
+                    (index) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         children: [
                           SizedBox(
@@ -285,9 +279,7 @@ class _CartScreenState extends State<CartScreen> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: helpImage(
-                                  ServerConstants.DOMAIN +
-                                      product[index].productsImage,
-                                  15),
+                                  productLike[index].productsImage, 15),
                             ),
                           ),
                           SizedBox(width: 20),
@@ -300,8 +292,9 @@ class _CartScreenState extends State<CartScreen> {
                                   children: [
                                     GestureDetector(
                                         onTap: () {
-                                          _submit(product[index].productsId);
-                                          product.removeAt(index);
+                                          _submit(
+                                              productLike[index].productsId);
+                                          productLike.removeAt(index);
                                           calculateTotal();
                                           _toastInfo(LocaleKeys
                                               .item_is_deleted_translate
@@ -319,7 +312,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ],
                                 ),
                                 Text(
-                                  product[index].productsName,
+                                  productLike[index].productsName,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 16),
                                   maxLines: 2,
@@ -327,10 +320,8 @@ class _CartScreenState extends State<CartScreen> {
                                 SizedBox(height: 10),
                                 Row(
                                   children: [
-                                    helpCurrency(
-                                        "${product[index].attributes[0].price}",
-                                        AppColors.PRIMARY_COLOR,
-                                        context),
+                                    helpCurrency("${productLike[index].price}",
+                                        AppColors.PRIMARY_COLOR, context),
                                     SizedBox(
                                       width: 5,
                                     ),
@@ -338,7 +329,8 @@ class _CartScreenState extends State<CartScreen> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1),
-                                    Text("${product[index].productsQuantity}",
+                                    Text(
+                                        "${productLike[index].productsQuantity}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1),
@@ -348,8 +340,117 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           )
                         ],
-                      )),
-                ),
+                      ),
+                    ),
+                  ),
+                  ...List.generate(
+                    product.length,
+                    (index) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Dismissible(
+                          key: Key(product[index].productsId.toString()),
+                          direction: DismissDirection.endToStart,
+                          onDismissed: (direction) {
+                            setState(() {
+                              _submit(product[index].productsId);
+                            });
+                          },
+                          background: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFFE6E6),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Row(
+                              children: [
+                                Spacer(),
+                                SvgPicture.asset("assets/icons/Trash.svg"),
+                              ],
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 88,
+                                child: Container(
+                                  width: 88,
+                                  height: 88,
+                                  padding: EdgeInsets.all(
+                                      getProportionateScreenWidth(10)),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFF5F6F9),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: helpImage(
+                                      ServerConstants.DOMAIN +
+                                          product[index].productsImage,
+                                      15),
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {
+                                              _submit(
+                                                  product[index].productsId);
+                                              product.removeAt(index);
+                                              calculateTotal();
+                                              _toastInfo(LocaleKeys
+                                                  .item_is_deleted_translate
+                                                  .tr());
+                                              // _submit(product[index].productId);
+                                              //   product.removeAt(index);
+                                              //setState(() {});
+                                            },
+                                            child: Container(
+                                                alignment: Alignment.topRight,
+                                                child: Icon(
+                                                  Icons.close,
+                                                  color: Colors.red,
+                                                ))),
+                                      ],
+                                    ),
+                                    Text(
+                                      product[index].productsName,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 16),
+                                      maxLines: 2,
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        helpCurrency(
+                                            "${product[index].attributes[0].price}",
+                                            AppColors.PRIMARY_COLOR,
+                                            context),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(" x ",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1),
+                                        Text(
+                                            "${product[index].productsQuantity}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          )),
+                    ),
+                  ),
+                ],
               ),
       ),
     );
@@ -364,7 +465,8 @@ class _CartScreenState extends State<CartScreen> {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${cart.productData.length}" + LocaleKeys.items_translate.tr(),
+            "${cart.productData.length + cartLike.productData.length}" +
+                LocaleKeys.items_translate.tr(),
             style: Theme.of(context).textTheme.caption,
           ),
         ],

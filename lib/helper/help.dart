@@ -73,7 +73,7 @@ void helpShowLongToast(String s) {
   );
 }
 
-helpCurrency(String s, Color c, BuildContext context) {
+helpCurrency(String s, Color c, BuildContext context, {double d}) {
   String currency;
   if (context.locale.toString() == 'ar')
     currency = "رس";
@@ -84,11 +84,13 @@ helpCurrency(String s, Color c, BuildContext context) {
       children: <TextSpan>[
         TextSpan(
           text: '${double.parse(s).toStringAsFixed(2) ?? ''}',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: c),
+          style: TextStyle(
+              fontSize: d ?? 14, fontWeight: FontWeight.w500, color: c),
         ),
         TextSpan(
           text: '$currency',
-          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: c),
+          style: TextStyle(
+              fontSize: d ?? 10, fontWeight: FontWeight.w500, color: c),
         ),
       ],
     ),

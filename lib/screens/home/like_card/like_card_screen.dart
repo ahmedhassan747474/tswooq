@@ -1,10 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/producr_like_card.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api_cart.dart';
+import 'package:tswooq/utils/api_exception.dart';
 import 'package:tswooq/utils/api_home.dart';
+import 'package:tswooq/utils/vars.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -34,6 +39,106 @@ class _LikeCardProductScreenState extends State<LikeCardProductScreen> {
     productLikeCard = await ApiHome.instance.likeCardProduct(widget.id);
     _isLoading = false;
     if (mounted) setState(() {});
+  }
+
+  Future<void> _submit(ProductLC productLC) async {
+    try {
+      print('0000000000000000000000000000');
+      //    LoadingScreen.show(context);
+      await ApiCart.instance.addToCart({
+        'product_id': productLC.productId,
+        'quantity': '1',
+        'product_name': productLC.productName,
+        'product_image': productLC.productImage,
+        'price': productLC.productPrice,
+        'type': '2'
+      });
+      //
+      // Navigator.of(context).popUntil((route) => route.isFirst);
+      helpShowLongToast(
+        LocaleKeys.Add_To_Cart_translate.tr(),
+      );
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        // print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      // Navigator.of(context).pop();
+      // ServerConstants.showDialog1(context, e.toString());
+      // } finally {
+      //   if (mounted) setState(() {});
+      // }
+    }
+  }
+
+  Widget productWidget(ProductLC product, BuildContext context) {
+    return SizedBox(
+      width: getProportionateScreenWidth(helpWidth(context)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AspectRatio(
+            aspectRatio: 1.01,
+            child: Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: kSecondaryColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Hero(
+                tag: helpHero().toString() + product.productId.toString(),
+                child: helpImage(product.productImage, 0),
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          SizedBox(
+            // height: 120,
+            child: Column(
+              children: [
+                Text(
+                  product.productName,
+                  style: TextStyle(color: Colors.black),
+                  overflow: TextOverflow.visible,
+                  // maxLines: 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${product.productPrice}",
+                      style: TextStyle(
+                        fontSize: kIsWeb ? 16 : getProportionateScreenWidth(18),
+                        fontWeight: FontWeight.w600,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          _submit(product);
+                        },
+                        icon: Icon(Icons.shopping_cart))
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -94,94 +199,38 @@ class _LikeCardProductScreenState extends State<LikeCardProductScreen> {
 
   Widget listView(List<ProductLC> product) {
     return Padding(
-        padding: EdgeInsets.all(getProportionateScreenWidth(40)),
+        padding: EdgeInsets.all(kIsWeb ? 8 : getProportionateScreenWidth(40)),
         child: ListView.builder(
             itemCount: product.length ?? 0,
             itemBuilder: (ctx, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: GestureDetector(
-                    onTap: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => DetailsScreen(
-                      //           product: product.productData[index],
-                      //         )));
-                    },
-                    child: productWidget(product[index], context)))));
+                child: Container(
+                  height: kIsWeb
+                      ? helpHeight(context) * .3
+                      : helpHeight(context) * .45,
+                  child: productWidget(product[index], context),
+                ))));
   }
 
   Widget gridView(List<ProductLC> product) {
     return Padding(
       padding: EdgeInsets.all(6),
       child: StaggeredGridView.countBuilder(
-          crossAxisCount: 2,
+          crossAxisCount: kIsWeb ? 5 : 2,
           crossAxisSpacing: 10,
-          staggeredTileBuilder: (_) =>
-              StaggeredTile.extent(1, helpHeight(context) * .4),
+          staggeredTileBuilder: (_) => StaggeredTile.extent(
+                1,
+                kIsWeb ? helpHeight(context) * 1 : helpHeight(context) * .45,
+              ),
           // //  controller: popularProvider.scrollController,/
           itemCount: product.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: GestureDetector(
-                    onTap: () {
-                      print('${product[index].toJson()}');
-                      helpLauncher(
-                          "https://wa.me/+201285620239?text=${product[index].toJson()}");
-                    },
+                    onTap: () {},
                     child: productWidget(product[index], context)));
           }),
     );
   }
-}
-
-Widget productWidget(ProductLC product, BuildContext context) {
-  return SizedBox(
-    width: getProportionateScreenWidth(helpWidth(context)),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AspectRatio(
-          aspectRatio: 1.02,
-          child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-            decoration: BoxDecoration(
-              color: kSecondaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Hero(
-              tag: helpHero().toString() + product.productId.toString(),
-              child: helpImage(product.productImage, 0),
-            ),
-          ),
-        ),
-        const SizedBox(height: 5),
-        SizedBox(
-          height: 100,
-          child: Column(
-            children: [
-              Text(
-                product.productName,
-                style: TextStyle(color: Colors.black),
-                overflow: TextOverflow.visible,
-                // maxLines: 2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${product.productPrice}",
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18),
-                      fontWeight: FontWeight.w600,
-                      color: kPrimaryColor,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
 }

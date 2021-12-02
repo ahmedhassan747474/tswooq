@@ -172,6 +172,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                          if (kIsWeb)
+                            Container(
+                              width: 50,
+                              height: 50,
+                              child: Image.asset(
+                                "assets/logo.png",
+                              ),
+                            ),
                           titleMain(
                             helpEn(context) ? "Home" : "الرئيسية",
                             SvgPicture.asset(
@@ -231,18 +239,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             }),
                           ),
                           SearchField(),
-                          Container(
-                            width: 50,
-                            height: 50,
-                            child: Image.asset(
-                              "assets/logo.png",
+                          if (!kIsWeb)
+                            Container(
+                              width: 50,
+                              height: 50,
+                              child: Image.asset(
+                                "assets/logo.png",
+                              ),
                             ),
-                          ),
                         ],
                       )),
                 ),
               )
-            : SizedBox(),
+            : null,
         body: _pages[selectedIndexHome],
         bottomNavigationBar: kIsWeb
             ? SizedBox()

@@ -14,10 +14,10 @@ class CustomSurffixIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: SvgPicture.asset(
         svgIcon,
-        height: getProportionateScreenWidth(18),
+        height: 30,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/components/home_card.dart';
@@ -62,12 +63,14 @@ class _LikeCardCategoryScreenState extends State<LikeCardCategoryScreen> {
       ),
       body: StaggeredGridView.countBuilder(
         // scrollDirection: Axis.horizontal,
-        crossAxisCount: 2,
+        crossAxisCount: kIsWeb ? 5 : 2,
         mainAxisSpacing: 2,
         crossAxisSpacing: 0,
         padding: EdgeInsets.all(8.0),
-        staggeredTileBuilder: (_) =>
-            StaggeredTile.extent(1, helpHeight(context) * .2),
+        staggeredTileBuilder: (_) => StaggeredTile.extent(
+          1,
+          kIsWeb ? helpHeight(context) * .3 : helpHeight(context) * .2,
+        ),
         itemCount: widget.categoriesLC.childs.length,
         itemBuilder: (ctx, index) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -88,9 +91,12 @@ class _LikeCardCategoryScreenState extends State<LikeCardCategoryScreen> {
                                 widget.categoriesLC.childs[index].childs,
                           )));
             },
-            cardWidth: helpWidth(context) * .3,
-            imgWidth: helpWidth(context) * .25,
-            imgHeight: helpWidth(context) * .25,
+            cardWidth:
+                kIsWeb ? helpHeight(context) * .1 : helpWidth(context) * .3,
+            imgWidth:
+                kIsWeb ? helpHeight(context) * .1 : helpWidth(context) * .25,
+            imgHeight:
+                kIsWeb ? helpHeight(context) * .1 : helpWidth(context) * .25,
           ),
         ),
       ),

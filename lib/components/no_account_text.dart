@@ -19,6 +19,7 @@ class NoAccountText extends StatelessWidget {
       children: [
         Text(
           LocaleKeys.Dont_have_an_account_translate.tr(),
+          overflow: TextOverflow.visible,
           style: TextStyle(fontSize: helpWidth(context) * .04),
         ),
         GestureDetector(

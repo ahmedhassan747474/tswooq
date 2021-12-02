@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/components/home_card.dart';
@@ -46,15 +47,17 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
         padding: EdgeInsets.all(6),
         child: StaggeredGridView.countBuilder(
           scrollDirection: Axis.vertical,
-          crossAxisCount: 2,
+          crossAxisCount: kIsWeb ? 5 : 2,
           mainAxisSpacing: 2,
           crossAxisSpacing: 2,
           padding: EdgeInsets.all(0.0),
           staggeredTileBuilder: (_) => StaggeredTile.extent(
             1,
-            helpMobile(context)
-                ? helpWidth(context) * .4
-                : helpWidth(context) * .4,
+            kIsWeb
+                ? helpHeight(context) * .2
+                : helpMobile(context)
+                    ? helpWidth(context) * .4
+                    : helpWidth(context) * .4,
           ),
           itemCount: _isLoading
               ? 20
@@ -93,15 +96,21 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                                         categoriesLC.categories.data[index],
                                   )));
                     },
-                    cardWidth: helpMobile(context)
-                        ? helpWidth(context) * .3
-                        : helpWidth(context) * .3,
-                    imgWidth: helpMobile(context)
-                        ? helpWidth(context) * .18
-                        : helpWidth(context) * .15,
-                    imgHeight: helpMobile(context)
-                        ? helpWidth(context) * .18
-                        : helpWidth(context) * .15,
+                    cardWidth: kIsWeb
+                        ? helpHeight(context) * .1
+                        : helpMobile(context)
+                            ? helpWidth(context) * .3
+                            : helpWidth(context) * .3,
+                    imgWidth: kIsWeb
+                        ? helpHeight(context) * .1
+                        : helpMobile(context)
+                            ? helpWidth(context) * .18
+                            : helpWidth(context) * .15,
+                    imgHeight: kIsWeb
+                        ? helpHeight(context) * .1
+                        : helpMobile(context)
+                            ? helpWidth(context) * .18
+                            : helpWidth(context) * .15,
                   ),
                 ),
         ),

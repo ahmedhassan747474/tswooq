@@ -5,6 +5,7 @@ import 'package:tswooq/models/category_like_card.dart';
 import 'package:tswooq/models/groub_model.dart';
 import 'package:tswooq/models/producr_like_card.dart';
 import 'package:tswooq/models/slider_model.dart';
+import 'package:tswooq/models/vendor_be_come.dart';
 import 'package:tswooq/models/vendors_model.dart';
 import 'package:tswooq/utils/vars.dart';
 
@@ -64,6 +65,58 @@ class ApiHome {
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
       return VendorsModel.fromJson(_response.data);
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<VendorBeCome> getVendorBouquet() async {
+    // Json Data
+
+    var _response = await dio.get(ServerConstants.becomeMerchant,
+        // data: _data,
+        options: Options(
+          headers: {...ServerConstants.apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      return VendorBeCome.fromJson(_response.data);
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allProducts***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
+  Future<VendorBeCome> checkoutVendor() async {
+    // Json Data
+
+    var _response = await dio.get(ServerConstants.becomeMerchant,
+        // data: _data,
+        options: Options(
+          headers: {...ServerConstants.apiHeaders},
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      return VendorBeCome.fromJson(_response.data);
     } else {
       // DioErrorType type;
       // No Success

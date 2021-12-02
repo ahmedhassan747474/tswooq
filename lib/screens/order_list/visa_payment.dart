@@ -23,7 +23,15 @@ class VisaPayment extends StatefulWidget {
   final String city;
   final String method;
 
-  const VisaPayment({Key key, @required this.totalPrice,@required this.email,@required this.phone,@required this.city,@required this.address,@required this.method}) : super(key: key);
+  const VisaPayment(
+      {Key key,
+      @required this.totalPrice,
+      @required this.email,
+      @required this.phone,
+      @required this.city,
+      @required this.address,
+      @required this.method})
+      : super(key: key);
 
   @override
   _VisaPaymentState createState() => _VisaPaymentState();
@@ -36,8 +44,6 @@ class _VisaPaymentState extends State<VisaPayment> {
 
   bool showNawImage = false;
   final List<String> errors = [];
-
-
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -73,18 +79,19 @@ class _VisaPaymentState extends State<VisaPayment> {
         _formKey.currentState.save();
         LoadingScreen.show(context);
         await ApiOrder.instance.makeOrderByVisa(
-            widget.phone, widget.email, widget.city, widget.address, widget.method, widget.totalPrice,bankAccountNam,File(tmpFile.path));
+            widget.phone,
+            widget.email,
+            widget.city,
+            widget.address,
+            widget.method,
+            widget.totalPrice,
+            bankAccountNam,
+            File(tmpFile.path));
 
-         Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).popUntil((route) => route.isFirst);
         // if(selectedValue.compareTo(LocaleKeys.Cash.tr())==0)
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>  OrderSuccessScreen()));
-      //   else
-      //     Navigator.of(context).push(MaterialPageRoute(
-      //         builder: (context) =>  VisaPayment()));
-      // }
-
-
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => OrderSuccessScreen()));
       }
     } on ApiException catch (_) {
       print('ApiException');
@@ -135,7 +142,7 @@ class _VisaPaymentState extends State<VisaPayment> {
           },
         ),
       ),
-      body:  Container(
+      body: Container(
         padding: EdgeInsets.only(left: 16, right: 16),
         child: GestureDetector(
           onTap: () {
@@ -150,9 +157,7 @@ class _VisaPaymentState extends State<VisaPayment> {
                 onTap: () {
                   choseImage(ImageSource.gallery);
                   showNawImage = true;
-                  setState(() {
-
-                  });
+                  setState(() {});
                 },
                 child: Center(
                   child: Container(
@@ -165,33 +170,33 @@ class _VisaPaymentState extends State<VisaPayment> {
                       child: tmpFile != null
                           ? Image.file(File(tmpFile.path))
                           : Container(
-                        width: 100,
-                        height: 100,
-                        child: Stack(
-                          children: [
-                            CircleAvatar(
-                              radius: 50,
-                              child: helpImage("_userInfo.avatar", 50),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: kColorAccent,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.edit,
-                                  color: Colors.black87,
-                                  size: 20,
-                                ),
+                              width: 100,
+                              height: 100,
+                              child: Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 50,
+                                    child: helpImage("_userInfo.avatar", 50),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        color: kColorAccent,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: Colors.black87,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -200,11 +205,9 @@ class _VisaPaymentState extends State<VisaPayment> {
                 height: 35,
               ),
               Form(
-                  key: _formKey,
-
-                     child: buildBankAccountFormField(),
-
-                  ),
+                key: _formKey,
+                child: buildBankAccountFormField(),
+              ),
               SizedBox(
                 height: 35,
               ),
@@ -249,6 +252,7 @@ class _VisaPaymentState extends State<VisaPayment> {
       ),
     );
   }
+
   TextFormField buildBankAccountFormField() {
     return TextFormField(
       keyboardType: TextInputType.number,

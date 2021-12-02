@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +14,8 @@ import 'package:tswooq/translations/codegen_loader.g.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  runApp(EasyLocalization(
+  runApp(
+    EasyLocalization(
       path: "assets/translations",
       supportedLocales: [
         Locale("ar"),
@@ -21,7 +24,9 @@ void main() async {
       fallbackLocale: Locale("ar"),
       assetLoader: CodegenLoader(),
       saveLocale: true,
-      child: MyApp(),),);
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -57,6 +62,7 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<AuthService>(
         builder: (context, auth, _) {
           return MaterialApp(
+            scrollBehavior: MyCustomScrollBehavior(),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
@@ -70,4 +76,13 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

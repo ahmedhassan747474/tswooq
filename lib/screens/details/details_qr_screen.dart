@@ -141,8 +141,12 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
     try {
       print('0000000000000000000000000000');
       //    LoadingScreen.show(context);
-      await ApiCart.instance
-          .addToCart(product.productsId, counter, product.productsId);
+      await ApiCart.instance.addToCart({
+        "product_id": product.productsId,
+        "stock_id": id,
+        "quantity": counter,
+        'type': '1'
+      });
       //
       // Navigator.of(context).popUntil((route) => route.isFirst);
       helpShowLongToast(

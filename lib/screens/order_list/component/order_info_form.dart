@@ -338,19 +338,21 @@ class _OrderFormState extends State<OrderForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 11) {
-          removeError(error: kShortPassError);
         }
+        // else if (value.length >= 11) {
+        //   removeError(error: kShortPassError);
+        // }
         phone = value;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 11) {
-          addError(error: kShortPhoneError);
-          return "";
         }
+        // else if (value.length < 11) {
+        //   addError(error: kShortPhoneError);
+        //   return "";
+        // }
         return null;
       },
       decoration: InputDecoration(

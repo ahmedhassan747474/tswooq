@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: kIsWeb ? 150 : 20),
+          padding: EdgeInsets.symmetric(horizontal: kIsWeb ? 20 : 20),
           child: SingleChildScrollView(
             child: Column(
               children: [

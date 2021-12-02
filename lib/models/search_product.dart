@@ -49,6 +49,7 @@ class Products {
   String shopName;
   String productsName;
   String productsDescription;
+  String price;
   List<Images> images;
   List<Attributes> attributes;
 
@@ -63,6 +64,7 @@ class Products {
       this.shopName,
       this.productsName,
       this.productsDescription,
+      this.price,
       this.images,
       this.attributes});
 
@@ -76,6 +78,7 @@ class Products {
     productsLiked = json['products_liked'];
     shopName = json['shop_name'];
     productsName = json['products_name'];
+    price = json['price'].toString();
     productsDescription = json['products_description'];
     if (json['images'] != null) {
       images = new List<Images>();

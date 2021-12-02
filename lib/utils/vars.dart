@@ -81,6 +81,7 @@ class ServerConstants {
   static const String Home = "${API}main";
   static const String getSliders = "${API}getsliders";
   static const String getVendors = "${API}get_vendors";
+  static const String becomeMerchant = "${API}become_merchant_with_us";
   static const String getGroup = "${API}get_all_groups";
   static const String productLikeCard = "${API}search";
   static const String get_like_card_categories =
@@ -100,6 +101,7 @@ class ServerConstants {
   //Get_Cart
   static const String addtopos = "${API}addtopos";
   static const String Get_Cart = "${API}get_cart";
+  static const String get_cart_like = "${API}get_cart_like";
   static const String Add_Cart = "${API}add_to_cart";
   static const String remove_Cart = "${API}delete_cart";
   static const String bookingTable = "${API}create_reservation";
