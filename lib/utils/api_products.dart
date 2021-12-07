@@ -254,7 +254,7 @@ class ApiProducts {
     }
   }
 
-  Future<ProductsModel> unLikeProduct(int productId) async {
+  Future<void> unLikeProduct(int productId) async {
     // Json Data
     var _data = {
       "product_id": productId,
@@ -273,8 +273,7 @@ class ApiProducts {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      products = ProductsModel.fromJson(_response.data);
-      return products;
+
       // categories = AllCategoriesModel.fromJson(_response.data);
       //return categories;
     } else {

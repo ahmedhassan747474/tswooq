@@ -31,19 +31,28 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final w = helpWidth(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kIsWeb ? 100 : 0),
+              padding: const EdgeInsets.symmetric(horizontal: kIsWeb ? 20 : 0),
               child: Column(
                 children: [
                   SizedBox(height: getProportionateScreenHeight(20)),
                   HomeHeader(),
                   Container(height: 70, child: Categories()),
                   // SizedBox(height: getProportionateScreenHeight(10)),
-                  ImageSlider(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: kIsWeb
+                            ? helpWidth(context) > 600
+                                ? 70
+                                : 20
+                            : 20),
+                    child: ImageSlider(),
+                  ),
                   // SizedBox(height: helpWidth(context) * .05),
                   //
                   // Container(
@@ -51,12 +60,20 @@ class _BodyState extends State<Body> {
                   //         ? helpHeight(context) * .40
                   //         : helpHeight(context) * .40,
                   //     child: LikeCardScreen()),
-                  SizedBox(height: getProportionateScreenWidth(30)),
-                  ...List.generate(
-                    groups.data.length,
-                    (index) => groups.data[index].products?.length == 0
-                        ? SizedBox()
-                        : PopularProduct(groups.data[index]),
+                  SizedBox(
+                      height: kIsWeb ? 30 : getProportionateScreenWidth(30)),
+                  Padding(
+                    padding: EdgeInsets.all(helpWidth(context) > 600 ? 50 : 16),
+                    child: Column(
+                      children: [
+                        ...List.generate(
+                          groups.data.length,
+                          (index) => groups.data[index].products?.length == 0
+                              ? SizedBox()
+                              : PopularProduct(groups.data[index]),
+                        ),
+                      ],
+                    ),
                   ),
 
                   SizedBox(

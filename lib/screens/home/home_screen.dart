@@ -110,34 +110,37 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget titleMain(String string, Widget w, Function f) {
-    return InkWell(
-      onTap: f,
-      child: helpClip(
-          10,
-          Container(
-            height: 40,
-            color: Color(0xFF143444),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 8,
-                ),
-                w,
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  string,
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w800),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-              ],
-            ),
-          )),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: f,
+        child: helpClip(
+            10,
+            Container(
+              height: 40,
+              color: Color(0xFF143444),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 8,
+                  ),
+                  w,
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    string,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w800),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 
@@ -151,104 +154,110 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: kIsWeb
             ? AppBar(
                 automaticallyImplyLeading: false,
-                title: Container(
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, -15),
-                        blurRadius: 20,
-                        color: Color(0xFFDADADA).withOpacity(0.15),
-                      ),
-                    ],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                    ),
+                title: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: helpWidth(context) > 600 ? 70 : 20,
                   ),
-                  child: SafeArea(
-                      top: false,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          if (kIsWeb)
-                            Container(
-                              width: 50,
-                              height: 50,
-                              child: Image.asset(
-                                "assets/logo.png",
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, -15),
+                          blurRadius: 20,
+                          color: Color(0xFFDADADA).withOpacity(0.15),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                    ),
+                    child: SafeArea(
+                        top: false,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            if (kIsWeb)
+                              Container(
+                                width: 50,
+                                height: 50,
+                                child: Image.asset(
+                                  "assets/logo.png",
+                                ),
                               ),
-                            ),
-                          titleMain(
-                            helpEn(context) ? "Home" : "الرئيسية",
-                            SvgPicture.asset(
-                              "assets/icons/Shop Icon.svg",
-                              color: selectedIndexHome == 0
-                                  ? Colors.white
-                                  : inActiveIconColor,
-                            ),
-                            () => setState(() {
-                              selectedIndexHome = 0;
-                            }),
-                          ),
-                          titleMain(
-                            helpEn(context) ? "Home" : "الرئيسية",
-                            Icon(
-                              Icons.shopping_cart_outlined,
-                              color: selectedIndexHome == 1
-                                  ? Colors.white
-                                  : inActiveIconColor,
-                            ),
-                            () => setState(() {
-                              selectedIndexHome = 1;
-                            }),
-                          ),
-                          titleMain(
-                            helpEn(context) ? "Home" : "الرئيسية",
-                            SvgPicture.asset(
-                              "assets/icons/vendor.svg",
-                              color: selectedIndexHome == 2
-                                  ? Colors.white
-                                  : inActiveIconColor,
-                            ),
-                            () => setState(() {
-                              selectedIndexHome = 2;
-                            }),
-                          ),
-                          IconButton(
-                            icon: SvgPicture.asset(
-                              "assets/icons/Heart Icon.svg",
-                              color: selectedIndexHome == 3
-                                  ? kPrimaryColor
-                                  : inActiveIconColor,
-                            ),
-                            onPressed: () => setState(() {
-                              selectedIndexHome = 3;
-                            }),
-                          ),
-                          IconButton(
-                            icon: SvgPicture.asset(
-                              "assets/icons/User Icon.svg",
-                              color: selectedIndexHome == 4
-                                  ? kPrimaryColor
-                                  : inActiveIconColor,
-                            ),
-                            onPressed: () => setState(() {
-                              selectedIndexHome = 4;
-                            }),
-                          ),
-                          SearchField(),
-                          if (!kIsWeb)
-                            Container(
-                              width: 50,
-                              height: 50,
-                              child: Image.asset(
-                                "assets/logo.png",
+                            titleMain(
+                              helpEn(context) ? "Home" : "الرئيسية",
+                              SvgPicture.asset(
+                                "assets/icons/Shop Icon.svg",
+                                color: selectedIndexHome == 0
+                                    ? Colors.white
+                                    : inActiveIconColor,
                               ),
+                              () => setState(() {
+                                selectedIndexHome = 0;
+                              }),
                             ),
-                        ],
-                      )),
+                            titleMain(
+                              helpEn(context) ? "Cart" : "السلة",
+                              Icon(
+                                Icons.shopping_cart_outlined,
+                                color: selectedIndexHome == 1
+                                    ? Colors.white
+                                    : inActiveIconColor,
+                              ),
+                              () => setState(() {
+                                selectedIndexHome = 1;
+                              }),
+                            ),
+                            titleMain(
+                              helpEn(context) ? "Shops" : "المتاجر",
+                              SvgPicture.asset(
+                                "assets/icons/vendor.svg",
+                                color: selectedIndexHome == 2
+                                    ? Colors.white
+                                    : Colors.white,
+                              ),
+                              () => setState(() {
+                                selectedIndexHome = 2;
+                              }),
+                            ),
+                            IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/icons/Heart Icon.svg",
+                                color: selectedIndexHome == 3
+                                    ? kPrimaryColor
+                                    : inActiveIconColor,
+                              ),
+                              onPressed: () => setState(() {
+                                selectedIndexHome = 3;
+                              }),
+                            ),
+                            IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/icons/User Icon.svg",
+                                color: selectedIndexHome == 4
+                                    ? kPrimaryColor
+                                    : inActiveIconColor,
+                              ),
+                              onPressed: () => setState(() {
+                                selectedIndexHome = 4;
+                              }),
+                            ),
+                            Spacer(),
+                            SearchField(),
+                            if (!kIsWeb)
+                              Container(
+                                width: 50,
+                                height: 50,
+                                child: Image.asset(
+                                  "assets/logo.png",
+                                ),
+                              ),
+                            Spacer(),
+                          ],
+                        )),
+                  ),
                 ),
               )
             : null,

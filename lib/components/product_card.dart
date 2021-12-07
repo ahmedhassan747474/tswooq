@@ -87,7 +87,7 @@ class ProductCardState extends State<ProductCard> {
                   ),
                   Spacer(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       widget.product?.attributes.isEmpty
                           ? SizedBox()
@@ -113,14 +113,14 @@ class ProductCardState extends State<ProductCard> {
                           height: 35,
                           width: 35,
                           decoration: BoxDecoration(
-                            color: widget.product.productsLiked == "0"
+                            color: widget.product.productsLiked == 0
                                 ? kPrimaryColor.withOpacity(0.15)
                                 : kSecondaryColor.withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: SvgPicture.asset(
                             "assets/icons/Heart Icon_2.svg",
-                            color: widget.product.productsLiked != "0"
+                            color: widget.product.productsLiked != 0
                                 ? Color(0xFFFF4848)
                                 : Colors.black26,
                           ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/helper/help.dart';
@@ -49,28 +50,34 @@ class VendorsScreenState extends State<VendorsScreen> {
 
   Widget cardView(Vendor vendor, BuildContext context) {
     return SizedBox(
-      // width: getProportionateScreenWidth(widget.width),
+      width: kIsWeb ? 400 : helpWidth(context) * .3,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AspectRatio(
-            aspectRatio: 1.02,
-            child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-              decoration: BoxDecoration(
-                color: kSecondaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Hero(
-                tag: "vendor" + vendor.id.toString(),
-                child: helpImage(vendor.imagePath ?? "", 0),
+          Expanded(
+            flex: 3,
+            child: AspectRatio(
+              aspectRatio: 1.02,
+              child: Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: kSecondaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Hero(
+                  tag: "vendor" + vendor.id.toString(),
+                  child: helpImage(vendor.imagePath ?? "", 0),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 5),
-          SizedBox(
-            height: 100,
+          // const SizedBox(height: 5),
+          Expanded(
+            flex: 2,
+            // height: 100,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
                   child: Text(
@@ -93,7 +100,11 @@ class VendorsScreenState extends State<VendorsScreen> {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: StaggeredGridView.countBuilder(
-          crossAxisCount: 2,
+          crossAxisCount: kIsWeb
+              ? helpWidth(context) > 600
+                  ? 3
+                  : 2
+              : 2,
           crossAxisSpacing: 10,
           staggeredTileBuilder: (_) =>
               StaggeredTile.extent(1, helpHeight(context) * .4),

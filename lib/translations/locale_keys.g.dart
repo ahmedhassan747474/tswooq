@@ -1,6 +1,7 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
 abstract class LocaleKeys {
+  static const tap = 'tap';
   static const favorite = 'favorite';
   static const comments = 'comments';
   static const no_Product = 'no_Product';

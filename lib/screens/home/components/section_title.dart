@@ -24,7 +24,7 @@ class SectionTitle extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: kIsWeb ? 40 : getScreenWidth(4),
+            fontSize: kIsWeb ? 25 : getScreenWidth(4),
             fontWeight: FontWeight.w800,
             color: Colors.red,
           ),

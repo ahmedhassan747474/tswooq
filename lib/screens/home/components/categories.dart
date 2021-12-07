@@ -36,7 +36,10 @@ class _CategoriesState extends State<Categories> {
     return _isLoading
         ? SizedBox()
         : Padding(
-            padding: EdgeInsets.symmetric(vertical: 16),
+            padding: EdgeInsets.symmetric(
+              vertical: 16,
+              horizontal: helpWidth(context) > 600 ? 70 : 20,
+            ),
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [

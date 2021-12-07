@@ -67,7 +67,7 @@ class BodyState extends State<Body> {
 
     } on ApiException catch (_) {
       print('ApiException');
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
       ServerConstants.showDialog1(context, _.toString());
     } on DioError catch (e) {
       //<<<<< IN THIS LINE
@@ -83,7 +83,7 @@ class BodyState extends State<Body> {
       print('catch');
       print(e);
 
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
       ServerConstants.showDialog1(context, e.toString());
     } finally {
       if (mounted) setState(() {});
@@ -232,7 +232,7 @@ class BodyState extends State<Body> {
                     onTap: () {
                       // print(widget.product.productsLiked);
                       if (ApiProvider.user != null) {
-                        if (widget.product.productsLiked == "0")
+                        if (widget.product.productsLiked == 0)
                           _likeSubmit();
                         else
                           _unLikeSubmit();
@@ -241,10 +241,10 @@ class BodyState extends State<Body> {
                             builder: (context) => SignInScreen()));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-                      width: getProportionateScreenWidth(64),
+                      padding: EdgeInsets.all(15),
+                      width: kIsWeb ? 70 : 64,
                       decoration: BoxDecoration(
-                        color: widget.product.productsLiked == "0"
+                        color: widget.product.productsLiked == 0
                             ? Color(0xFFF6F7F9)
                             : Color(0xFFF5F6F9),
                         borderRadius: BorderRadius.only(
@@ -254,7 +254,7 @@ class BodyState extends State<Body> {
                       ),
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon_2.svg",
-                        color: widget.product.productsLiked == "0"
+                        color: widget.product.productsLiked == 0
                             ? Color(0xFFDBDEE4)
                             : Color(0xFFFF4848),
                         height: getProportionateScreenWidth(16),
@@ -289,10 +289,15 @@ class BodyState extends State<Body> {
                       },
                       child: Container(
                           height: 50,
+                          width: kIsWeb
+                              ? helpWidth(context) > 600
+                                  ? 300
+                                  : double.infinity
+                              : double.infinity,
                           margin:
                               EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: getProportionateScreenWidth(20)),
+                          // padding: EdgeInsets.symmetric(
+                          //     horizontal: getProportionateScreenWidth(20)),
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: Colors.black,
@@ -365,10 +370,10 @@ class BodyState extends State<Body> {
                         color: Colors.white,
                         child: Padding(
                           padding: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * 0.15,
-                            right: SizeConfig.screenWidth * 0.15,
-                            bottom: getProportionateScreenWidth(40),
-                            top: getProportionateScreenWidth(15),
+                            left: kIsWeb ? 70 : SizeConfig.screenWidth * 0.15,
+                            right: kIsWeb ? 70 : SizeConfig.screenWidth * 0.15,
+                            bottom: 20,
+                            top: 15,
                           ),
                           child: widget.product.productsQuantity == '0'
                               ? Container(
@@ -392,10 +397,11 @@ class BodyState extends State<Body> {
                                     ),
                                   ),
                                 )
-                              : DefaultButton(
-                                  text: (LocaleKeys.Add_To_Cart_translate.tr()),
-                                  press: () {
-                                    // String token = await user.getToken;
+                              : FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  color: kPrimaryColor,
+                                  onPressed: () {
                                     if (widget.product.productsQuantity == "0")
                                       _toastInfo(
                                           LocaleKeys.not_added_translate.tr());
@@ -407,7 +413,31 @@ class BodyState extends State<Body> {
                                     else
                                       _submit();
                                   },
+                                  child: Text(
+                                    (LocaleKeys.Add_To_Cart_translate.tr()),
+                                    style: TextStyle(
+                                      fontSize: kIsWeb
+                                          ? 30
+                                          : helpWidth(context) * .04,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
+                          // DefaultButton(
+                          //         text: (LocaleKeys.Add_To_Cart_translate.tr()),
+                          //         press: () {
+                          //           if (widget.product.productsQuantity == "0")
+                          //             _toastInfo(
+                          //                 LocaleKeys.not_added_translate.tr());
+                          //           else if (ApiProvider.user == null)
+                          //             Navigator.of(context).push(
+                          //                 MaterialPageRoute(
+                          //                     builder: (context) =>
+                          //                         SignInScreen()));
+                          //           else
+                          //             _submit();
+                          //         },
+                          //       ),
                         ),
                       ),
                     ],

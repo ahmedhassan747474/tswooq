@@ -1,6 +1,8 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tswooq/helper/help.dart';
+import 'package:tswooq/translations/locale_keys.g.dart';
 
 class FooterWidget extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _FotterWidgetState extends State<FooterWidget> {
           )
         : Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: w,
           );
   }
@@ -34,6 +37,10 @@ class _FotterWidgetState extends State<FooterWidget> {
               child: Image.asset('assets/images/location.png')),
           Column(
             children: [
+              SizedBox(
+                // aspectRatio: 1.02,
+                height: 50,
+              ),
               Text(
                 "موقعنــا",
                 overflow: TextOverflow.visible,
@@ -68,6 +75,10 @@ class _FotterWidgetState extends State<FooterWidget> {
               child: Image.asset('assets/images/sport.png')),
           Column(
             children: [
+              SizedBox(
+                // aspectRatio: 1.02,
+                height: 50,
+              ),
               Text(
                 "خط الدعــم",
                 overflow: TextOverflow.visible,
@@ -98,6 +109,10 @@ class _FotterWidgetState extends State<FooterWidget> {
               child: Image.asset('assets/images/@.png')),
           Column(
             children: [
+              SizedBox(
+                // aspectRatio: 1.02,
+                height: 50,
+              ),
               Text(
                 "دعــم الطلـبات",
                 overflow: TextOverflow.visible,
@@ -141,29 +156,32 @@ class _FotterWidgetState extends State<FooterWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FotterItemWidget(
-                    title: "مواقع التواصل",
+                    title:
+                        helpEn(context) ? "Social Media" : "التواصل الاجتماعي",
                     onPressed: () {},
                   ),
                   SizedBox(height: 10),
                   FotterItemWidget(
-                    title: "الانستقرام",
-                    onPressed: () {},
+                    title: helpEn(context) ? "Instagram" : "الانستقرام",
+                    onPressed: () =>
+                        helpLauncher("https://www.instagram.com/tswooq.ksa/"),
                   ),
                   SizedBox(height: 10),
                   FotterItemWidget(
-                    title: "الفيس بوكس",
-                    onPressed: () {},
+                    title: helpEn(context) ? "Facebook" : "الفيس بوكس",
+                    onPressed: () => helpLauncher(
+                        "https://www.facebook.com/Tswooqcom-241188777825782"),
                   ),
                   SizedBox(height: 10),
                   FotterItemWidget(
-                    title: "تويتر",
-                    onPressed: () {},
+                    title: helpEn(context) ? "Twitter" : "تويتر",
+                    onPressed: () => helpLauncher("https://twitter.com/tswooq"),
                   ),
-                  SizedBox(height: 10),
-                  FotterItemWidget(
-                    title: "سناب شات",
-                    onPressed: () {},
-                  ),
+                  // SizedBox(height: 10),
+                  // FotterItemWidget(
+                  //   title: "سناب شات",
+                  //   onPressed: () {},
+                  // ),
                 ],
               ),
               Column(
@@ -183,144 +201,65 @@ class _FotterWidgetState extends State<FooterWidget> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // SizedBox(
+                  //     // aspectRatio: 1.02,
+                  //     width: helpWidth(context) * .1 < 100
+                  //         ? 100
+                  //         : helpWidth(context) * .1,
+                  //     // height: 150,
+                  //     child: Image.asset('assets/images/logofooter.png')),
                   FotterItemWidget(
-                    title: "TOP CITIES",
-                    onPressed: () {},
+                    title: "Language",
                   ),
                   SizedBox(height: 10),
                   FotterItemWidget(
-                    title: "Chicago",
-                    onPressed: () {},
+                    title: LocaleKeys.language_translate.tr(),
+                    onPressed: () async {
+                      if (context.locale.toString() == 'ar') {
+                        await context.setLocale(
+                          Locale("en"),
+                        );
+                      } else {
+                        await context.setLocale(
+                          Locale("ar"),
+                        );
+                      }
+                    },
                   ),
-                  SizedBox(height: 10),
-                  FotterItemWidget(
-                    title: "New York",
-                    onPressed: () {},
-                  ),
-                  SizedBox(height: 10),
-                  FotterItemWidget(
-                    title: "San Francisco",
-                    onPressed: () {},
-                  ),
-                  SizedBox(height: 10),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  InkWell(
+                    onTap: () {},
+                    child: SizedBox(
                       // aspectRatio: 1.02,
                       width: helpWidth(context) * .1 < 100
                           ? 100
                           : helpWidth(context) * .1,
                       // height: 150,
-                      child: Image.asset('assets/images/logofooter.png')),
-                  FotterItemWidget(
-                    title: "Language",
-                  ),
-                  SizedBox(height: 10),
-                  SizedBox(
-                    width: 200,
-                    child: DropdownButtonFormField<String>(
-                      value: _value,
-                      onChanged: (v) {
-                        setState(() {
-                          _value = v;
-                        });
-                      },
-                      dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-                      icon: Icon(
-                        Icons.keyboard_arrow_down,
+                      child: Image.asset(
+                        'assets/images/google-play-btn.png',
+                        // width: 200,
                       ),
-                      items: values
-                          ?.map(
-                            (String element) => DropdownMenuItem<String>(
-                              value: element,
-                              child: Text(
-                                element,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4
-                                    .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          )
-                          ?.toList(),
-                      selectedItemBuilder: (context) => values
-                          .map(
-                            (element) => Text(
-                              element,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                          .toList(),
-                      decoration: InputDecoration(
-                        hintText: 'Choose Language',
-                        hintStyle: TextStyle(color: Colors.white),
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 8.0,
-                          horizontal: 8,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: Colors.white,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: Colors.white,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    // aspectRatio: 1.02,
-                    width: helpWidth(context) * .1 < 100
-                        ? 100
-                        : helpWidth(context) * .1,
-                    // height: 150,
-                    child: Image.asset(
-                      'assets/images/google-play-btn.png',
-                      // width: 200,
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    width: helpWidth(context) * .1 < 100
-                        ? 100
-                        : helpWidth(context) * .1,
-                    // height: 150,
-                    // aspectRatio: 1.02,
-                    child: Image.asset(
-                      'assets/images/app-store-btn.png',
-                      // width: 200,
+                  InkWell(
+                    onTap: () => helpLauncher("https://twitter.com/tswooq"),
+                    child: SizedBox(
+                      width: helpWidth(context) * .1 < 100
+                          ? 100
+                          : helpWidth(context) * .1,
+                      // height: 150,
+                      // aspectRatio: 1.02,
+                      child: Image.asset(
+                        'assets/images/app-store-btn.png',
+                        // width: 200,
+                      ),
                     ),
                   ),
                 ],

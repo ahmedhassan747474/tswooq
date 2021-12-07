@@ -8,6 +8,7 @@ import 'package:tswooq/routes.dart';
 import 'package:tswooq/screens/home/home_screen.dart';
 import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
 import 'package:tswooq/screens/splash/splash.dart';
+import 'package:tswooq/screens/vendors/vendors.dart';
 import 'package:tswooq/theme.dart';
 import 'package:tswooq/translations/codegen_loader.g.dart';
 
@@ -70,6 +71,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Tswooq',
             theme: theme(),
             home: _getHomeWidget(auth),
+            //    home: VendorsScreen(),
             routes: routes,
           );
         },

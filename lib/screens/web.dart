@@ -1,10 +1,5 @@
-// import 'dart:io';
-// import 'dart:ui';
-
 import 'package:flutter/material.dart';
-// import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-import 'package:tswooq/components/loading_screen.dart';
 import 'package:tswooq/screens/home/home_screen.dart';
 import 'package:tswooq/utils/vars.dart';
 import 'package:webview_flutter/webview_flutter.dart';

@@ -117,7 +117,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       initialValue: "123456789",
-      style: TextStyle(fontSize: kIsWeb ? 30 : 14),
+      style: TextStyle(fontSize: kIsWeb ? 20 : 14),
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -151,7 +151,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       initialValue: "test@gmail.com",
-      style: TextStyle(fontSize: kIsWeb ? 30 : 14),
+      style: TextStyle(fontSize: kIsWeb ? 20 : 14),
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

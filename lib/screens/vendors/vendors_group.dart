@@ -45,19 +45,22 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
       ),
       body: _isLoading
           ? helpLoading()
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  ...List.generate(
-                    groups.data.length,
-                    (index) => groups.data[index].products?.length == 0
-                        ? SizedBox()
-                        : PopularProduct(groups.data[index]),
-                  ),
-                  SizedBox(
-                    height: helpWidth(context) * .1,
-                  ),
-                ],
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ...List.generate(
+                      groups.data.length,
+                      (index) => groups.data[index].products?.length == 0
+                          ? SizedBox()
+                          : PopularProduct(groups.data[index]),
+                    ),
+                    SizedBox(
+                      height: helpWidth(context) * .1,
+                    ),
+                  ],
+                ),
               ),
             ),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -126,7 +127,11 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
 
   Widget gridView(ProductsModel product) {
     return StaggeredGridView.countBuilder(
-        crossAxisCount: 2,
+        crossAxisCount: kIsWeb
+            ? helpWidth(context) > 600
+                ? 3
+                : 2
+            : 2,
         crossAxisSpacing: 10,
         staggeredTileBuilder: (_) =>
             StaggeredTile.extent(1, helpHeight(context) * .4),
