@@ -18,14 +18,6 @@ class ApiVendor {
 
   static final ApiVendor instance = ApiVendor._();
   SlidersModel slider = new SlidersModel();
-  var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
 
   Future<VendorsModel> getVendor() async {
     // Json Data

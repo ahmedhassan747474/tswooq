@@ -12,15 +12,6 @@ class ApiBrands {
   static final ApiBrands instance = ApiBrands._();
   static BrandsModel brandsModel;
 
-  var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
-
   //
   // static const Map<String, String> apiHeaders = {
   //   "Content-Type": "application/json",

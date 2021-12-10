@@ -13,15 +13,6 @@ class ApiCart {
   static final ApiCart instance = ApiCart._();
   static CartModel cart;
 
-  var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
-
   Future<void> addToCart(var _data) async {
     // Json Data
     // var _data = ;

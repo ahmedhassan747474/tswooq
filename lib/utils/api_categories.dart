@@ -12,15 +12,6 @@ class ApiCategories {
   static final ApiCategories instance = ApiCategories._();
   static AllCategoriesModel categories;
 
-  var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
-
   Future<AllCategoriesModel> allCategories() async {
     // int x= helpLanguage == 'ar' ? 2 : 1;
     // Json Data

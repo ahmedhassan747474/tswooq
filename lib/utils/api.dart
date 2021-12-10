@@ -13,21 +13,6 @@ class ApiProvider {
   static final ApiProvider instance = ApiProvider._();
   static UserModel user;
 
-  var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
-  //
-  // static const Map<String, String> apiHeaders = {
-  //   "Content-Type": "application/json",
-  //   "Accept": "application/json, text/plain, */*",
-  //   "Access-Control_Allow_Origin": "*"
-  // };
-
   Future<UserModel> register(
       String email, String password, String confirmPassword) async {
     // Json Data

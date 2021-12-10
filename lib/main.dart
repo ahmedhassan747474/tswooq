@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tswooq/provider/auth_service.dart';
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Tswooq',
             theme: theme(),
-            home: _getHomeWidget(auth),
+            home: kIsWeb ? HomeScreen() : _getHomeWidget(auth),
             //    home: VendorsScreen(),
             routes: routes,
           );

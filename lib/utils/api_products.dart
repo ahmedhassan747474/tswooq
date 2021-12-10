@@ -18,15 +18,6 @@ class ApiProducts {
   static FavModel fav;
   static SearchProduct searchProduct;
 
-  var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
-
   Future<ProductsModel> getProducts(int page) async {
     // Json Data
     var _data = {

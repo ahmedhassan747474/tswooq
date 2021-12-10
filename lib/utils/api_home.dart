@@ -16,14 +16,7 @@ class ApiHome {
 
   static final ApiHome instance = ApiHome._();
   SlidersModel slider = new SlidersModel();
-  var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
+
   Future<SlidersModel> getSlider() async {
     // Json Data
 
