@@ -35,7 +35,13 @@ class CategoryCard extends StatelessWidget {
                 // color: Colors.amber,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: helpImage(
+              child:
+
+                  // Html(
+                  //   data: "<img src=\"$icon\">",
+                  // ),
+
+                  helpImage(
                 icon,
                 0,
               ),

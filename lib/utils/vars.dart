@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/components/error_dialog.dart';
 import 'package:tswooq/models/user.dart';
 
@@ -30,7 +29,6 @@ var dio = Dio()
     //   responseHeader: false,
     //   compact: false,
     // ))
-
     ;
 
 class ServerConstants {
@@ -66,7 +64,7 @@ class ServerConstants {
   }
 
   static const bool IS_DEBUG = true; // TODO: Close Debugging in Release.
-  static const String DOMAIN = "https://tswooq.com/";
+  static const String DOMAIN = "https://admin.tswooq.com/";
   static const String API = "${DOMAIN}api/v1/";
   static const String Login = "${API}sign_in";
   static const String LoginFB = "${API}sign_with_social";
