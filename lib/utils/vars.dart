@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/components/error_dialog.dart';
 import 'package:tswooq/models/user.dart';
 
@@ -22,14 +23,13 @@ class ImageConfig {
 }
 
 var dio = Dio()
-    // ..interceptors.add(PrettyDioLogger(
-    //   requestHeader: true,
-    //   requestBody: true,
-    //   responseBody: true,
-    //   responseHeader: false,
-    //   compact: false,
-    // ))
-    ;
+  ..interceptors.add(PrettyDioLogger(
+    requestHeader: true,
+    requestBody: true,
+    responseBody: true,
+    responseHeader: false,
+    compact: false,
+  ));
 
 class ServerConstants {
   static bool isValidResponse(int statusCode) {

@@ -108,7 +108,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
     try {
       print('0000000000000000000000000000');
       //    LoadingScreen.show(context);
-      await ApiProducts.instance.unLikeProduct(product.productsId);
+      await ApiProducts.instance.likeProduct(product.productsId);
       //
       // Navigator.of(context).popUntil((route) => route.isFirst);
 

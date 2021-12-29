@@ -4,6 +4,7 @@ import 'package:tswooq/models/category_like_card.dart';
 import 'package:tswooq/models/groub_model.dart';
 import 'package:tswooq/models/producr_like_card.dart';
 import 'package:tswooq/models/slider_model.dart';
+import 'package:tswooq/models/user.dart';
 import 'package:tswooq/utils/vars.dart';
 
 import 'api_exception.dart';
@@ -43,13 +44,17 @@ class ApiHome {
 
   Future<GroupModel> getGroups({String id}) async {
     // Json Data
-//?vendor_id=3
+    String token = await _getUserToken();
+
     String s = id;
     if (s == null) s = "";
     var _response = await dio.get(ServerConstants.getGroup + s,
         // data: _data,
         options: Options(
-          headers: {...ServerConstants.apiHeaders},
+          headers: {
+            ...ServerConstants.apiHeaders,
+            'Authorization': token,
+          },
           validateStatus: (status) {
             return status < 500;
           },
@@ -128,4 +133,15 @@ class ApiHome {
       throw ApiException.fromApi(_response.statusCode, _response.data);
     }
   }
+}
+
+Future<String> _getUserToken() async {
+  print('_getUserToken()');
+  UserModel user = UserModel();
+  print('UserModel');
+
+  String userToken = await user.getToken;
+  print(userToken);
+  if (userToken == null) throw "User Not Logged In";
+  return userToken;
 }

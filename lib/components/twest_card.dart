@@ -66,7 +66,7 @@ class TwistCardState extends State<TwistCard> {
     try {
       print('0000000000000000000000000000');
       //    LoadingScreen.show(context);
-      await ApiProducts.instance.unLikeProduct(widget.product.productsId);
+      await ApiProducts.instance.likeProduct(widget.product.productsId);
       //
       // Navigator.of(context).popUntil((route) => route.isFirst);
 

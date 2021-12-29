@@ -1,10 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/search_product.dart';
 import 'package:tswooq/models/user.dart';
+import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
 import 'package:tswooq/utils/api.dart';
+import 'package:tswooq/utils/api_exception.dart';
+import 'package:tswooq/utils/api_products.dart';
 import 'package:tswooq/utils/vars.dart';
 
 import '../constants.dart';
@@ -33,6 +37,74 @@ class ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     user = ApiProvider.user;
+  }
+
+  Future<void> _unLikeSubmit() async {
+    try {
+      setState(() {});
+      print('0000000000000000000000000000');
+      //    LoadingScreen.show(context);
+      await ApiProducts.instance.unLikeProduct(widget.product.productsId);
+      //
+      // Navigator.of(context).popUntil((route) => route.isFirst);
+
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        // print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
+  }
+
+  Future<void> _likeSubmit() async {
+    try {
+      setState(() {});
+      print('0000000000000000000000000000');
+      //    LoadingScreen.show(context);
+      await ApiProducts.instance.likeProduct(widget.product.productsId);
+      //
+      // Navigator.of(context).popUntil((route) => route.isFirst);
+
+    } on ApiException catch (_) {
+      print('ApiException');
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, _.toString());
+    } on DioError catch (e) {
+      //<<<<< IN THIS LINE
+      print(
+          "e.response.statusCode    ////////////////////////////         DioError");
+      if (e.response.statusCode == 400) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        // print(e.request);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+
+      Navigator.of(context).pop();
+      ServerConstants.showDialog1(context, e.toString());
+    } finally {
+      if (mounted) setState(() {});
+    }
   }
 
   @override
@@ -99,14 +171,17 @@ class ProductCardState extends State<ProductCard> {
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
                           print(widget.product.productsLiked);
-                          // if (ApiProvider.user != null) {
-                          //   if (widget.product.productsLiked == "0")
-                          //     _likeSubmit();
-                          //   else
-                          //     _unLikeSubmit();
-                          // } else
-                          //   Navigator.of(context).push(MaterialPageRoute(
-                          //       builder: (context) => SignInScreen()));
+                          if (ApiProvider.user != null) {
+                            if (widget.product.productsLiked == 0) {
+                              widget.product.productsLiked = 1;
+                              _likeSubmit();
+                            } else {
+                              widget.product.productsLiked = 0;
+                              _unLikeSubmit();
+                            }
+                          } else
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SignInScreen()));
                         },
                         child: Container(
                           padding: EdgeInsets.all(6),

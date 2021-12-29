@@ -210,7 +210,7 @@ class ApiProducts {
     }
   }
 
-  Future<ProductsModel> likeProduct(int productId) async {
+  Future<void> likeProduct(int productId) async {
     // Json Data
     var _data = {
       "product_id": productId,
@@ -229,8 +229,8 @@ class ApiProducts {
         ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
-      products = ProductsModel.fromJson(_response.data);
-      return products;
+      // products = ProductsModel.fromJson(_response.data);
+      // return products;
       // categories = AllCategoriesModel.fromJson(_response.data);
       //return categories;
     } else {
