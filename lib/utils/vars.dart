@@ -23,13 +23,14 @@ class ImageConfig {
 }
 
 var dio = Dio()
-  ..interceptors.add(PrettyDioLogger(
-    requestHeader: true,
-    requestBody: true,
-    responseBody: true,
-    responseHeader: false,
-    compact: false,
-  ));
+    // ..interceptors.add(PrettyDioLogger(
+    //   requestHeader: true,
+    //   requestBody: true,
+    //   responseBody: true,
+    //   responseHeader: false,
+    //   compact: false,
+    // ))
+    ;
 
 class ServerConstants {
   static bool isValidResponse(int statusCode) {
