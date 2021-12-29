@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/producr_like_card.dart';
+import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
+import 'package:tswooq/utils/api.dart';
 import 'package:tswooq/utils/api_cart.dart';
 import 'package:tswooq/utils/api_exception.dart';
 import 'package:tswooq/utils/api_home.dart';
@@ -75,7 +77,7 @@ class _LikeCardProductScreenState extends State<LikeCardProductScreen> {
     } catch (e) {
       print('catch');
       print(e);
-
+      helpShowLongToast(helpEn(context) ? "Must Login" : "يجب تسجيل الدخول");
       // Navigator.of(context).pop();
       // ServerConstants.showDialog1(context, e.toString());
       // } finally {
@@ -128,7 +130,11 @@ class _LikeCardProductScreenState extends State<LikeCardProductScreen> {
                     ),
                     IconButton(
                         onPressed: () {
-                          _submit(product);
+                          if (ApiProvider.user == null)
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SignInScreen()));
+                          else
+                            _submit(product);
                         },
                         icon: Icon(Icons.shopping_cart))
                   ],

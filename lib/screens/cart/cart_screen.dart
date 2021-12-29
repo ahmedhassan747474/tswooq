@@ -382,9 +382,7 @@ class _CartScreenState extends State<CartScreen> {
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: helpImage(
-                                      ServerConstants.DOMAIN +
-                                          product[index].productsImage,
-                                      15),
+                                      product[index].productsImage, 15),
                                 ),
                               ),
                               SizedBox(width: 20),
