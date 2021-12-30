@@ -1,14 +1,11 @@
 class SearchProduct {
-  String success;
   List<Products> productData;
   String message;
   int totalRecord;
 
-  SearchProduct(
-      {this.success, this.productData, this.message, this.totalRecord});
+  SearchProduct({this.productData, this.message, this.totalRecord});
 
   SearchProduct.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
     if (json['product_data'] != null) {
       productData = new List<Products>();
       json['product_data'].forEach((v) {
@@ -27,7 +24,7 @@ class SearchProduct {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
+
     if (this.productData != null) {
       data['product_data'] = this.productData.map((v) => v.toJson()).toList();
     }

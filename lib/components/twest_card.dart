@@ -134,10 +134,14 @@ class TwistCardState extends State<TwistCard> {
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          if (widget.product.productsLiked == "0")
+                          if (widget.product.productsLiked == 0) {
+                            widget.product.productsLiked = 1;
                             _likeSubmit();
-                          else
+                          } else {
+                            widget.product.productsLiked = 0;
+
                             _unLikeSubmit();
+                          }
                         },
                         child: Container(
                           padding:
