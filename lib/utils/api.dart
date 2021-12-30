@@ -245,6 +245,6 @@ Future<String> _getUserToken() async {
 
   String userToken = await user.getToken;
   print(userToken);
-  if (userToken == null) throw "User Not Logged In";
+  // if (userToken == null) throw "User Not Logged In";
   return userToken;
 }

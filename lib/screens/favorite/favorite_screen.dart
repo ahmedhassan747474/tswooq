@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/components/permission_denied_widget.dart';
-import 'package:tswooq/components/product_card.dart';
-import 'package:tswooq/components/twest_card.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/search_product.dart';
 import 'package:tswooq/models/user.dart';
