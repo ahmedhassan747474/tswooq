@@ -29,6 +29,9 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
 
   _initData() async {
     categoriesLC = await ApiHome.instance.likeCardCategory();
+    categoriesLC.categories.data.removeAt(0);
+    categoriesLC.categories.data.removeAt(0);
+
     _isLoading = false;
     if (mounted) setState(() {});
   }
@@ -46,26 +49,27 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
       body: Padding(
         padding: EdgeInsets.all(6),
         child: StaggeredGridView.countBuilder(
-          scrollDirection: Axis.vertical,
-          crossAxisCount: kIsWeb ? 5 : 2,
-          mainAxisSpacing: 2,
-          crossAxisSpacing: 2,
-          padding: EdgeInsets.all(0.0),
-          staggeredTileBuilder: (_) => StaggeredTile.extent(
-            1,
-            kIsWeb
-                ? helpHeight(context) * .2
-                : helpMobile(context)
-                    ? helpWidth(context) * .4
-                    : helpWidth(context) * .4,
-          ),
-          itemCount: _isLoading
-              ? 20
-              : categoriesLC.categories == null
-                  ? 0
-                  : categoriesLC.categories.data?.length ?? 0,
-          itemBuilder: (ctx, index) => _isLoading
-              ? Column(
+            scrollDirection: Axis.vertical,
+            crossAxisCount: kIsWeb ? 5 : 2,
+            mainAxisSpacing: 2,
+            crossAxisSpacing: 2,
+            padding: EdgeInsets.all(0.0),
+            staggeredTileBuilder: (_) => StaggeredTile.extent(
+                  1,
+                  kIsWeb
+                      ? helpHeight(context) * .2
+                      : helpMobile(context)
+                          ? helpWidth(context) * .4
+                          : helpWidth(context) * .4,
+                ),
+            itemCount: _isLoading
+                ? 20
+                : categoriesLC.categories == null
+                    ? 0
+                    : categoriesLC.categories.data?.length ?? 0,
+            itemBuilder: (ctx, index) {
+              if (_isLoading)
+                return Column(
                   children: [
                     Container(
                         margin: EdgeInsets.only(bottom: 0, right: 5, left: 5),
@@ -74,8 +78,9 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                         margin: EdgeInsets.only(top: 5, right: 5, left: 5),
                         child: loadingShimmerWidget(75, 20, 10)),
                   ],
-                )
-              : Padding(
+                );
+              else
+                return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: CategoryCard(
                     icon: categoriesLC.categories.data[index].amazonImage,
@@ -112,8 +117,8 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
                             ? helpWidth(context) * .18
                             : helpWidth(context) * .15,
                   ),
-                ),
-        ),
+                );
+            }),
       ),
     );
   }
