@@ -79,10 +79,12 @@ class ProfileScreen extends StatelessWidget {
                                 await context.setLocale(
                                   Locale("en"),
                                 );
+                                helpLanguage = "en";
                               } else {
                                 await context.setLocale(
                                   Locale("ar"),
                                 );
+                                helpLanguage = "ar";
                               }
                             },
                           ),

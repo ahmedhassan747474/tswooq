@@ -7,6 +7,7 @@ import 'package:tswooq/models/search_product.dart';
 import 'package:tswooq/screens/details/details_screen.dart';
 import 'package:tswooq/translations/locale_keys.g.dart';
 
+import '../../constants.dart';
 import '../../size_config.dart';
 
 class SearchResult extends StatefulWidget {
@@ -47,7 +48,38 @@ class _SearchResultState extends State<SearchResult> {
           )
         ],
       ),
-      body: isGridView ? gridView(widget.products) : listView(widget.products),
+      body: isGridView
+          ? widget.products.productData.length == 0
+              ? Center(
+                  child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(),
+                    SizedBox(
+                      width: 100,
+                      child: Image.asset(
+                        "assets/logo.png",
+                      ),
+                    ),
+                    FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      color: kPrimaryColor,
+                      onPressed: () {
+                        // Navigator.pop(context);
+                      },
+                      child: Text(
+                        LocaleKeys.no_Product.tr(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
+                ))
+              : gridView(widget.products)
+          : listView(widget.products),
     );
   }
 
