@@ -9,13 +9,14 @@ import 'package:tswooq/routes.dart';
 import 'package:tswooq/screens/home/home_screen.dart';
 import 'package:tswooq/screens/sign_in/sign_in_screen.dart';
 import 'package:tswooq/screens/splash/splash.dart';
-import 'package:tswooq/screens/vendors/vendors.dart';
 import 'package:tswooq/theme.dart';
 import 'package:tswooq/translations/codegen_loader.g.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  setPathUrlStrategy();
   runApp(
     EasyLocalization(
       path: "assets/translations",
@@ -24,6 +25,7 @@ void main() async {
         Locale("en"),
       ],
       fallbackLocale: Locale("ar"),
+      startLocale: Locale("ar"),
       assetLoader: CodegenLoader(),
       saveLocale: true,
       child: MyApp(),

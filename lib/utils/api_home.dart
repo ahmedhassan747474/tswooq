@@ -54,6 +54,7 @@ class ApiHome {
           headers: {
             ...ServerConstants.apiHeaders,
             'Authorization': token,
+            "language_id": helpLanguage == 'en' ? 1 : 2,
           },
           validateStatus: (status) {
             return status < 500;
