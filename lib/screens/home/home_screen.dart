@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Icons.shopping_cart_outlined,
                                 color: selectedIndexHome == 1
                                     ? Colors.white
-                                    : inActiveIconColor,
+                                    : Colors.white,
                               ),
                               () => setState(() {
                                 selectedIndexHome = 1;

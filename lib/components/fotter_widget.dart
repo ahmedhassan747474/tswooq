@@ -232,7 +232,8 @@ class _FotterWidgetState extends State<FooterWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () => helpLauncher(
+                        "https://play.google.com/store/apps/details?id=com.tswooq.tswooq"),
                     child: SizedBox(
                       // aspectRatio: 1.02,
                       width: helpWidth(context) * .1 < 100
@@ -249,7 +250,8 @@ class _FotterWidgetState extends State<FooterWidget> {
                     height: 10,
                   ),
                   InkWell(
-                    onTap: () => helpLauncher("https://twitter.com/tswooq"),
+                    onTap: () => helpLauncher(
+                        "https://apps.apple.com/us/app/tswooq/id1582862217#?platform=iphone"),
                     child: SizedBox(
                       width: helpWidth(context) * .1 < 100
                           ? 100

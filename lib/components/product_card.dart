@@ -189,15 +189,15 @@ class ProductCardState extends State<ProductCard> {
                           width: 35,
                           decoration: BoxDecoration(
                             color: widget.product.productsLiked == 0
-                                ? kPrimaryColor.withOpacity(0.15)
-                                : kSecondaryColor.withOpacity(0.1),
+                                ? kPrimaryColor.withOpacity(0.05)
+                                : kSecondaryColor.withOpacity(0.05),
                             shape: BoxShape.circle,
                           ),
                           child: SvgPicture.asset(
                             "assets/icons/Heart Icon_2.svg",
                             color: widget.product.productsLiked != 0
                                 ? Color(0xFFFF4848)
-                                : Colors.black26,
+                                : Colors.black38,
                           ),
                         ),
                       ),

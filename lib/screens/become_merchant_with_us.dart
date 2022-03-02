@@ -91,6 +91,7 @@ class _BecomeMerchantWidgetState extends State<BecomeMerchant> {
                                   10,
                                   Container(
                                     color: Color(0xFF133444),
+                                    padding: const EdgeInsets.all(8.0),
                                     // width: 400,
                                     child: Text(
                                       "${beCome.data[index].name}",
