@@ -31,7 +31,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final w = helpWidth(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(

@@ -157,7 +157,16 @@ class ProductCardState extends State<ProductCard> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Spacer(),
+                  Center(
+                    child: Text(
+                      widget.product.shopName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: kIsWeb ? 25 : helpWidth(context) * .025),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

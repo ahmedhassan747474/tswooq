@@ -1,12 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tswooq/components/product_card.dart';
 import 'package:tswooq/components/twest_card.dart';
 import 'package:tswooq/helper/help.dart';
+
+import 'package:tswooq/models/all_categories.dart';
 import 'package:tswooq/models/products.dart';
 import 'package:tswooq/screens/details/details_screen.dart';
+import 'package:tswooq/screens/product_list/product_by_brand.dart';
+import 'package:tswooq/utils/api_categories.dart';
 import 'package:tswooq/utils/api_products.dart';
 
 class ProductByCategoryScreen extends StatefulWidget {
@@ -29,6 +34,7 @@ class ProductByCategoryScreen extends StatefulWidget {
 class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   ProductsModel product =
       new ProductsModel(productData: [], lastPage: 30, to: 30);
+  AllCategoriesModel brand = new AllCategoriesModel(data: []);
   bool isGridView = true;
   bool _isLoading = true;
   int page = 1;
@@ -40,8 +46,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   }
 
   _initData() async {
-    // product = await ApiProducts.instance.getProductsByBrand(widget.id);
-    // //
+    brand = await ApiCategories.instance.allBrand(widget.id);
     product = await ApiProducts.instance.getProductsByCategory(widget.id, page);
     _isLoading = false;
     if (mounted) setState(() {});
@@ -88,30 +93,122 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(color: Colors.black),
+      appBar: PreferredSize(
+        child: Container(
+          // height: 100,
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + 5,
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                      color: Colors.white,
+                      padding: EdgeInsets.zero,
+                      onPressed: () => Navigator.pop(context),
+                      child: helpEn(context)
+                          ? SvgPicture.asset(
+                              "assets/icons/Back ICon.svg",
+                              height: 15,
+                            )
+                          : Icon(Icons.arrow_back_ios_rounded),
+                    ),
+                  ),
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                    icon: isGridView ? Icon(Icons.list) : Icon(Icons.grid_view),
+                    onPressed: () {
+                      setState(() {
+                        if (isGridView)
+                          isGridView = false;
+                        else
+                          isGridView = true;
+                      });
+                    },
+                    color: Colors.black,
+                  )
+                ],
+              ),
+              if (!_isLoading)
+                Container(
+                  height: 45,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 0,
+                      // horizontal: helpWidth(context) > 600 ? 70 : 20,
+                    ),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ...List.generate(
+                          brand.data.length ?? 0,
+                          (index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ProductBrandScreen(
+                                          id: brand.data[index].categoriesId,
+                                          title:
+                                              brand.data[index].categoriesName,
+                                        )));
+                              },
+                              child: helpClip(
+                                  10,
+                                  Container(
+                                    color: Color(0xFF143444),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          brand.data[index].categoriesName,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w800),
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: isGridView ? Icon(Icons.list) : Icon(Icons.grid_view),
-            onPressed: () {
-              setState(() {
-                if (isGridView)
-                  isGridView = false;
-                else
-                  isGridView = true;
-              });
-            },
-            color: Colors.black,
-          )
-        ],
+        preferredSize: Size.fromHeight(100),
       ),
       body: _isLoading
           ? helpLoading()
           : SmartRefresher(
+              // physics: ClampingScrollPhysics(),
+              // physics: ScrollPhysics(),
               enablePullUp: true,
               enablePullDown: false,
               header: WaterDropHeader(),
@@ -124,7 +221,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
               },
               child: isGridView ? gridView(product) : listView(product),
             ),
-      bottomNavigationBar: kDebugMode
+      bottomNavigationBar: (kIsWeb || kDebugMode)
           ? Container(
               height: 50,
               child: ListView.builder(
