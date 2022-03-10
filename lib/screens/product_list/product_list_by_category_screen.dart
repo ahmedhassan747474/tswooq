@@ -146,7 +146,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
               ),
               if (!_isLoading)
                 Container(
-                  height: 45,
+                  height: 40,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: 0,
