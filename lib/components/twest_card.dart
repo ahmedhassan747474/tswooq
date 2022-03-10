@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/search_product.dart';
+
 import 'package:tswooq/utils/api_exception.dart';
 import 'package:tswooq/utils/api_products.dart';
 import 'package:tswooq/utils/vars.dart';
@@ -129,7 +130,7 @@ class TwistCardState extends State<TwistCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      helpCurrency("${widget.product..attributes[0].price}",
+                      helpCurrency("${widget.product.attributes[0].price}",
                           AppColors.PRIMARY_COLOR, context),
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
@@ -149,16 +150,16 @@ class TwistCardState extends State<TwistCard> {
                           height: getProportionateScreenWidth(28),
                           width: getProportionateScreenWidth(28),
                           decoration: BoxDecoration(
-                            color: widget.product.productsLiked == "0"
+                            color: widget.product.productsLiked == 0
                                 ? kPrimaryColor.withOpacity(0.15)
                                 : kSecondaryColor.withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: SvgPicture.asset(
                             "assets/icons/Heart Icon_2.svg",
-                            color: widget.product.productsLiked != "0"
+                            color: widget.product.productsLiked != 0
                                 ? Color(0xFFFF4848)
-                                : Color(0xFFDBDEE4),
+                                : Colors.black38,
                           ),
                         ),
                       ),

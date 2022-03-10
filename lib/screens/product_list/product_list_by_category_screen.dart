@@ -27,7 +27,8 @@ class ProductByCategoryScreen extends StatefulWidget {
 }
 
 class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
-  ProductsModel product = new ProductsModel(productData: []);
+  ProductsModel product =
+      new ProductsModel(productData: [], lastPage: 30, to: 30);
   bool isGridView = true;
   bool _isLoading = true;
   int page = 1;
@@ -53,7 +54,11 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
 
     products =
         await ApiProducts.instance.getProductsByCategory(widget.id, page);
-    product.productData.addAll(products.productData);
+    if (kIsWeb)
+      product.productData.insertAll(0, products.productData);
+    else
+      product.productData.addAll(products.productData);
+
     if (mounted) setState(() {});
     _controller.refreshCompleted();
   }
@@ -68,42 +73,71 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: TextStyle(color: Colors.black),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon: isGridView ? Icon(Icons.list) : Icon(Icons.grid_view),
-              onPressed: () {
-                setState(() {
-                  if (isGridView)
-                    isGridView = false;
-                  else
-                    isGridView = true;
-                });
-              },
-              color: Colors.black,
-            )
-          ],
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.black),
         ),
-        body: _isLoading
-            ? helpLoading()
-            : SmartRefresher(
-                enablePullUp: true,
-                enablePullDown: false,
-                header: WaterDropHeader(),
-                controller: _controller,
-                onLoading: () async {
-                  // await Future.delayed(Duration(milliseconds: 1000));
-                  _controller.loadComplete();
-                  _onRefresh();
-                  setState(() {});
-                },
-                child: isGridView ? gridView(product) : listView(product),
-              ));
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: isGridView ? Icon(Icons.list) : Icon(Icons.grid_view),
+            onPressed: () {
+              setState(() {
+                if (isGridView)
+                  isGridView = false;
+                else
+                  isGridView = true;
+              });
+            },
+            color: Colors.black,
+          )
+        ],
+      ),
+      body: _isLoading
+          ? helpLoading()
+          : SmartRefresher(
+              enablePullUp: true,
+              enablePullDown: false,
+              header: WaterDropHeader(),
+              controller: _controller,
+              onLoading: () async {
+                // await Future.delayed(Duration(milliseconds: 1000));
+                _controller.loadComplete();
+                _onRefresh();
+                setState(() {});
+              },
+              child: isGridView ? gridView(product) : listView(product),
+            ),
+      bottomNavigationBar: kDebugMode
+          ? Container(
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: product?.to ?? product?.lastPage ?? 30,
+                itemBuilder: (ctx, index) => Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: helpClip(
+                      8,
+                      InkWell(
+                        onTap: () => _onRefresh(),
+                        child: Container(
+                            color: Color(0xFF143444),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Center(
+                                child: Text(
+                                  "${index + 1}",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            )),
+                      )),
+                ),
+              ))
+          : SizedBox(),
+    );
   }
 
   Widget listView(ProductsModel product) {

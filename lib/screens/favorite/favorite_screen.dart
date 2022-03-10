@@ -261,7 +261,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                             "assets/icons/Heart Icon_2.svg",
                                             color:
                                                 product[index].productsLiked !=
-                                                        "0"
+                                                        0
                                                     ? Color(0xFFFF4848)
                                                     : Color(0xFFDBDEE4),
                                           ),

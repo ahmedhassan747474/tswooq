@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -64,7 +62,7 @@ class ServerConstants {
   }
 
   static const bool IS_DEBUG = true; // TODO: Close Debugging in Release.
-  static const String DOMAIN = "https://tswooq.sharee3.net/";
+  static const String DOMAIN = "https://admin.tswooq.com/";
   static const String API = "${DOMAIN}api/v1/";
   static const String Login = "${API}sign_in";
   static const String LoginFB = "${API}sign_with_social";

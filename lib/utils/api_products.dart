@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/fav_model.dart';
 import 'package:tswooq/models/get_product.dart';
@@ -53,7 +52,7 @@ class ApiProducts {
     // Json Data
     var _data = {
       "language_id": helpLanguage == 'en' ? 1 : 2,
-      // "limit": 100,
+      "limit": 100,
       "page": page,
       "categories_id": id
     };

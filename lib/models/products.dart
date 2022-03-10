@@ -17,12 +17,17 @@ class ProductsModel {
     this.productData,
     this.message,
     this.totalRecord,
+    this.lastPage,
+    this.to,
   });
 
   String success;
   List<Products> productData;
   String message;
   int totalRecord;
+  String firstPageUrl;
+  int lastPage = 30;
+  int to = 30;
 
   factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
         // success: json["success"],
@@ -30,6 +35,8 @@ class ProductsModel {
             List<Products>.from(json["data"].map((x) => Products.fromJson(x))),
         message: json["message"],
         totalRecord: json["total_record"],
+        lastPage: json["last_page"] ?? 30,
+        to: json["to"] ?? 30,
       );
 
   Map<String, dynamic> toJson() => {

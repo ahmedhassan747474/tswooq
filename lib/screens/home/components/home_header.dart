@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/screens/home/components/search_field.dart';
 import 'package:tswooq/screens/home/qr.dart';
 import 'package:tswooq/utils/vars.dart';
 
-import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class HomeHeader extends StatelessWidget {

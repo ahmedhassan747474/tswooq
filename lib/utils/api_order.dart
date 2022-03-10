@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/order.dart';
 import 'package:tswooq/models/payment.dart';
 import 'package:tswooq/models/payment_method.dart';
 import 'package:tswooq/models/user.dart';
-import 'package:tswooq/models/vendor_be_come.dart';
 import 'package:tswooq/utils/api.dart';
 import 'package:tswooq/utils/vars.dart';
 
@@ -135,6 +133,7 @@ class ApiOrder {
       "total_tax": 0.0,
       "language_id": helpLanguage == 'ar' ? 2 : 1,
       "comments": "$comments",
+      // ignore: equal_keys_in_map
       "payment_method": "new_tap",
     });
 

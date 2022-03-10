@@ -9,10 +9,15 @@ class GetProduct {
   GetProduct({this.success, this.productData, this.message, this.totalRecord});
 
   GetProduct.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
     if (json['product_data'] != null) {
       productData = new List<Products>();
       json['product_data'].forEach((v) {
+        productData.add(new Products.fromJson(v));
+      });
+    }
+    if (json['data'] != null) {
+      productData = new List<Products>();
+      json['data'].forEach((v) {
         productData.add(new Products.fromJson(v));
       });
     }

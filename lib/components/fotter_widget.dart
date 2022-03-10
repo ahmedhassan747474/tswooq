@@ -10,7 +10,6 @@ class FooterWidget extends StatefulWidget {
 }
 
 class _FotterWidgetState extends State<FooterWidget> {
-  String _value;
   List<String> values = ["Arabic", "English"];
   Widget list(List<Widget> w) {
     return helpWidth(context) < 600
@@ -27,7 +26,6 @@ class _FotterWidgetState extends State<FooterWidget> {
   @override
   Widget build(BuildContext context) {
     print(helpWidth(context));
-    double height = MediaQuery.of(context).size.height;
     return Column(
       children: [
         list([
@@ -91,7 +89,7 @@ class _FotterWidgetState extends State<FooterWidget> {
                 ),
               ),
               Text(
-                "054212121210",
+                "0536990111",
                 overflow: TextOverflow.visible,
                 style: GoogleFonts.merriweather(
                   textStyle: TextStyle(

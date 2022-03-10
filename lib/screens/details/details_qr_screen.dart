@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:readmore/readmore.dart';
 import 'package:tswooq/components/default_button.dart';
 import 'package:tswooq/components/rounded_icon_btn.dart';
 import 'package:tswooq/helper/help.dart';
@@ -39,13 +41,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
   String price = '';
   int id = 0;
   bool _isLoading = true;
-  String removeAllHtmlTags(String htmlText) {
-    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
-    return htmlText.replaceAll(exp, '');
-  }
-
-  String firstHalf;
-  String secondHalf;
+  int indexProduct = 0;
 
   bool flag = true;
 
@@ -60,11 +56,8 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
     // id = product.attributes.;
     product = getproduct.productData[0];
     price = "0";
-
-    Attributes attributes = product.attributes
-        .singleWhere((element) => element.id == widget.id, orElse: () {
-      return null;
-    });
+    if (product != null) price = product.attributes[0].price;
+    Attributes attributes = product.attributes[0];
     if (attributes != null) price = attributes.price;
 
     _isLoading = false;
@@ -213,7 +206,7 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    width: getProportionateScreenWidth(238),
+                    width: kIsWeb ? 300 : getProportionateScreenWidth(238),
                     child: AspectRatio(
                       aspectRatio: 1,
                       child: helpImage(product.productsImage, 0),
@@ -227,33 +220,27 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                           (index) => buildSmallProductPreview(index)),
                     ],
                   ),
+                  // ProductImages(product: product),
                   TopRoundedContainer(
                     color: Colors.white,
                     child: Column(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            print(product.attributes
-                                .where((element) => element.id == widget.id));
-                            print(product.toJson());
-                            print(widget.id);
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: getProportionateScreenWidth(20)),
-                            child: Text(
-                              product.productsName,
-                              // price,
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(20)),
+                          child: Text(
+                            product.productsName,
+                            // price,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                         ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             onTap: () {
+                              // print(product.productsLiked);
                               if (ApiProvider.user != null) {
-                                if (product.productsLiked == "0")
+                                if (product.productsLiked == 0)
                                   _likeSubmit();
                                 else
                                   _unLikeSubmit();
@@ -262,12 +249,11 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                     builder: (context) => SignInScreen()));
                             },
                             child: Container(
-                              padding: EdgeInsets.all(
-                                  getProportionateScreenWidth(15)),
-                              width: getProportionateScreenWidth(64),
+                              padding: EdgeInsets.all(15),
+                              width: kIsWeb ? 70 : 64,
                               decoration: BoxDecoration(
-                                color: product.productsLiked == "0"
-                                    ? Color(0xFFFFE6E6)
+                                color: product.productsLiked == 0
+                                    ? Color(0xFFF6F7F9)
                                     : Color(0xFFF5F6F9),
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20),
@@ -276,87 +262,80 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                               ),
                               child: SvgPicture.asset(
                                 "assets/icons/Heart Icon_2.svg",
-                                color: product.productsLiked == "0"
-                                    ? Color(0xFFFF4848)
-                                    : Color(0xFFDBDEE4),
+                                color: product.productsLiked == 0
+                                    ? Color(0xFFDBDEE4)
+                                    : Color(0xFFFF4848),
                                 height: getProportionateScreenWidth(16),
                               ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(
-                            left: getProportionateScreenWidth(20),
-                            right: getProportionateScreenWidth(64),
-                          ),
-                          child: Text(
-                            removeAllHtmlTags(product.productsDescription),
-                            maxLines: 3,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getProportionateScreenWidth(20),
-                            vertical: 10,
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                flag = !flag;
-                              });
-                            },
-                            child: Row(
-                              children: [
-                                Text(
-                                  flag
-                                      ? LocaleKeys.See_More_translate.tr()
-                                      : LocaleKeys.show_less_translate.tr(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: kPrimaryColor),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 12,
-                                  color: kPrimaryColor,
-                                ),
-                              ],
-                            ),
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: ReadMoreText(
+                            product.productsDescription,
+                            trimLines: 2,
+                            colorClickableText: Colors.black87,
+                            style: TextStyle(color: Colors.black54),
+                            trimMode: TrimMode.Line,
+                            trimCollapsedText: helpEn(context)
+                                ? '...Read more'
+                                : "...قراءة المزيد",
+                            trimExpandedText: helpEn(context) ? ' Less' : "اقل",
                           ),
                         ),
                         SizedBox(width: 10),
-                        ...List.generate(
-                          product.attributes.length,
-                          (index) => GestureDetector(
-                            onTap: () {
-                              price = product.attributes[index].price;
-                              id = product.attributes[index].id;
-                              selectedImage = index;
-                              setState(() {});
-                            },
-                            child: Container(
-                                height: 50,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 25, vertical: 5),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        getProportionateScreenWidth(20)),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black,
-                                        width:
-                                            product.attributes[index].id == id
-                                                ? 3
-                                                : .5)),
-                                child: Row(
-                                  children: [
-                                    Text(product.attributes[index].color ?? ""),
-                                    product.attributes[index].size != null
-                                        ? Text(product.attributes[index].size)
-                                        : Container(),
-                                  ],
-                                )),
+                        Column(
+                          children: List.generate(
+                            product.attributes.length,
+                            (index) => GestureDetector(
+                              onTap: () {
+                                price = product.attributes[index].price;
+
+                                id = product.attributes[index].id;
+                                indexProduct = index;
+                                print(product.attributes[index].id);
+                                setState(() {});
+                              },
+                              child: Container(
+                                  height: 50,
+                                  width: kIsWeb
+                                      ? helpWidth(context) > 600
+                                          ? 300
+                                          : double.infinity
+                                      : double.infinity,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 25, vertical: 5),
+                                  // padding: EdgeInsets.symmetric(
+                                  //     horizontal: getProportionateScreenWidth(20)),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width:
+                                              product.attributes[index].id == id
+                                                  ? 3
+                                                  : .5)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(product.attributes[index].color ??
+                                          ""),
+                                      product.attributes[index].size != null
+                                          ? Text(' - ' +
+                                              product.attributes[index].size)
+                                          : Container(),
+                                      product.attributes[index].memory != null
+                                          ? Text(' - ' +
+                                              product.attributes[index].memory)
+                                          : Container(),
+                                      Spacer(),
+                                      helpCurrency(
+                                          "${product.attributes[index].price}",
+                                          AppColors.PRIMARY_COLOR,
+                                          context),
+                                    ],
+                                  )),
+                            ),
                           ),
                         ),
                         SizedBox(width: 5),
@@ -405,52 +384,97 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                 color: Colors.white,
                                 child: Padding(
                                   padding: EdgeInsets.only(
-                                    left: SizeConfig.screenWidth * 0.15,
-                                    right: SizeConfig.screenWidth * 0.15,
-                                    bottom: getProportionateScreenWidth(40),
-                                    top: getProportionateScreenWidth(15),
+                                    left: kIsWeb
+                                        ? 70
+                                        : SizeConfig.screenWidth * 0.15,
+                                    right: kIsWeb
+                                        ? 70
+                                        : SizeConfig.screenWidth * 0.15,
+                                    bottom: 20,
+                                    top: 15,
                                   ),
-                                  child: product.productsQuantity == "0"
+                                  child: product.attributes[indexProduct]
+                                              .quantity ==
+                                          0
                                       ? Container(
                                           height: 50,
                                           color: Colors.red,
-                                          width: 56,
+                                          width: 150,
                                           child: SizedBox(
                                             width: double.infinity,
                                             height: 56,
                                             child: FlatButton(
                                               color: Colors.amber,
-                                              // onPressed: press,
                                               child: Text(
                                                 LocaleKeys.Not_Available.tr(),
                                                 style: TextStyle(
-                                                  fontSize:
-                                                      getProportionateScreenWidth(
-                                                          18),
+                                                  fontSize: 16,
                                                   color: Colors.white,
                                                 ),
                                               ),
                                             ),
                                           ),
                                         )
-                                      : DefaultButton(
-                                          text: (LocaleKeys
-                                              .Add_To_Cart_translate.tr()),
-                                          press: () {
-                                            // String token = await user.getToken;
-                                            if (product.productsQuantity == 0)
-                                              _toastInfo(LocaleKeys
-                                                  .not_added_translate
-                                                  .tr());
-                                            else if (ApiProvider.user == null)
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          SignInScreen()));
-                                            else
-                                              _submit();
-                                          },
+                                      : Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: kIsWeb ? 16 : 8.0,
+                                              horizontal: kIsWeb ? 32 : 8.0),
+                                          child: FlatButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            color: kPrimaryColor,
+                                            onPressed: () {
+                                              if (product.productsQuantity ==
+                                                  "0")
+                                                _toastInfo(LocaleKeys
+                                                    .not_added_translate
+                                                    .tr());
+                                              else if (ApiProvider.user == null)
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SignInScreen()));
+                                              else
+                                                _submit();
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical:
+                                                          kIsWeb ? 8 : 8.0,
+                                                      horizontal:
+                                                          kIsWeb ? 32 : 8.0),
+                                              child: Text(
+                                                (LocaleKeys
+                                                        .Add_To_Cart_translate
+                                                    .tr()),
+                                                style: TextStyle(
+                                                  fontSize: kIsWeb
+                                                      ? 24
+                                                      : helpWidth(context) *
+                                                          .04,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
+                                  // DefaultButton(
+                                  //         text: (LocaleKeys.Add_To_Cart_translate.tr()),
+                                  //         press: () {
+                                  //           if (product.productsQuantity == "0")
+                                  //             _toastInfo(
+                                  //                 LocaleKeys.not_added_translate.tr());
+                                  //           else if (ApiProvider.user == null)
+                                  //             Navigator.of(context).push(
+                                  //                 MaterialPageRoute(
+                                  //                     builder: (context) =>
+                                  //                         SignInScreen()));
+                                  //           else
+                                  //             _submit();
+                                  //         },
+                                  //       ),
                                 ),
                               ),
                             ],

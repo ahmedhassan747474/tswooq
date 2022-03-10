@@ -48,6 +48,7 @@ class ApiHome {
 
     String s = id;
     if (s == null) s = "";
+
     var _response = await dio.get(ServerConstants.getGroup + s,
         // data: _data,
         options: Options(

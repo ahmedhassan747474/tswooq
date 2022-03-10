@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/brands.dart';
 import 'package:tswooq/utils/vars.dart';

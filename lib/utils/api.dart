@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/models/updata_model.dart';
 import 'package:tswooq/models/user.dart';
 import 'package:tswooq/utils/vars.dart';

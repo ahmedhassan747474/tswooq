@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:readmore/readmore.dart';
-import 'package:tswooq/components/default_button.dart';
 import 'package:tswooq/components/rounded_icon_btn.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/search_product.dart';
@@ -40,6 +39,7 @@ class BodyState extends State<Body> {
   String price = '0';
   List images;
   int id = 0;
+  int indexProduct = 0;
 
   double borderWidth = 1.0;
   String removeAllHtmlTags(String htmlText) {
@@ -51,7 +51,7 @@ class BodyState extends State<Body> {
   void initState() {
     // user = ApiProvider.user;
     super.initState();
-    if (widget.product?.attributes.isNotEmpty) {
+    if (widget.product?.attributes?.isNotEmpty) {
       id = widget.product.attributes[0].id;
       price = widget.product.attributes[0].price;
     }
@@ -212,7 +212,7 @@ class BodyState extends State<Body> {
                   (index) => buildSmallProductPreview(index)),
             ],
           ),
-          // ProductImages(product: widget.product),
+          // ProductImages(product: product),
           TopRoundedContainer(
             color: Colors.white,
             child: Column(
@@ -282,8 +282,9 @@ class BodyState extends State<Body> {
                     (index) => GestureDetector(
                       onTap: () {
                         price = widget.product.attributes[index].price;
+
                         id = widget.product.attributes[index].id;
-                        selectedImage = index;
+                        indexProduct = index;
                         print(widget.product.attributes[index].id);
                         setState(() {});
                       },
@@ -306,6 +307,7 @@ class BodyState extends State<Body> {
                                           ? 3
                                           : .5)),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                   widget.product.attributes[index].color ?? ""),
@@ -375,69 +377,67 @@ class BodyState extends State<Body> {
                             bottom: 20,
                             top: 15,
                           ),
-                          child: widget.product.productsQuantity == '0'
+                          child: widget.product.attributes[indexProduct]
+                                      .quantity ==
+                                  0
                               ? Container(
                                   height: 50,
                                   color: Colors.red,
-                                  width: 56,
+                                  width: 150,
                                   child: SizedBox(
                                     width: double.infinity,
                                     height: 56,
                                     child: FlatButton(
                                       color: Colors.amber,
-                                      // onPressed: press,
                                       child: Text(
                                         LocaleKeys.Not_Available.tr(),
                                         style: TextStyle(
-                                          fontSize:
-                                              getProportionateScreenWidth(18),
+                                          fontSize: 16,
                                           color: Colors.white,
                                         ),
                                       ),
                                     ),
                                   ),
                                 )
-                              : FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  color: kPrimaryColor,
-                                  onPressed: () {
-                                    if (widget.product.productsQuantity == "0")
-                                      _toastInfo(
-                                          LocaleKeys.not_added_translate.tr());
-                                    else if (ApiProvider.user == null)
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SignInScreen()));
-                                    else
-                                      _submit();
-                                  },
-                                  child: Text(
-                                    (LocaleKeys.Add_To_Cart_translate.tr()),
-                                    style: TextStyle(
-                                      fontSize: kIsWeb
-                                          ? 30
-                                          : helpWidth(context) * .04,
-                                      color: Colors.white,
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: kIsWeb ? 16 : 8.0,
+                                      horizontal: kIsWeb ? 32 : 8.0),
+                                  child: FlatButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    color: kPrimaryColor,
+                                    onPressed: () {
+                                      if (widget.product.productsQuantity ==
+                                          "0")
+                                        _toastInfo(LocaleKeys
+                                            .not_added_translate
+                                            .tr());
+                                      else if (ApiProvider.user == null)
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignInScreen()));
+                                      else
+                                        _submit();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: kIsWeb ? 8 : 8.0,
+                                          horizontal: kIsWeb ? 32 : 8.0),
+                                      child: Text(
+                                        (LocaleKeys.Add_To_Cart_translate.tr()),
+                                        style: TextStyle(
+                                          fontSize: kIsWeb
+                                              ? 24
+                                              : helpWidth(context) * .04,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                          // DefaultButton(
-                          //         text: (LocaleKeys.Add_To_Cart_translate.tr()),
-                          //         press: () {
-                          //           if (widget.product.productsQuantity == "0")
-                          //             _toastInfo(
-                          //                 LocaleKeys.not_added_translate.tr());
-                          //           else if (ApiProvider.user == null)
-                          //             Navigator.of(context).push(
-                          //                 MaterialPageRoute(
-                          //                     builder: (context) =>
-                          //                         SignInScreen()));
-                          //           else
-                          //             _submit();
-                          //         },
-                          //       ),
                         ),
                       ),
                     ],
