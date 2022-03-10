@@ -425,8 +425,10 @@ class _DetailsQrScreenState extends State<DetailsQrScreen> {
                                                     BorderRadius.circular(20)),
                                             color: kPrimaryColor,
                                             onPressed: () {
-                                              if (product.productsQuantity ==
-                                                  "0")
+                                              if (product
+                                                      .attributes[indexProduct]
+                                                      .quantity ==
+                                                  0)
                                                 _toastInfo(LocaleKeys
                                                     .not_added_translate
                                                     .tr());

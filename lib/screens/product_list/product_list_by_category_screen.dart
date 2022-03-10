@@ -32,6 +32,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   bool isGridView = true;
   bool _isLoading = true;
   int page = 1;
+  int pageIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -58,6 +59,20 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
       product.productData.insertAll(0, products.productData);
     else
       product.productData.addAll(products.productData);
+
+    if (mounted) setState(() {});
+    _controller.refreshCompleted();
+  }
+
+  void _onPage(int page) async {
+    // ProductsModel products = new ProductsModel(productData: []);
+    pageIndex = page - 1;
+    setState(() {});
+    product = await ApiProducts.instance.getProductsByCategory(widget.id, page);
+    // if (kIsWeb)
+    //   product.productData.insertAll(0, products.productData);
+    // else
+    //   product.productData.addAll(products.productData);
 
     if (mounted) setState(() {});
     _controller.refreshCompleted();
@@ -120,16 +135,31 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
                   child: helpClip(
                       8,
                       InkWell(
-                        onTap: () => _onRefresh(),
+                        onTap: () => _onPage(index + 1),
                         child: Container(
-                            color: Color(0xFF143444),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: pageIndex == index
+                                      ? Color(0xFF143444)
+                                      : Colors.white),
+                              borderRadius: BorderRadius.circular(10),
+                              color: pageIndex == index
+                                  ? Colors.white
+                                  : Color(0xFF143444),
+                              // boxShadow: [
+                              //   BoxShadow(color: Colors.green, spreadRadius: 3),
+                              // ],
+                            ),
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8),
                               child: Center(
                                 child: Text(
                                   "${index + 1}",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: pageIndex == index
+                                          ? Color(0xFF143444)
+                                          : Colors.white),
                                 ),
                               ),
                             )),

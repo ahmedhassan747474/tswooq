@@ -409,8 +409,11 @@ class BodyState extends State<Body> {
                                             BorderRadius.circular(20)),
                                     color: kPrimaryColor,
                                     onPressed: () {
-                                      if (widget.product.productsQuantity ==
-                                          "0")
+                                      if (widget
+                                              .product
+                                              .attributes[indexProduct]
+                                              .quantity ==
+                                          0)
                                         _toastInfo(LocaleKeys
                                             .not_added_translate
                                             .tr());
