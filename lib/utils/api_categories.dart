@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/all_categories.dart';
 import 'package:tswooq/utils/vars.dart';
@@ -49,14 +48,6 @@ class ApiCategories {
       "language_id": helpLanguage == 'ar' ? 2 : 1
     };
 
-    var dio = Dio()
-      ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        compact: false,
-      ));
     var _response = await dio.post(ServerConstants.get_brands_by_category,
         data: _data,
         options: Options(

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -8,11 +7,7 @@ import 'package:tswooq/components/twest_card.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/products.dart';
 import 'package:tswooq/screens/details/details_screen.dart';
-import 'package:tswooq/translations/locale_keys.g.dart';
 import 'package:tswooq/utils/api_products.dart';
-
-import '../../constants.dart';
-import '../../size_config.dart';
 
 class ProductBrandScreen extends StatefulWidget {
   final int id;
@@ -44,6 +39,7 @@ class ProductBrandScreenState extends State<ProductBrandScreen> {
   }
 
   _initData() async {
+    print(widget.id);
     product = await ApiProducts.instance.getProductsByBrand(widget.id);
     _isLoading = false;
     if (mounted) setState(() {});

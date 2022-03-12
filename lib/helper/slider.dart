@@ -53,11 +53,7 @@ Widget imageSlider(List<Sliders> sliders, bool loading, double width) {
                   height: kIsWeb ? 400 : 200,
                   viewportFraction: 1.0,
                   onPageChanged: (index, reason) {
-                    // setState(() {
-                    //   // _current = index;
-                    //   // _alignmentDirectional = Helper.getAlignmentDirectional(
-                    //   //     widget.slides.elementAt(index).textPosition);
-                    // });
+                    // print("${ServerConstants.DOMAIN}${sliders[index].path}");
                   },
                 ),
                 items: List.generate(

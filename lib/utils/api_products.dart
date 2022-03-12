@@ -109,7 +109,7 @@ class ApiProducts {
   Future<ProductsModel> getProductsByBrand(int id) async {
     // Json Data
     var _data = {"language_id": 1, "limit": 100, "page": 1, "brand_id": id};
-    var _response = await dio.post(ServerConstants.getproductbyid,
+    var _response = await dio.post(ServerConstants.Products_By_Brand,
         data: _data,
         options: Options(
           headers: {...ServerConstants.apiHeaders},
