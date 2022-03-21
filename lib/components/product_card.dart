@@ -170,7 +170,7 @@ class ProductCardState extends State<ProductCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      widget.product?.attributes.isEmpty
+                      widget.product?.attributes?.isEmpty
                           ? SizedBox()
                           : helpCurrency(
                               "${widget.product?.attributes[0]?.price ?? 0}",
