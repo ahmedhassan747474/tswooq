@@ -56,11 +56,15 @@ class _SignFormState extends State<SignForm> {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => HomeScreen()));
       }
-    } on ApiException catch (_) {
+    } on ApiException catch (e, s) {
       print('ApiException');
+      print(e);
+      print(s);
       Navigator.of(context).pop();
-      ServerConstants.showDialog1(context, _.toString());
-    } on DioError catch (e) {
+      ServerConstants.showDialog1(context, e.toString());
+    } on DioError catch (e, s) {
+      print(e);
+      print(s);
       print(
           "e.response.statusCode    ////////////////////////////         DioError");
       if (e.response.statusCode == 400) {
@@ -69,9 +73,10 @@ class _SignFormState extends State<SignForm> {
         print(e.message);
         // print(e.request);
       }
-    } catch (e) {
+    } catch (e, s) {
       print('catch');
       print(e);
+      print(s);
       Navigator.of(context).pop();
       ServerConstants.showDialog1(context, e.toString());
     } finally {
