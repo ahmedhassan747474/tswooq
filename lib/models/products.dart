@@ -29,15 +29,17 @@ class ProductsModel {
   int lastPage = 30;
   int to = 30;
 
-  factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
-        // success: json["success"],
-        productData:
-            List<Products>.from(json["data"].map((x) => Products.fromJson(x))),
-        message: json["message"],
-        totalRecord: json["total_record"],
-        lastPage: json["last_page"] ?? 30,
-        to: json["to"] ?? 30,
-      );
+  factory ProductsModel.fromJson(Map<String, dynamic> json) {
+    return ProductsModel(
+      // success: json["success"],
+      productData:
+          List<Products>.from(json["data"].map((x) => Products.fromJson(x))),
+      message: json["message"],
+      totalRecord: json["total_record"],
+      lastPage: json["last_page"] ?? 30,
+      to: json['meta']["to"] ?? 30,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "success": success,

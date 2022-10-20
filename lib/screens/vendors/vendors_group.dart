@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/groub_model.dart';
 import 'package:tswooq/models/vendors_model.dart';
-import 'package:tswooq/screens/home/components/popular_product.dart';
 import 'package:tswooq/utils/api_home.dart';
 
-import '../../provider/auth_service.dart';
 import '../home/components/categories.dart';
 
 class VendorGroupScreen extends StatefulWidget {
@@ -38,8 +36,6 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<AuthService>();
-
     return Scaffold(
       appBar: !kIsWeb
           ? AppBar(
@@ -52,10 +48,11 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
           : null,
       body: _isLoading
           ? helpLoading()
-          : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
+          : Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (kIsWeb)
                       Text(
@@ -70,20 +67,20 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
                         height: 20,
                       ),
                     // HomeHeader(),
-                    Categories(widget.vendor.id),
+                    Expanded(child: Categories(widget.vendor.id)),
                     // if (provider.selectedCategory != null)
 
+                    // SizedBox(
+                    //   height: kIsWeb ? 40 : 20,
+                    // ),
+                    // ...List.generate(
+                    //   groups.data.length,
+                    //   (index) => groups.data[index].products?.length == 0
+                    //       ? SizedBox()
+                    //       : PopularProduct(groups.data[index]),
+                    // ),
                     SizedBox(
-                      height: kIsWeb ? 40 : 20,
-                    ),
-                    ...List.generate(
-                      groups.data.length,
-                      (index) => groups.data[index].products?.length == 0
-                          ? SizedBox()
-                          : PopularProduct(groups.data[index]),
-                    ),
-                    SizedBox(
-                      height: helpWidth(context) * .1,
+                      height: helpWidth(context) * .01,
                     ),
                   ],
                 ),

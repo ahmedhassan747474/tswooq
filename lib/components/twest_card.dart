@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/search_product.dart';
-
 import 'package:tswooq/utils/api_exception.dart';
 import 'package:tswooq/utils/api_products.dart';
 import 'package:tswooq/utils/vars.dart';
@@ -103,7 +103,7 @@ class TwistCardState extends State<TwistCard> {
         child: Row(
       children: [
         SizedBox(
-          width: 88,
+          width: kIsWeb ? 140 : 88,
           child: AspectRatio(
             aspectRatio: 0.88,
             child: Container(
@@ -145,9 +145,10 @@ class TwistCardState extends State<TwistCard> {
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                      height: getProportionateScreenWidth(28),
-                      width: getProportionateScreenWidth(28),
+                      alignment: Alignment.center,
+                      // padding: EdgeInsets.all(getProportionateScreenWidth(8)),
+                      height: kIsWeb ? 40 : getProportionateScreenWidth(28),
+                      width: kIsWeb ? 40 : getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
                         color: widget.product.productsLiked == 0
                             ? kPrimaryColor.withOpacity(0.15)
@@ -156,6 +157,9 @@ class TwistCardState extends State<TwistCard> {
                       ),
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon_2.svg",
+                        fit: BoxFit.cover,
+                        // height: kIsWeb ? 30 : 15,
+                        // width: kIsWeb ? 30 : 15,
                         color: widget.product.productsLiked != 0
                             ? Color(0xFFFF4848)
                             : Colors.black38,

@@ -42,17 +42,14 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   @override
   didUpdateWidget(ProductByCategoryScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _initData();
-  }
-
-  _initData() async {
-    print("pppppppppppppp");
-    // product.
     if (!_isLoading)
       setState(() {
         _isLoading = true;
       });
+    _initData();
+  }
 
+  _initData() async {
     // brand = await ApiCategories.instance.allBrand(widget.id);
     product = await ApiProducts.instance.getProductsByCategory(widget.id, page);
 
@@ -104,53 +101,84 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
     if (product.productData != null && product.productData.isNotEmpty)
       return _isLoading
           ? helpLoading()
-          : Column(
-              children: [
-                isGridView ? gridView(product) : listView(product),
-                (kIsWeb)
-                    ? Container(
-                        height: 50,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: product?.to ?? product?.lastPage ?? 30,
-                          itemBuilder: (ctx, index) => Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: helpClip(
-                                8,
-                                InkWell(
-                                  onTap: () => _onPage(index + 1),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: pageIndex == index
-                                                ? Color(0xFF143444)
-                                                : Colors.white),
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: pageIndex == index
-                                            ? Colors.white
-                                            : Color(0xFF143444),
-                                        // boxShadow: [
-                                        //   BoxShadow(color: Colors.green, spreadRadius: 3),
-                                        // ],
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: Center(
-                                          child: Text(
-                                            "${index + 1}",
-                                            style: TextStyle(
-                                                color: pageIndex == index
-                                                    ? Color(0xFF143444)
-                                                    : Colors.white),
-                                          ),
-                                        ),
-                                      )),
-                                )),
-                          ),
-                        ))
-                    : SizedBox()
-              ],
+          : Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  isGridView
+                      ? gridView(product)
+                      : Expanded(child: listView(product)),
+                  (kIsWeb)
+                      ? SizedBox(
+                          height: 40,
+                        )
+                      : SizedBox(),
+                  (kIsWeb)
+                      ? Center(
+                          child: Container(
+                              height: 50,
+                              width: kIsWeb
+                                  ? MediaQuery.of(context).size.width * 0.5
+                                  : double.infinity,
+                              alignment: Alignment.center,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: List.generate(
+                                      product?.to ?? product?.lastPage ?? 30,
+                                      (index) => Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: helpClip(
+                                                8,
+                                                InkWell(
+                                                  onTap: () =>
+                                                      _onPage(index + 1),
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: pageIndex ==
+                                                                    index
+                                                                ? Color(
+                                                                    0xFF143444)
+                                                                : Colors.white),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: pageIndex ==
+                                                                index
+                                                            ? Colors.white
+                                                            : Color(0xFF143444),
+                                                        // boxShadow: [
+                                                        //   BoxShadow(color: Colors.green, spreadRadius: 3),
+                                                        // ],
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 8),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "${index + 1}",
+                                                            style: TextStyle(
+                                                                color: pageIndex ==
+                                                                        index
+                                                                    ? Color(
+                                                                        0xFF143444)
+                                                                    : Colors
+                                                                        .white),
+                                                          ),
+                                                        ),
+                                                      )),
+                                                )),
+                                          )),
+                                ),
+                              )),
+                        )
+                      : SizedBox()
+                ],
+              ),
             );
     else
       return Center(
@@ -383,6 +411,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
 
   Widget listView(ProductsModel product) {
     return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: product.productData
             .map((e) => e.attributes.isNotEmpty
                 ? Padding(
