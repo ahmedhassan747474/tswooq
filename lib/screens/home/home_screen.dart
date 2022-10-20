@@ -10,12 +10,12 @@ import 'package:tswooq/models/updata_model.dart';
 import 'package:tswooq/screens/cart/cart_screen.dart';
 import 'package:tswooq/screens/favorite/favorite_screen.dart';
 import 'package:tswooq/screens/profile/profile_screen.dart';
-import 'package:tswooq/screens/vendors/vendors.dart';
+import 'package:tswooq/screens/vendors/vendors_group.dart';
 import 'package:tswooq/utils/api.dart';
 
 import '../../constants.dart';
+import '../../models/vendors_model.dart';
 import '../../size_config.dart';
-import 'components/body.dart';
 import 'components/search_field.dart';
 
 int selectedIndexHome = 0;
@@ -70,9 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   var _pages = [
-    Body(),
+    VendorGroupScreen(Vendor(name: "قمر اتصالات", id: 32)),
     CartScreen(),
-    VendorsScreen(),
+    // VendorsScreen(),
     FavoriteScreen(),
     ProfileScreen(),
   ];
@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "assets/icons/Shop Icon.svg",
                                 color: selectedIndexHome == 0
                                     ? Colors.white
-                                    : inActiveIconColor,
+                                    : Colors.white,
                               ),
                               () => setState(() {
                                 selectedIndexHome = 0;
@@ -210,38 +210,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                 selectedIndexHome = 1;
                               }),
                             ),
-                            titleMain(
-                              helpEn(context) ? "Shops" : "المتاجر",
-                              SvgPicture.asset(
-                                "assets/icons/vendor.svg",
+                            // titleMain(
+                            //   helpEn(context) ? "Shops" : "المتاجر",
+                            //   SvgPicture.asset(
+                            //     "assets/icons/vendor.svg",
+                            //     color: selectedIndexHome == 2
+                            //         ? Colors.white
+                            //         : Colors.white,
+                            //   ),
+                            //   () => setState(() {
+                            //     selectedIndexHome = 2;
+                            //   }),
+                            // ),
+                            IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/icons/Heart Icon.svg",
                                 color: selectedIndexHome == 2
-                                    ? Colors.white
-                                    : Colors.white,
+                                    ? kPrimaryColor
+                                    : inActiveIconColor,
                               ),
-                              () => setState(() {
+                              onPressed: () => setState(() {
                                 selectedIndexHome = 2;
                               }),
                             ),
                             IconButton(
                               icon: SvgPicture.asset(
-                                "assets/icons/Heart Icon.svg",
+                                "assets/icons/User Icon.svg",
                                 color: selectedIndexHome == 3
                                     ? kPrimaryColor
                                     : inActiveIconColor,
                               ),
                               onPressed: () => setState(() {
                                 selectedIndexHome = 3;
-                              }),
-                            ),
-                            IconButton(
-                              icon: SvgPicture.asset(
-                                "assets/icons/User Icon.svg",
-                                color: selectedIndexHome == 4
-                                    ? kPrimaryColor
-                                    : inActiveIconColor,
-                              ),
-                              onPressed: () => setState(() {
-                                selectedIndexHome = 4;
                               }),
                             ),
                             Spacer(),
@@ -261,6 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               )
             : null,
+        // body: VendorGroupScreen(Vendor(name: "قمر اتصالات", id: 32)),
         body: _pages[selectedIndexHome],
         bottomNavigationBar: kIsWeb
             ? SizedBox()
@@ -308,9 +309,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             selectedIndexHome = 1;
                           }),
                         ),
+                        // IconButton(
+                        //   icon: SvgPicture.asset(
+                        //     "assets/icons/vendor.svg",
+                        //     color: selectedIndexHome == 2
+                        //         ? kPrimaryColor
+                        //         : inActiveIconColor,
+                        //   ),
+                        //   onPressed: () => setState(() {
+                        //     selectedIndexHome = 2;
+                        //   }),
+                        // ),
                         IconButton(
                           icon: SvgPicture.asset(
-                            "assets/icons/vendor.svg",
+                            "assets/icons/Heart Icon.svg",
                             color: selectedIndexHome == 2
                                 ? kPrimaryColor
                                 : inActiveIconColor,
@@ -321,24 +333,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         IconButton(
                           icon: SvgPicture.asset(
-                            "assets/icons/Heart Icon.svg",
+                            "assets/icons/User Icon.svg",
                             color: selectedIndexHome == 3
                                 ? kPrimaryColor
                                 : inActiveIconColor,
                           ),
                           onPressed: () => setState(() {
                             selectedIndexHome = 3;
-                          }),
-                        ),
-                        IconButton(
-                          icon: SvgPicture.asset(
-                            "assets/icons/User Icon.svg",
-                            color: selectedIndexHome == 4
-                                ? kPrimaryColor
-                                : inActiveIconColor,
-                          ),
-                          onPressed: () => setState(() {
-                            selectedIndexHome = 4;
                           }),
                         ),
                       ],
@@ -348,3 +349,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// الاسم الاول
+// الاسم التانى
+// سجل تجارى
+// اسم تجارى
+// الدوماين
+// حساب
+// رقم ضريبى
+// العنوان

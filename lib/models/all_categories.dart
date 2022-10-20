@@ -55,7 +55,8 @@ class Categories {
 
   factory Categories.fromJson(Map<String, dynamic> json) => Categories(
         categoriesId: json["categories_id"] ?? -1,
-        categoriesName: json["categories_name"] ?? "",
+        categoriesName:
+            json["categories_name"] ?? json["categories_slug"] ?? "",
         parentId: json["parent_id"] ?? -1,
         image: json["image"] ?? "",
         icon: json["icon"] ?? "",

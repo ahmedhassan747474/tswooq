@@ -7,9 +7,10 @@ class CategoriesLikeCard {
 
   CategoriesLikeCard.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    categories = json['categories'] != null
-        ? new CategoriesLike.fromJson(json['categories'])
-        : null;
+    categories =
+        (json['categories'] != null && (json['categories'] as List).isNotEmpty)
+            ? new CategoriesLike.fromJson(json['categories'])
+            : null;
     message = json['message'];
   }
 

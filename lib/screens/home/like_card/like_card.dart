@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:tswooq/components/home_card.dart';
 import 'package:tswooq/components/loading_screen.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/helper/loading_shimmer.dart';
@@ -32,8 +31,12 @@ class _LikeCardScreenState extends State<LikeCardScreen> {
 
   _initData() async {
     categoriesLC = await ApiHome.instance.likeCardCategory();
-    categoriesLC.categories.data.removeAt(0);
-    categoriesLC.categories.data.removeAt(0);
+    if (categoriesLC.categories?.data != null &&
+        categoriesLC.categories.data.isNotEmpty)
+      categoriesLC.categories.data.removeAt(0);
+    if (categoriesLC.categories?.data != null &&
+        categoriesLC.categories.data.isNotEmpty)
+      categoriesLC.categories.data.removeAt(0);
 
     _isLoading = false;
     if (mounted) setState(() {});

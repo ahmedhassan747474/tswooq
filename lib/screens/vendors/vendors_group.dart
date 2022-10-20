@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tswooq/helper/help.dart';
 import 'package:tswooq/models/groub_model.dart';
@@ -5,12 +6,14 @@ import 'package:tswooq/models/vendors_model.dart';
 import 'package:tswooq/screens/home/components/popular_product.dart';
 import 'package:tswooq/utils/api_home.dart';
 
+import '../../provider/auth_service.dart';
+import '../home/components/categories.dart';
+
 class VendorGroupScreen extends StatefulWidget {
   Vendor vendor;
   VendorGroupScreen(this.vendor);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return VendorGroupScreenState();
   }
 }
@@ -35,14 +38,18 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<AuthService>();
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "${widget.vendor.name}",
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-      ),
+      appBar: !kIsWeb
+          ? AppBar(
+              title: Text(
+                "${widget.vendor.name}",
+                style: TextStyle(color: Colors.black),
+              ),
+              centerTitle: true,
+            )
+          : null,
       body: _isLoading
           ? helpLoading()
           : Padding(
@@ -50,6 +57,25 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    if (kIsWeb)
+                      Text(
+                        "${widget.vendor.name}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    if (kIsWeb)
+                      SizedBox(
+                        height: 20,
+                      ),
+                    // HomeHeader(),
+                    Categories(widget.vendor.id),
+                    // if (provider.selectedCategory != null)
+
+                    SizedBox(
+                      height: kIsWeb ? 40 : 20,
+                    ),
                     ...List.generate(
                       groups.data.length,
                       (index) => groups.data[index].products?.length == 0

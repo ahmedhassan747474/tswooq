@@ -21,14 +21,13 @@ class ImageConfig {
 }
 
 var dio = Dio()
-    ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ))
-    ;
+  ..interceptors.add(PrettyDioLogger(
+    requestHeader: true,
+    requestBody: true,
+    responseBody: true,
+    responseHeader: false,
+    compact: false,
+  ));
 
 class ServerConstants {
   static bool isValidResponse(int statusCode) {
@@ -98,6 +97,7 @@ class ServerConstants {
   static const String get_like_card_categories =
       "${API}get_like_card_categories";
   static const String AllCategories = "${API}get_categories";
+  static const String get_category_by_vendor = "${API}get_category_by_vendor";
   static const String get_brands_by_category = "${API}get_brands_by_category";
   static const String Brands = "${API}get_brands";
   static const String Products = "${API}getallproducts";
