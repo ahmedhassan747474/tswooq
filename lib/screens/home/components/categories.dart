@@ -6,6 +6,7 @@ import 'package:tswooq/models/all_categories.dart';
 import 'package:tswooq/utils/api_categories.dart';
 
 import '../../../models/vendors_model.dart';
+import '../../brand_list/products_by_brand_screen.dart';
 import '../../popular_groups/popular_groups_screen.dart';
 import '../../product_list/product_list_by_category_screen.dart';
 
@@ -60,7 +61,6 @@ class _CategoriesState extends State<Categories> {
                         children: [
                           InkWell(
                             onTap: () {
-                              //
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       PopularGroupsScreen(widget.vendor)));
@@ -79,9 +79,46 @@ class _CategoriesState extends State<Categories> {
                                         width: 8,
                                       ),
                                       Text(
-                                        helpEn(context)
+                                        !helpEn(context)
                                             ? "عروض مميزة"
                                             : "Special Offers",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductsByBrandsScreen(widget.vendor)));
+                            },
+                            child: helpClip(
+                                10,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  alignment: Alignment.center,
+                                  color: Color(0xFF143444),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        !helpEn(context)
+                                            ? "علامات تجارية"
+                                            : "Brands",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w800),

@@ -40,6 +40,35 @@ class ApiCategories {
     }
   }
 
+  Future<AllCategoriesModel> allBrands() async {
+    // int x= helpLanguage == 'ar' ? 2 : 1;
+    // Json Data
+    var _data = {"language_id": helpLanguage == 'ar' ? 2 : 1};
+    var _response = await dio.post(ServerConstants.Brands,
+        data: _data,
+        options: Options(
+          headers: {
+            ...ServerConstants.apiHeaders,
+          },
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(_response.statusCode)) {
+      // OK
+      return AllCategoriesModel.fromJson(_response.data);
+    } else {
+      // DioErrorType type;
+      // No Success
+      print(
+          'ApiException....allCategories***********************************************************');
+
+      print('...................................................');
+
+      throw ApiException.fromApi(_response.statusCode, _response.data);
+    }
+  }
+
   Future<AllCategoriesModel> getCategoryByVendor(int id) async {
     // int x= helpLanguage == 'ar' ? 2 : 1;
     // Json Data

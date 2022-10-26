@@ -10,7 +10,7 @@ import 'package:tswooq/screens/product_list/product_list.dart';
 import '../../../size_config.dart';
 
 class PopularProduct extends StatefulWidget {
-  Group group;
+  final Group group;
   PopularProduct(this.group);
   @override
   _PopularProductState createState() => _PopularProductState();
@@ -22,9 +22,7 @@ class _PopularProductState extends State<PopularProduct> {
   @override
   Widget build(BuildContext context) {
     print(helpEn(context));
-    return
-        // List.generate(widget.group., (index) => null)
-        Column(
+    return Column(
       children: [
         Center(
           child: Padding(
@@ -33,12 +31,14 @@ class _PopularProductState extends State<PopularProduct> {
             child: SectionTitle(
               title:
                   (helpEn(context) ? widget.group.nameAr : widget.group.nameEn),
-              // title: (LocaleKeys.Popular_Products_translate.tr()),
               press: () {
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (context) => ProductListScreen(
-                          product: widget.group.products,
-                        )));
+                      product: widget.group.products,
+                    ),
+                  ),
+                );
               },
             ),
           ),
