@@ -29,7 +29,7 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   ProductsModel product =
       new ProductsModel(productData: [], lastPage: 30, to: 30);
   // AllCategoriesModel brand = new AllCategoriesModel(data: []);
-  bool isGridView = false;
+  bool isGridView = true;
   bool _isLoading = true;
   int page = 1;
   int pageIndex = 0;
@@ -106,13 +106,8 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   isGridView
-                      ? gridView(product)
+                      ? Expanded(child: gridView(product))
                       : Expanded(child: listView(product)),
-                  (kIsWeb)
-                      ? SizedBox(
-                          height: 40,
-                        )
-                      : SizedBox(),
                   (kIsWeb)
                       ? Center(
                           child: Container(
@@ -410,25 +405,27 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
   }
 
   Widget listView(ProductsModel product) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: product.productData
-            .map((e) => e.attributes.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 16),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => DetailsScreen(
-                                  product: e,
-                                )));
-                      },
-                      child: TwistCard(product: e),
-                    ),
-                  )
-                : SizedBox())
-            .toList());
+    return SingleChildScrollView(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: product.productData
+              .map((e) => e.attributes.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 16),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DetailsScreen(
+                                    product: e,
+                                  )));
+                        },
+                        child: TwistCard(product: e),
+                      ),
+                    )
+                  : SizedBox())
+              .toList()),
+    );
     return ListView.builder(
         // scrollDirection: Axis.v,
         itemCount: product.productData.length ?? 0,
@@ -459,19 +456,19 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
         staggeredTileBuilder: (_) =>
             StaggeredTile.extent(1, helpHeight(context) * .4),
         // //  controller: popularProvider.scrollController,/
-        itemCount: product.productData.length ?? 0,
+        itemCount: 15 ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          return product.productData[index].attributes.isNotEmpty
+          return product.productData[0].attributes.isNotEmpty
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => DetailsScreen(
-                                  product: product.productData[index],
+                                  product: product.productData[0],
                                 )));
                       },
-                      child: ProductCard(product: product.productData[index])))
+                      child: ProductCard(product: product.productData[0])))
               : SizedBox();
         });
   }

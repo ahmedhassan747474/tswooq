@@ -66,22 +66,7 @@ class VendorGroupScreenState extends State<VendorGroupScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                    // HomeHeader(),
-                    Expanded(child: Categories(widget.vendor.id)),
-                    // if (provider.selectedCategory != null)
-
-                    // SizedBox(
-                    //   height: kIsWeb ? 40 : 20,
-                    // ),
-                    // ...List.generate(
-                    //   groups.data.length,
-                    //   (index) => groups.data[index].products?.length == 0
-                    //       ? SizedBox()
-                    //       : PopularProduct(groups.data[index]),
-                    // ),
-                    SizedBox(
-                      height: helpWidth(context) * .01,
-                    ),
+                    Expanded(child: Categories(widget.vendor)),
                   ],
                 ),
               ),

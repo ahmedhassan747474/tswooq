@@ -5,11 +5,13 @@ import 'package:tswooq/helper/loading_shimmer.dart';
 import 'package:tswooq/models/all_categories.dart';
 import 'package:tswooq/utils/api_categories.dart';
 
+import '../../../models/vendors_model.dart';
+import '../../popular_groups/popular_groups_screen.dart';
 import '../../product_list/product_list_by_category_screen.dart';
 
 class Categories extends StatefulWidget {
-  final int vendorId;
-  Categories(this.vendorId);
+  final Vendor vendor;
+  Categories(this.vendor);
   @override
   _CategoriesState createState() => _CategoriesState();
 }
@@ -29,7 +31,7 @@ class _CategoriesState extends State<Categories> {
     print("^^^^^^^^^^^^^^$id");
 
     categories =
-        await ApiCategories.instance.getCategoryByVendor(widget.vendorId);
+        await ApiCategories.instance.getCategoryByVendor(widget.vendor.id);
     if (categories.data != null && categories.data.isNotEmpty) {
       id = categories.data.first.categoriesId;
       title = categories.data.first.categoriesName;
@@ -62,41 +64,44 @@ class _CategoriesState extends State<Categories> {
                           // Container(
                           //   width: 10,
                           // ),
-                          // InkWell(
-                          //   onTap: () {
-                          //     print(context.locale.toString() == 'en');
-                          //     //
-                          //     Navigator.of(context).push(MaterialPageRoute(
-                          //         builder: (context) => LikeCardScreen()));
-                          //   },
-                          //   child: helpClip(
-                          //       10,
-                          //       Container(
-                          //         color: Color(0xFF143444),
-                          //         child: Row(
-                          //           mainAxisAlignment: MainAxisAlignment.center,
-                          //           children: [
-                          //             SizedBox(
-                          //               width: 8,
-                          //             ),
-                          //             Text(
-                          //               helpEn(context)
-                          //                   ? "shipping cards"
-                          //                   : "كروت شحن",
-                          //               style: TextStyle(
-                          //                   color: Colors.white,
-                          //                   fontWeight: FontWeight.w800),
-                          //             ),
-                          //             SizedBox(
-                          //               width: 8,
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       )),
-                          // ),
-                          // Container(
-                          //   width: 10,
-                          // ),
+                          InkWell(
+                            onTap: () {
+                              //
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      PopularGroupsScreen(widget.vendor)));
+                            },
+                            child: helpClip(
+                                10,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  alignment: Alignment.center,
+                                  color: Color(0xFF143444),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        helpEn(context)
+                                            ? "عروض مميزة"
+                                            : "Special Offers",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ),
+                          Container(
+                            width: 10,
+                          ),
                           // InkWell(
                           //   onTap: () {
                           //     //
@@ -201,7 +206,7 @@ class _CategoriesState extends State<Categories> {
                     Expanded(
                       child: SizedBox(
                           width: kIsWeb
-                              ? MediaQuery.of(context).size.width * 0.3
+                              ? MediaQuery.of(context).size.width * 0.5
                               : double.infinity,
                           child: ProductByCategoryScreen(id: id, title: title)),
                     ),

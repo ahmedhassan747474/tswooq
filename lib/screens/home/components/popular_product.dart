@@ -21,23 +21,26 @@ class _PopularProductState extends State<PopularProduct> {
 
   @override
   Widget build(BuildContext context) {
+    print(helpEn(context));
     return
         // List.generate(widget.group., (index) => null)
         Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: kIsWeb ? 0 : getProportionateScreenWidth(20)),
-          child: SectionTitle(
-            title:
-                (helpEn(context) ? widget.group.nameEn : widget.group.nameAr),
-            // title: (LocaleKeys.Popular_Products_translate.tr()),
-            press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ProductListScreen(
-                        product: widget.group.products,
-                      )));
-            },
+        Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: kIsWeb ? 0 : getProportionateScreenWidth(20)),
+            child: SectionTitle(
+              title:
+                  (helpEn(context) ? widget.group.nameAr : widget.group.nameEn),
+              // title: (LocaleKeys.Popular_Products_translate.tr()),
+              press: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProductListScreen(
+                          product: widget.group.products,
+                        )));
+              },
+            ),
           ),
         ),
         SizedBox(height: 20),

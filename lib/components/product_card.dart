@@ -26,7 +26,6 @@ class ProductCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return ProductCardState();
   }
 }
@@ -37,6 +36,7 @@ class ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     user = ApiProvider.user;
+    super.initState();
   }
 
   Future<void> _unLikeSubmit() async {
@@ -153,8 +153,9 @@ class ProductCardState extends State<ProductCard> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: kIsWeb ? 25 : helpWidth(context) * .025),
-                      overflow: TextOverflow.ellipsis,
+                          fontSize: kIsWeb ? 18 : helpWidth(context) * .025),
+                      overflow: TextOverflow.clip,
+                      maxLines: 2,
                     ),
                   ),
                   Center(
@@ -163,7 +164,7 @@ class ProductCardState extends State<ProductCard> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: kIsWeb ? 25 : helpWidth(context) * .025),
+                          fontSize: kIsWeb ? 18 : helpWidth(context) * .025),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
