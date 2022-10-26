@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   var _pages = [
-    VendorGroupScreen(Vendor(name: "ندى الأزهار 2", id: 34)),
+    VendorGroupScreen(Vendor(name: "قمر للاتصالات", id: 32)),
     CartScreen(),
     // VendorsScreen(),
     FavoriteScreen(),

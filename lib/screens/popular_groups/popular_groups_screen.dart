@@ -43,27 +43,29 @@ class _PopularGroupsScreenState extends State<PopularGroupsScreen> {
               ? MediaQuery.of(context).size.width * 0.6
               : double.infinity,
           child: Center(
-            child: Scaffold(
-              // appBar: !kIsWeb
-              //     ? AppBar(
-              //         title: Text(
-              //           "${widget.vendor.name}",
-              //           style: TextStyle(color: Colors.black),
-              //         ),
-              //         centerTitle: true,
-              //       )
-              //     : null,
-              body: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ...List.generate(
-                      groups.data.length,
-                      (index) => groups.data[index].products?.length == 0
-                          ? SizedBox()
-                          : PopularProduct(groups.data[index]),
-                    ),
-                  ]),
+            child: SafeArea(
+              child: Scaffold(
+                // appBar: !kIsWeb
+                //     ? AppBar(
+                //         title: Text(
+                //           "${widget.vendor.name}",
+                //           style: TextStyle(color: Colors.black),
+                //         ),
+                //         centerTitle: true,
+                //       )
+                //     : null,
+                body: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ...List.generate(
+                        groups.data.length,
+                        (index) => groups.data[index].products?.length == 0
+                            ? SizedBox()
+                            : PopularProduct(groups.data[index]),
+                      ),
+                    ]),
+              ),
             ),
           ),
         ),

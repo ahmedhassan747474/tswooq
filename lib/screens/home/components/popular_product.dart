@@ -55,16 +55,19 @@ class _PopularProductState extends State<PopularProduct> {
                 //     ? SizedBox()
                 //     :
                 Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DetailsScreen(
-                                    product: widget.group.products[index],
-                                  )));
-                        },
-                        child: ProductCard(
-                            product: widget.group.products[index]))),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DetailsScreen(
+                            product: widget.group.products[index],
+                          )));
+                },
+                child: ProductCard(
+                  product: widget.group.products[index],
+                ),
+              ),
+            ),
           ),
         ),
       ],

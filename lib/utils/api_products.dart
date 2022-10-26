@@ -56,14 +56,15 @@ class ApiProducts {
       "page": page,
       "categories_id": id
     };
-    var _response = await dio.post(ServerConstants.Products_By_Category,
-        data: _data,
-        options: Options(
-          headers: {...ServerConstants.apiHeaders},
-          validateStatus: (status) {
-            return status < 500;
-          },
-        ));
+    var _response =
+        await dio.post(ServerConstants.Products_By_Category_And_Vendor,
+            data: _data,
+            options: Options(
+              headers: {...ServerConstants.apiHeaders},
+              validateStatus: (status) {
+                return status < 500;
+              },
+            ));
     if (ServerConstants.isValidResponse(_response.statusCode)) {
       // OK
       products = ProductsModel.fromJson(_response.data);

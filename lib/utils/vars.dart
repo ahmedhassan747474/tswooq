@@ -102,6 +102,8 @@ class ServerConstants {
   static const String Brands = "${API}get_brands";
   static const String Products = "${API}getallproducts";
   static const String Products_By_Category = "${API}getproductsbycategory";
+  static const String Products_By_Category_And_Vendor =
+      "${API}getproductsbycategoryAndVendore";
   static const String Products_By_Brand = "${API}getproductsbybrand";
   static const String Like_Product = "${API}likeproduct";
   static const String UnLike_Product = "${API}unlikeproduct";

@@ -456,19 +456,19 @@ class ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
         staggeredTileBuilder: (_) =>
             StaggeredTile.extent(1, helpHeight(context) * .4),
         // //  controller: popularProvider.scrollController,/
-        itemCount: 15 ?? 0,
+        itemCount: product.productData?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          return product.productData[0].attributes.isNotEmpty
+          return product.productData[index].attributes.isNotEmpty
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => DetailsScreen(
-                                  product: product.productData[0],
+                                  product: product.productData[index],
                                 )));
                       },
-                      child: ProductCard(product: product.productData[0])))
+                      child: ProductCard(product: product.productData[index])))
               : SizedBox();
         });
   }
